@@ -87,6 +87,7 @@
 12. (2026-07-15) 배포 준비: `site/` 폴더 생성 — `index.html`(v9 + 메타태그/OG태그 + AdSense 스크립트 주석 자리 + 푸터에 개인정보처리방침 링크), `privacy.html`(개인정보처리방침, 동일 디자인 시스템), `ads.txt`(게시자 ID 플레이스홀더). Vercel CLI(npx vercel) 디바이스 로그인 방식으로 배포 진행.
 13. (2026-07-15) **Vercel 프로덕션 배포 완료**: https://fukuoka-tenjin-guide.vercel.app (Vercel 계정 mycenote2, 프로젝트 fukuoka-tenjin-guide). 메인/방침/ads.txt 모두 200 확인. 이후 수정 시 `cd site && npx vercel deploy --prod --yes`로 재배포.
 14. (2026-07-15) 히어로 메인 타이틀에 부제 "-텐진, 다이묘거리 편-" 추가 (라임색, `.edition` 클래스), 문의 이메일 mycenote2@gmail.com으로 변경 → 재배포. ※ 이 변경은 `site/index.html`에만 반영, v9 원본은 보존용이라 그대로.
+15. (2026-07-15) git 저장소 초기화(main 브랜치) 후 초기 커밋. **브랜드 요청 게시판** 추가: `site/board.html`(작성 폼: 브랜드명 필수 + 희망 지역 필 버튼[텐진/하카타/캐널시티/기타] + 한마디, 익명, 요청 목록 표시) + `site/api/requests.js`(Vercel 서버리스 함수, Upstash Redis REST로 저장, 허니팟 + IP당 10분 5회 제한, 목록 500개 유지). 메인 페이지 하단에 게시판 CTA 블록 + 푸터 링크 추가, 개인정보처리방침에 게시판 항목 신설. **Upstash Redis 연결 전까지 API는 503 → 게시판이 "준비 중" 표시** (Vercel 대시보드 → Storage → Upstash Redis 생성·연결 후 재배포하면 활성화. 함수는 KV_REST_API_URL/TOKEN 또는 UPSTASH_REDIS_REST_URL/TOKEN 환경변수 인식).
 
 ## 알려진 이슈 / 참고사항
 - Claude.ai artifact 공유 시 "previously unpublished" 에러가 한 번 발생했음 → 파일명을 바꿔서 새로 공유하면 우회 가능
