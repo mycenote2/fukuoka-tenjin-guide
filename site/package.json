@@ -1,0 +1,7 @@
+{
+  "name": "fukuoka-tenjin-guide",
+  "private": true,
+  "dependencies": {
+    "ioredis": "^5.4.1"
+  }
+}
