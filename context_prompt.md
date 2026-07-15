@@ -106,9 +106,11 @@
 - `site/ads.txt` — AdSense 게시자 ID 발급 후 주석 해제 필요
 
 ## 배포 정보 (2026-07-15)
-- **라이브 URL**: https://fukuoka-tenjin-guide.vercel.app
+- **라이브 URL(정식)**: https://shopping-tenjin.forijuni.com (가비아 forijuni.com 서브도메인, CNAME→cname.vercel-dns.com, SSL 자동발급)
+- **기존 URL(계속 작동)**: https://fukuoka-tenjin-guide.vercel.app
 - Vercel 계정: mycenote2 / 프로젝트: fukuoka-tenjin-guide
-- 재배포: `cd site && npx vercel deploy --prod --yes`
+- GitHub: https://github.com/mycenote2/fukuoka-tenjin-guide (main push 시 자동배포)
+- 재배포: `git push origin main` (자동배포). CLI 수동배포는 rootDirectory=site 때문에 비권장
 
 ## 다음에 이어서 할 수 있는 작업 예시
 - Google AdSense 신청 (https://adsense.google.com) → 게시자 ID 발급되면 `ads.txt` 주석 해제 + `index.html` head의 AdSense 스크립트 주석 해제 → 재배포
