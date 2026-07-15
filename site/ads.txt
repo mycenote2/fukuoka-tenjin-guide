@@ -1,4 +1,1 @@
-# Google AdSense ads.txt
-# 애드센스 가입 후 발급받는 게시자 ID(pub-로 시작)로 아래 줄의 0000000000000000 부분을 교체한 뒤
-# 맨 앞의 # 을 지우고 저장하세요. 예: google.com, pub-1234567890123456, DIRECT, f08c47fec0942fa0
-# google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
+google.com, pub-5560359061622774, DIRECT, f08c47fec0942fa0

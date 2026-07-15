@@ -90,6 +90,7 @@
 15. (2026-07-15) git 저장소 초기화(main 브랜치) 후 초기 커밋. **브랜드 요청 게시판** 추가: `site/board.html`(작성 폼: 브랜드명 필수 + 희망 지역 필 버튼[텐진/하카타/캐널시티/기타] + 한마디, 익명, 요청 목록 표시) + `site/api/requests.js`(Vercel 서버리스 함수, 허니팟 + IP당 10분 5회 제한, 목록 500개 유지). 메인 페이지 하단에 게시판 CTA 블록 + 푸터 링크 추가, 개인정보처리방침에 게시판 항목 신설.
 16. (2026-07-15) **게시판 활성화 완료**: 사용자가 Vercel Storage에서 Redis 연결(환경변수 `REDIS_URL`만 제공, 민감 변수라 CLI로 값 조회 불가). REST 방식이 "fetch failed"로 실패해서 **ioredis TCP 클라이언트로 전환** (`site/package.json`에 ioredis 의존성 추가). 운영자 삭제 기능 추가: `DELETE /api/requests` + `x-admin-key` 헤더 (키는 Vercel 환경변수 `ADMIN_KEY`, Production 전용). 작성→조회→403차단→운영자삭제 전체 검증 완료. 게시판 라이브: https://fukuoka-tenjin-guide.vercel.app/board.html
 17. (2026-07-15) **구글 서치 콘솔 인증(meta 태그 방식)**: `site/index.html` head에 `<meta name="google-site-verification" content="v-cacRXZNzojdXf3cee2HqJwq8aWHi_TNYVF5reFA7w">` 추가 후 재배포. ※ DNS TXT 방식은 vercel.app 서브도메인이라 불가(도메인 소유권 없음) → URL 접두어(URL prefix) 속성 + HTML 태그 방식으로 안내. **AdSense는 vercel.app 서브도메인으로는 승인 어려울 수 있음 → 커스텀 도메인 구입이 근본 해결책**(구입은 결제라 사용자가 직접, 이후 Vercel 도메인 연결·DNS TXT는 지원 가능).
+18. (2026-07-15) **AdSense 게시자 ID 발급 → 실제 적용**: 게시자 ID `pub-5560359061622774`. `site/ads.txt`를 실제 값(`google.com, pub-5560359061622774, DIRECT, f08c47fec0942fa0`)으로 교체. `site/index.html`·`site/board.html` head의 AdSense 스크립트(`adsbygoogle.js?client=ca-pub-5560359061622774`) 주석 해제·활성화(심사 단계에서 사이트에 코드 필요). 재배포 후 ads.txt(200 text/plain)·양쪽 스크립트 라이브 확인. 이제 AdSense 대시보드에서 "검토 요청" 진행 → 승인 대기 상태.
 
 ## 알려진 이슈 / 참고사항
 - Claude.ai artifact 공유 시 "previously unpublished" 에러가 한 번 발생했음 → 파일명을 바꿔서 새로 공유하면 우회 가능
