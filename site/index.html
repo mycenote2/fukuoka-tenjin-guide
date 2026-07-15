@@ -1,0 +1,1536 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>후쿠오카 텐진 쇼핑 산책 🛍️</title>
+<meta name="description" content="후쿠오카 텐진 쇼핑 가이드 — 미나텐진부터 다이묘 거리까지 매장 18곳, 브랜드 88개 체크리스트로 나만의 최단 쇼핑 동선을 짜보자. 지도·내 위치·구글맵 연결까지.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="후쿠오카 텐진 쇼핑 산책 🛍️">
+<meta property="og:description" content="텐진역에서 다이묘 거리까지, 걸어서 다 되는 쇼핑 동선. 가고 싶은 브랜드만 체크하면 최단 코스를 짜줄게.">
+<meta property="og:locale" content="ko_KR">
+<!-- Google AdSense: 애드센스 승인 후 아래 주석을 해제하고 ca-pub-XXXXXXXXXXXXXXXX를 본인 게시자 ID로 교체하세요.
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@330;400;480;540;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+<style>
+  :root{
+    /* Figma 스타일 팔레트 */
+    --fig-green:#0ACF83;
+    --fig-purple:#A259FF;
+    --fig-orange:#F24E1E;
+    --fig-coral:#FF7262;
+    --fig-blue:#1ABCFE;
+    --lime:#E0FE6B;
+    --lime-deep:#c8f23e;
+    --lilac:#E4DBFF;
+    --lilac-deep:#d3c4ff;
+    --navy:#191A23;
+    --navy-deep:#0e0f16;
+    --coral:var(--fig-purple);
+    --coral-soft:#f1e8ff;
+    --peach:var(--fig-blue);
+    --cream:#FCFCFC;
+    --paper:#ffffff;
+    --ink:#191A23;
+    --sub:#6b6c76;
+    --line:#e8e8ec;
+    --yellow:var(--lime);
+    --shadow: 0 10px 30px rgba(25,26,35,0.08);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Pretendard', 'Nanum Gothic', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:40px;
+  }
+  ::selection{ background:var(--peach); color:var(--navy-deep); }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    background: var(--navy);
+    color:#fff;
+    padding: 30px 20px 34px;
+    overflow:hidden;
+    border-radius: 0 0 24px 24px;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      radial-gradient(3px 3px at 20% 30%, var(--lime) 0%, transparent 60%),
+      radial-gradient(3px 3px at 80% 20%, var(--fig-purple) 0%, transparent 60%),
+      radial-gradient(2px 2px at 60% 65%, var(--fig-blue) 0%, transparent 60%),
+      radial-gradient(2px 2px at 35% 78%, rgba(255,255,255,0.5) 0%, transparent 60%),
+      radial-gradient(3px 3px at 90% 80%, var(--fig-coral) 0%, transparent 60%);
+    opacity:0.85;
+    pointer-events:none;
+  }
+  .hero-eyebrow{
+    position:relative;
+    display:inline-flex; align-items:center; gap:6px;
+    background:rgba(255,255,255,0.12);
+    border:1px solid rgba(255,255,255,0.25);
+    padding:5px 12px 5px 10px;
+    border-radius:999px;
+    font-size:12.5px;
+    letter-spacing:0.02em;
+    margin-bottom:14px;
+  }
+  .hero h1{
+    position:relative;
+    font-family:'Pretendard', sans-serif; font-weight:800;
+    font-size:clamp(26px, 7.5vw, 34px);
+    line-height:1.35;
+    margin:0 0 10px;
+    letter-spacing:-0.01em;
+  }
+  .hero h1 .accent{ color:var(--peach); }
+  .hero h1 .edition{
+    display:block;
+    margin-top:8px;
+    font-size:15px;
+    font-weight:700;
+    letter-spacing:0.02em;
+    color:var(--lime);
+  }
+  .hero p.sub{
+    position:relative;
+    font-size:15px;
+    line-height:1.65;
+    color:rgba(255,255,255,0.82);
+    margin:0 0 20px;
+    max-width:34ch;
+  }
+  .hero-stats{
+    position:relative;
+    display:flex; gap:10px; flex-wrap:wrap;
+  }
+  .hero-stat{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.16);
+    border-radius:14px;
+    padding:10px 14px;
+    flex:1 1 auto;
+    min-width:88px;
+  }
+  .hero-stat b{ display:block; font-family:'Pretendard', sans-serif; font-weight:800; font-size:19px; color:var(--yellow); }
+  .hero-stat span{ font-size:11.5px; color:rgba(255,255,255,0.7); }
+
+  /* ---------- LOCATE BAR ---------- */
+  .locate-wrap{
+    margin: -20px 16px 18px;
+    position:relative;
+    z-index:5;
+  }
+  .locate-card{
+    background:var(--paper);
+    border-radius:20px;
+    box-shadow: var(--shadow);
+    padding:16px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    border:1px solid var(--line);
+  }
+  .locate-icon{
+    flex:0 0 auto;
+    width:44px; height:44px;
+    border-radius:50%;
+    background:var(--lilac);
+    display:flex; align-items:center; justify-content:center;
+    font-size:20px;
+  }
+  .locate-text{ flex:1; min-width:0; }
+  .locate-text strong{ display:block; font-size:14.5px; color:var(--navy); }
+  .locate-text span{ font-size:12px; color:var(--sub); }
+  .locate-btn{
+    flex:0 0 auto;
+    background:var(--navy);
+    color:var(--lime);
+    border:none;
+    border-radius:999px;
+    padding:10px 16px;
+    font-family:'Pretendard',sans-serif;
+    font-weight:800;
+    font-size:13px;
+    white-space:nowrap;
+    cursor:pointer;
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .locate-btn:active{ transform:scale(0.96); }
+  .locate-btn.loading{ background:var(--sub); color:#fff; }
+  #locateStatus{
+    margin: 0 16px 16px;
+    font-size:12.5px;
+    color:var(--sub);
+    text-align:center;
+    min-height:14px;
+  }
+  #locateStatus.ok{ color:#0ACF83; font-weight:700; }
+  #locateStatus.err{ color:var(--fig-orange); font-weight:700; }
+
+  /* ---------- CHECKLIST ---------- */
+  .checklist-wrap{
+    margin: 8px 16px 20px;
+    background:var(--lime);
+    border-radius:20px;
+    box-shadow: var(--shadow);
+    border:none;
+    padding:18px 16px;
+  }
+  .checklist-head{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:12px;
+  }
+  .checklist-head h3{
+    margin:0; font-family:'Pretendard', sans-serif; font-weight:800; font-size:16px; color:var(--navy);
+  }
+  .checklist-head span{ font-size:12px; color:var(--navy); opacity:0.65; font-weight:540; }
+  .checklist-hint{
+    font-size:11.5px; color:var(--navy);
+    opacity:0.7;
+    margin: -6px 0 12px;
+    line-height:1.5;
+  }
+  .check-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:8px;
+    max-height: 420px;
+    overflow-y:auto;
+    padding-right:2px;
+  }
+  .check-grid::-webkit-scrollbar{ width:5px; }
+  .check-grid::-webkit-scrollbar-thumb{ background:rgba(25,26,35,0.2); border-radius:10px; }
+  .check-item{
+    display:flex; align-items:flex-start; gap:8px;
+    background:#fff;
+    border:1.5px solid transparent;
+    border-radius:12px;
+    padding:9px 9px;
+    cursor:pointer;
+    transition: border-color 0.15s ease, background 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .check-item.checked{
+    border-color:var(--navy);
+    background:#fff;
+  }
+  .check-item input{
+    -webkit-appearance:none; appearance:none;
+    width:18px; height:18px;
+    border-radius:6px;
+    border:2px solid var(--line);
+    background:#fff;
+    flex:0 0 auto;
+    margin-top:1px;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    position:relative;
+    transition: all 0.15s ease;
+  }
+  .check-item input:checked{
+    background:var(--navy);
+    border-color:var(--navy);
+  }
+  .check-item input:checked::after{
+    content:"✓";
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--lime); font-size:11px; font-weight:800;
+  }
+  .check-item label{
+    font-size:12.3px; font-weight:700; color:var(--navy);
+    cursor:pointer;
+    line-height:1.3;
+  }
+  .check-item label .check-sub{
+    display:block;
+    font-size:10px;
+    font-weight:400;
+    color:var(--sub);
+    margin-top:2px;
+  }
+  .checklist-actions{
+    display:flex; gap:8px; margin-top:14px;
+  }
+  .btn-plan{
+    flex:1;
+    background:var(--navy);
+    color:var(--lime);
+    border:none; border-radius:999px;
+    padding:14px;
+    font-family:'Pretendard', sans-serif; font-weight:800;
+    font-size:15px;
+    cursor:pointer;
+    transition: transform 0.15s ease;
+  }
+  .btn-plan:active{ transform:scale(0.97); }
+  .btn-reset{
+    flex:0 0 auto;
+    background:#fff;
+    border:1.5px solid var(--navy);
+    color:var(--navy);
+    border-radius:999px;
+    padding:13px 16px;
+    font-size:13px;
+    font-weight:700;
+    cursor:pointer;
+  }
+
+  /* ---------- ROUTE RESULT BANNER ---------- */
+  .route-result{
+    margin: 4px 16px 20px;
+    background: var(--navy);
+    color:#fff;
+    border-radius:20px;
+    padding:16px 18px;
+    display:none;
+  }
+  .route-result.show{ display:block; }
+  .route-result .rr-title{
+    font-family:'Pretendard', sans-serif; font-weight:800; font-size:15.5px;
+    margin-bottom:10px;
+    display:flex; align-items:center; gap:6px;
+  }
+  .route-result .rr-chain{
+    display:flex; flex-wrap:wrap; align-items:center; gap:6px;
+    font-size:12.5px;
+  }
+  .route-result .rr-step{
+    background:var(--lime);
+    color:var(--navy);
+    border:none;
+    border-radius:999px;
+    padding:5px 10px;
+    font-weight:800;
+  }
+  .route-result .rr-arrow{ color:var(--fig-purple); font-size:12px; }
+  .route-result .rr-sub{
+    margin-top:10px;
+    font-size:11.5px;
+    color:rgba(255,255,255,0.7);
+  }
+
+  /* ---------- SPOT CARD DIM / HIGHLIGHT ---------- */
+  .spot-card{ transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; }
+  .spot-card.dimmed{
+    opacity:0.35;
+    transform:scale(0.98);
+  }
+  .spot-card.picked{
+    box-shadow: 0 0 0 3px var(--coral), var(--shadow);
+  }
+  .spot-card.picked .spot-titles h3{
+    background: linear-gradient(120deg, transparent 0%, var(--yellow) 0%);
+    background-size: 100% 100%;
+    background-repeat:no-repeat;
+    animation: highlightSweep 0.7s ease forwards;
+    border-radius:4px;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    padding:1px 4px;
+  }
+  @keyframes highlightSweep{
+    from{ background-image: linear-gradient(120deg, var(--yellow) 0%, var(--yellow) 0%); background-size:0% 100%; }
+    to{ background-image: linear-gradient(120deg, var(--yellow) 0%, var(--yellow) 100%); background-size:100% 100%; }
+  }
+  .pick-order-badge{
+    display:none;
+    align-items:center; justify-content:center;
+    width:26px; height:26px;
+    border-radius:50%;
+    background:var(--coral);
+    color:#fff;
+    font-family:'Pretendard', sans-serif; font-weight:800;
+    font-size:13px;
+    flex:0 0 auto;
+    margin-right:6px;
+  }
+  .spot-card.picked .pick-order-badge{ display:flex; }
+
+  /* ---------- SECTION TITLES ---------- */
+  .section-title{
+    display:flex; align-items:center; gap:8px;
+    margin: 28px 16px 12px;
+  }
+  .section-title .dot{
+    width:9px; height:9px; border-radius:50%;
+    background:var(--fig-purple);
+    flex:0 0 auto;
+  }
+  .section-title h2{
+    font-family:'Pretendard', sans-serif; font-weight:800;
+    font-size:18px;
+    color:var(--navy);
+    margin:0;
+  }
+
+  /* ---------- ROUTE STRIP ---------- */
+  .route-strip{
+    display:flex;
+    gap:10px;
+    overflow-x:auto;
+    padding: 4px 16px 8px;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+  }
+  .route-strip::-webkit-scrollbar{ display:none; }
+  .route-chip{
+    scroll-snap-align:start;
+    flex:0 0 auto;
+    background:#fff;
+    border:1.5px solid var(--line);
+    border-radius:16px;
+    padding:10px 14px;
+    min-width:118px;
+    text-align:center;
+    cursor:pointer;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .route-chip:active{ transform:scale(0.96); }
+  .route-chip .num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:22px; height:22px;
+    background:var(--navy); color:var(--lime);
+    border-radius:50%;
+    font-size:11px; font-weight:800;
+    margin-bottom:6px;
+  }
+  .route-chip .name{ font-size:12.5px; font-weight:800; color:var(--navy); line-height:1.3; }
+  .route-chip .walk{ font-size:10.5px; color:var(--sub); margin-top:2px; }
+
+  /* ---------- MAP ---------- */
+  .map-wrap{
+    margin: 8px 16px 20px;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow: var(--shadow);
+    border:none;
+    background:var(--lilac);
+    padding:10px;
+  }
+  #map{ height:320px; width:100%; background:#eee; border-radius:12px; }
+  .map-legend{
+    display:flex; align-items:center; gap:14px;
+    background:transparent;
+    padding:10px 6px 2px;
+    font-size:11.5px;
+    color:var(--navy);
+    flex-wrap:wrap;
+  }
+  .map-legend .item{ display:flex; align-items:center; gap:5px; }
+  .legend-pin{
+    width:14px; height:14px; border-radius:50% 50% 50% 0;
+    transform:rotate(-45deg);
+    display:inline-block;
+  }
+
+  /* ---------- SPOT CARDS ---------- */
+  .spots{ padding: 4px 16px 4px; display:flex; flex-direction:column; gap:16px; }
+  .spot-card{
+    background:#fff;
+    border-radius:22px;
+    box-shadow: var(--shadow);
+    border:1px solid var(--line);
+    overflow:hidden;
+  }
+  .spot-head{
+    display:flex; align-items:center; gap:12px;
+    padding:16px 16px 12px;
+  }
+  .spot-num{
+    flex:0 0 auto;
+    width:36px; height:36px;
+    border-radius:12px;
+    background:var(--fig-purple);
+    color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Pretendard', sans-serif; font-weight:800;
+    font-size:16px;
+  }
+  .spot-titles{ flex:1; min-width:0; }
+  .spot-titles h3{
+    margin:0; font-family:'Pretendard', sans-serif; font-weight:800; font-size:17px; color:var(--navy);
+  }
+  .spot-name-link{
+    color:var(--navy);
+    text-decoration:none;
+    border-bottom:2px dotted var(--fig-purple);
+    padding-bottom:1px;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .spot-name-link:active{ color:var(--fig-purple); }
+  .spot-name-link::after{
+    content:" 📍";
+    font-size:12px;
+  }
+  .spot-titles .en{ font-size:11.5px; color:var(--sub); }
+  .spot-body{ padding: 0 16px 16px; }
+  .spot-row{
+    display:flex; gap:8px;
+    font-size:12.8px;
+    color:#4a4b58;
+    line-height:1.55;
+    margin-bottom:6px;
+  }
+  .spot-row .icon{ flex:0 0 auto; }
+  .spot-note{
+    margin-top:8px;
+    background:var(--lilac);
+    color:var(--navy);
+    font-size:12px;
+    line-height:1.6;
+    padding:9px 11px;
+    border-radius:12px;
+  }
+  .floor-list{
+    margin-top:10px;
+    border:1px solid var(--line);
+    border-radius:14px;
+    overflow:hidden;
+  }
+  .floor-row{
+    display:flex;
+    font-size:12px;
+    line-height:1.55;
+    border-bottom:1px solid var(--line);
+  }
+  .floor-row:last-child{ border-bottom:none; }
+  .floor-row .f{
+    flex:0 0 52px;
+    background:#f2f2f5;
+    color:var(--navy);
+    font-weight:800;
+    padding:8px 6px;
+    text-align:center;
+  }
+  .floor-row .c{ flex:1; padding:8px 10px; color:#4a4b58; display:flex; flex-wrap:wrap; gap:4px 6px; align-items:center; }
+  .brand-tag{
+    transition: background 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
+    border-radius:5px;
+    padding:1px 3px;
+    color:#4a4b58;
+    text-decoration:none;
+    border-bottom:1px dotted #b9bac2;
+    cursor:pointer;
+  }
+  .brand-tag:active{ color:var(--fig-purple); }
+  .brand-tag.hl{
+    background: var(--lime);
+    color:var(--navy);
+    font-weight:800;
+    box-shadow: 0 0 0 2px var(--lime);
+    border-bottom:none;
+  }
+  .brand-tag:not(:last-child)::after{ content:","; color:#4a4b58; margin-left:-3px; }
+  .brand-tag.hl:not(:last-child)::after{ content:none; }
+  .floor-badge{
+    font-size:10px;
+    color:var(--fig-purple);
+    background:var(--coral-soft);
+    border-radius:6px;
+    padding:2px 6px;
+    font-weight:800;
+    white-space:nowrap;
+  }
+  .sub-spot.hl{
+    background: var(--lilac);
+    border-radius:12px;
+    padding:10px;
+    box-shadow: 0 0 0 2px var(--fig-purple);
+  }
+  .sub-spot.hl .sub-title{ color:var(--fig-purple); }
+  .sub-title-link{
+    color:inherit;
+    text-decoration:none;
+    border-bottom:1px dotted var(--fig-purple);
+  }
+
+  .spot-actions{
+    display:flex; gap:8px;
+    margin-top:12px;
+  }
+  .btn-nav{
+    flex:1;
+    display:flex; align-items:center; justify-content:center; gap:6px;
+    background:var(--navy);
+    color:#fff;
+    text-decoration:none;
+    border-radius:999px;
+    padding:11px 10px;
+    font-size:13px;
+    font-weight:800;
+    border:none;
+    cursor:pointer;
+  }
+  .btn-nav:active{ opacity:0.85; }
+  .btn-dist{
+    flex:0 0 auto;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--cream);
+    border:1.5px solid var(--line);
+    color:var(--navy);
+    border-radius:12px;
+    padding:11px 12px;
+    font-size:12.5px;
+    font-weight:800;
+    min-width:64px;
+    text-align:center;
+  }
+  .btn-dist small{ display:block; font-weight:400; color:var(--sub); font-size:9.5px; }
+
+  /* extra sub-spots (파타고니아, 호카 etc) */
+  .sub-spot{
+    margin-top:10px;
+    border-top:1px dashed var(--line);
+    padding-top:10px;
+  }
+  .sub-spot .sub-title{
+    font-size:13px; font-weight:800; color:var(--navy); margin-bottom:3px;
+    display:flex; align-items:center; gap:6px;
+  }
+  .sub-spot .sub-title::before{ content:"➕"; font-size:11px; }
+  .sub-spot p{ font-size:12px; color:var(--sub); margin:0 0 6px; line-height:1.55; }
+
+  /* ---------- FOOTER ---------- */
+  .footer-note{
+    margin: 30px 16px 0;
+    text-align:center;
+    font-size:11.5px;
+    color:var(--sub);
+    line-height:1.7;
+  }
+  .footer-heart{ font-size:20px; margin-bottom:8px; }
+  .footer-links{
+    margin-top:14px;
+    display:flex; align-items:center; justify-content:center; gap:12px;
+    flex-wrap:wrap;
+  }
+  .footer-links a{
+    color:var(--navy);
+    font-weight:700;
+    text-decoration:none;
+    background:var(--lime);
+    padding:6px 14px;
+    border-radius:999px;
+    font-size:11.5px;
+  }
+  .footer-copy{ color:var(--sub); font-size:11px; }
+
+  /* leaflet popup style override */
+  .leaflet-popup-content-wrapper{
+    border-radius:14px;
+    font-family:'Pretendard',sans-serif;
+  }
+  .leaflet-popup-content{ margin:10px 12px; font-size:12.5px; }
+  .popup-name{ font-weight:800; color:var(--navy); font-size:13.5px; margin-bottom:2px;}
+  .popup-go{
+    display:inline-block; margin-top:6px;
+    background:var(--fig-purple); color:#fff; text-decoration:none;
+    padding:5px 10px; border-radius:999px; font-size:11.5px; font-weight:800;
+  }
+
+  @media (min-width:520px){
+    .hero{ border-radius:0 0 32px 32px; }
+    .spots{ padding-left:20px; padding-right:20px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow">🏮 2026 최신판 · 텐진 쇼핑 코스</div>
+    <h1>야, 우리<br>후쿠오카 가면<br><span class="accent">여기부터 돌자!</span><span class="edition">-텐진, 다이묘거리 편-</span></h1>
+    <p class="sub">텐진역에서 시작해서 다이묘 거리까지, 걸어서 다 되는 동선으로 짜봤어. 내 위치 켜두면 각 매장까지 얼마나 남았는지도 보여줄게 :)</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><b>18곳</b><span>핵심 스팟</span></div>
+      <div class="hero-stat"><b>도보</b><span>이동수단 끝</span></div>
+      <div class="hero-stat"><b>약 40분</b><span>전체 이동시간</span></div>
+    </div>
+  </div>
+
+  <!-- LOCATE -->
+  <div class="locate-wrap">
+    <div class="locate-card">
+      <div class="locate-icon">📍</div>
+      <div class="locate-text">
+        <strong>내 위치 불러올게</strong>
+        <span>지도에서 가까운 순서로 바로 확인 가능</span>
+      </div>
+      <button class="locate-btn" id="locateBtn" onclick="locateMe()">위치 켜기</button>
+    </div>
+  </div>
+  <div id="locateStatus"></div>
+
+  <!-- CHECKLIST -->
+  <div class="section-title"><span class="dot"></span><h2>어디 갈지 체크해봐</h2></div>
+  <div class="checklist-wrap">
+    <div class="checklist-head">
+      <h3>가고싶은 브랜드 골라줘</h3>
+      <span id="checkCount">0개 선택</span>
+    </div>
+    <div class="checklist-hint">브랜드 하나하나 체크하면 그 브랜드가 있는 건물이 아래서 강조되고, 층별 리스트에서도 콕 집어 표시해줄게 👇</div>
+    <div class="check-grid" id="checkGrid"></div>
+    <div class="checklist-actions">
+      <button class="btn-plan" id="planBtn" onclick="planRoute()">✨ 추천 동선 짜줘</button>
+      <button class="btn-reset" onclick="resetChecks()">초기화</button>
+    </div>
+  </div>
+
+  <!-- ROUTE RESULT -->
+  <div class="route-result" id="routeResult">
+    <div class="rr-title">🧡 이 순서로 돌면 딱이야!</div>
+    <div class="rr-chain" id="rrChain"></div>
+    <div class="rr-sub" id="rrSub"></div>
+  </div>
+
+  <!-- ROUTE STRIP -->
+  <div class="section-title"><span class="dot"></span><h2>오늘의 동선</h2></div>
+  <div class="route-strip" id="routeStrip"></div>
+
+  <!-- MAP -->
+  <div class="map-wrap">
+    <div id="map"></div>
+    <div class="map-legend">
+      <div class="item"><span class="legend-pin" style="background:#A259FF;"></span>쇼핑 스팟</div>
+      <div class="item"><span class="legend-pin" style="background:#1c2542;"></span>내 위치</div>
+      <div class="item">📌 핀 눌러서 바로 길찾기</div>
+    </div>
+  </div>
+
+  <!-- SPOT CARDS -->
+  <div class="section-title"><span class="dot"></span><h2>하나씩 자세히 보기</h2></div>
+  <div class="spots" id="spotsContainer"></div>
+
+  <div class="footer-note">
+    <div class="footer-heart">🍡</div>
+    체크인데이 카페 &lt;2026최신! 후쿠오카 쇼핑 가이드&gt; 글을 바탕으로<br>
+    주소·좌표는 직접 찾아서 더 정확하게 정리했어.<br>
+    영업시간이랑 입점 브랜드는 가기 전에 한 번 더 확인하고 가자 ✌️
+    <div class="footer-links">
+      <a href="privacy.html">개인정보처리방침</a>
+      <span class="footer-copy">© 2026 후쿠오카 텐진 쇼핑 산책</span>
+    </div>
+  </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+/* ---------------- DATA ---------------- */
+const spots = [
+  {
+    id:1, name:"미나텐진", en:"MiNA Tenjin",
+    lat:33.5927599, lng:130.3985129,
+    addr:"후쿠오카시 주오구 텐진 4-3-8",
+    access:"텐진역 중앙출구에서 도보 3~6분, 지하상가랑 바로 연결돼있어",
+    hours:"B1F 07:00~22:00 · 1~7F 10:00~20:00 · 8F·RF 10:30~22:00",
+    walk:"텐진역 직결",
+    floors:[
+      { floor:"B1F", brands:["3COINS+plus"] },
+      { floor:"1~2F", brands:["유니클로"], badge:"텐진 최대 규모" },
+      { floor:"3F", brands:["GU"] },
+      { floor:"4F", brands:["로프트"], badge:"팝마트 일부 입점" },
+      { floor:"5F", brands:["ABC-MART"] },
+      { floor:"6F", brands:["세리아"] },
+    ],
+    note:"유니클로는 여기가 텐진에서 제일 크니까 물건 많을 때 여기서 사면 돼. 텍스리펀은 매장마다 따로 처리하는 거 잊지 말고!"
+  },
+  {
+    id:2, name:"원후쿠오카빌딩", en:"One Fukuoka Building",
+    lat:33.5911487, lng:130.39945,
+    addr:"후쿠오카시 주오구 텐진 1-11-1",
+    access:"니시테츠 텐진역에서 도보 3분, 미나텐진에서 도보 3분 정도",
+    hours:"11:00~20:00 (매장마다 조금씩 달라)",
+    walk:"미나텐진 → 도보 3분",
+    floors:[
+      { floor:"B2F", brands:["b!olala","AKOMEYA TOKYO","EASTtable"] },
+      { floor:"1F", brands:["샤넬"] },
+      { floor:"2F", brands:["NIKE","kolor","살로몬","and wander","MAISON KITSUNÉ"] },
+      { floor:"3F", brands:["Bshop","MHL.","master-piece"], badge:"면세 카운터" },
+      { floor:"4F", brands:["스노우피크","츠타야서점","이토야 문구","Four nines"] },
+    ],
+    note:"2024년 말에 새로 생긴 신상 건물이라 엄청 깔끔해. 사람도 아직 덜 붐벼서 쾌적하게 구경하기 좋아.",
+    sub:{ title:"파타고니아 (Patagonia)", desc:"바로 옆 텐진 비즈니스 센터 1층에 있어. 매장 크고 물건 많은데 면세는 안 된다는 거 참고!", brand:"파타고니아" }
+  },
+  {
+    id:3, name:"파르코", en:"Fukuoka PARCO",
+    lat:33.5907445, lng:130.3986652,
+    addr:"후쿠오카시 주오구 텐진 2-11-1",
+    access:"텐진역 7번 출구랑 바로 연결돼",
+    hours:"10:00~20:30 (매장마다 조금씩 달라)",
+    walk:"원후쿠오카빌딩 → 도보 3분",
+    floors:[
+      { floor:"8F", brands:["애니메이트","키디랜드"] },
+      { floor:"7F", brands:["원피스 무기와라 스토어","짱구샵","RAGTAG"] },
+      { floor:"5F", brands:["프랑프랑","LUSH"] },
+      { floor:"4F", brands:["FREAK'S STORE"] },
+      { floor:"3F", brands:["URBAN RESEARCH","레드윙","ABC-MART grand stage","오니츠카타이거"] },
+      { floor:"2F", brands:["저널스탠다드","빔즈","ADAM ET ROPE"] },
+      { floor:"1F", brands:["비비안웨스트우드","저널스탠다드"], badge:"할인쿠폰 발급" },
+      { floor:"B1F", brands:["디즈니스토어"] },
+    ],
+    note:"본관 1층 안내데스크에서 11,000엔 이상 사면 1,000엔 할인쿠폰 주니까 여권 챙겨서 꼭 받아가자!",
+    sub:{ title:"호카 (HOKA)", desc:"신관 입구 오른쪽, 휴릭스퀘어 1층에 있어. 여기는 면세 가능!", brand:"호카" }
+  },
+  {
+    id:4, name:"비오로", en:"VIORO",
+    lat:33.5897222, lng:130.3983333,
+    addr:"후쿠오카시 주오구 텐진 2-10-3",
+    access:"파르코에서 도보 2분",
+    hours:"매장 11:00~21:00 · 7F·B1F 카페는 11:00~23:00",
+    walk:"파르코 → 도보 2분",
+    floors:[
+      { floor:"5F", brands:["마리메꼬","RAGTAG"] },
+      { floor:"4F", brands:["Royal Flash"] },
+      { floor:"3F", brands:["금자안경","DENHAM"] },
+      { floor:"2F", brands:["Loveless"] },
+      { floor:"1F", brands:["유나이티드 애로우즈"] },
+      { floor:"B1F", brands:["유나이티드 애로우즈","ABC-MART grand stage","빔즈골프"] },
+    ],
+    note:"1층 입구 서비스 카운터에서 여권 보여주면 500엔 할인쿠폰 줘. 면세는 매장별로 각자 처리하면 돼."
+  },
+  {
+    id:5, name:"솔라리아 플라자", en:"Solaria Plaza",
+    lat:33.5890853, lng:130.3988213,
+    addr:"후쿠오카시 주오구 텐진 2-2-43",
+    access:"니시테츠 텐진역이랑 바로 연결, 비오로에서 도보 3분",
+    hours:"11:00~20:00 (매장마다 달라)",
+    walk:"비오로 → 도보 3분",
+    floors:[
+      { floor:"4F", brands:["아트모스"] },
+      { floor:"2F", brands:["컨버스 도쿄","어반리서치","뷰티&유스 유나이티드애로우즈"] },
+      { floor:"1F", brands:["티파니"] },
+      { floor:"B1F", brands:["무인양품"] },
+    ],
+    note:"무인양품 지하 1층이라 비 오는 날에도 편하게 갈 수 있어."
+  },
+  {
+    id:6, name:"이와타야 백화점", en:"Iwataya Dept. Store",
+    lat:33.588842, lng:130.397425,
+    addr:"후쿠오카시 주오구 텐진 2-5-35",
+    access:"솔라리아 플라자에서 도보 3분, 텐진역에서 도보 5분",
+    hours:"10:00~20:00",
+    walk:"솔라리아 플라자 → 도보 3분",
+    floors:[
+      { floor:"7F", brands:["면세카운터"] },
+      { floor:"6F", brands:["더노스페이스"] },
+      { floor:"5F", brands:["바버","꼼데가르송 옴므","포나인스"] },
+      { floor:"4F", brands:["Issey Miyake"] },
+      { floor:"3F", brands:["Sacai","아크네 스튜디오","언더커버","블랙꼼데가르송"] },
+      { floor:"2F", brands:["디올","버버리","셀린느"] },
+      { floor:"1F", brands:["Shiro","미우미우","프라다","바오바오"] },
+    ],
+    note:"여권 보여주면 게스트카드 만들어주는데 이게 5% 할인이야. 셀린느·디올·바오바오 살 때 특히 챙겨! 본관·신관은 3층, 6층 통로로 이어져있어."
+  },
+  {
+    id:7, name:"노스페이스", en:"THE NORTH FACE Fukuoka",
+    lat:33.5884921, lng:130.3952872,
+    addr:"후쿠오카시 주오구 다이묘 2-1-11",
+    access:"이와타야에서 도보 5분, 텐진역에서 도보 10분 정도. 여기서부터 다이묘 거리 시작이야",
+    hours:"11:00~21:00",
+    walk:"이와타야 → 도보 5분",
+    floors:[
+      { floor:"2층", brands:["더 노스페이스"], badge:"재팬라인~퍼플라벨" },
+    ],
+    note:"2층 규모라 재팬라인부터 퍼플라벨까지 다 볼 수 있어. 퍼플라벨은 나나미카 감독이 만든 라인이라 가격대는 좀 있지만 디자인이 남달라. 면세 가능!"
+  },
+  {
+    id:8, name:"휴먼메이드", en:"HUMAN MADE FUKUOKA",
+    lat:33.5883521, lng:130.3950766,
+    addr:"후쿠오카시 주오구 다이묘 2-1-13 1F",
+    access:"노스페이스 바로 옆, 도보 1분",
+    hours:"11:00~19:00",
+    walk:"노스페이스 → 도보 1분",
+    floors:[
+      { floor:"1F", brands:["휴먼메이드"], badge:"규슈 유일 매장" },
+    ],
+    note:"베이프 창시자 '니고'가 만든 브랜드. 동물 캐릭터 티셔츠·키링이 인기 많아. 매주 토요일 신상 발매되니까 목요일 11시에 홈페이지에서 미리 리스트 확인하고 가면 좋아. 면세 가능!"
+  },
+  {
+    id:9, name:"나나미카", en:"nanamica FUKUOKA",
+    lat:33.5884118, lng:130.394911,
+    addr:"후쿠오카시 주오구 다이묘 2-1-14",
+    access:"휴먼메이드에서 도보 1분",
+    hours:"11:00~19:00",
+    walk:"휴먼메이드 → 도보 1분",
+    floors:[
+      { floor:"매장", brands:["나나미카"] },
+    ],
+    note:"고프코어 감성 좋아하면 꼭 들러봐. 노스페이스 퍼플라벨 협업 라인 원조가 여기 디렉터야."
+  },
+  {
+    id:10, name:"슈프림", en:"Supreme Fukuoka",
+    lat:33.5872943, lng:130.396594,
+    addr:"후쿠오카시 주오구 다이묘 1-15-35 247빌딩 1F",
+    access:"나나미카에서 도보 4~5분",
+    hours:"11:00~20:00",
+    walk:"나나미카 → 도보 5분",
+    floors:[
+      { floor:"1F", brands:["슈프림"], badge:"아시아 유일 오프라인" },
+    ],
+    note:"아시아에서는 일본에서만 공식 매장을 만날 수 있어. 규모는 아담하지만 여기서만 파는 한정판이 있어서 오픈런 각오하고 가야 해. 목요일이 신상 드랍일이야."
+  },
+  {
+    id:11, name:"스투시", en:"Stussy Fukuoka",
+    lat:33.5877376, lng:130.3973979,
+    addr:"후쿠오카시 주오구 텐진 2-5-13 마로니에넥스트 1F",
+    access:"슈프림에서 도보 5분 정도, 텐진 방향으로 살짝 이동해",
+    hours:"11:00~19:00",
+    walk:"슈프림 → 도보 5분",
+    floors:[
+      { floor:"1F", brands:["스투시"] },
+    ],
+    note:"작은 매장이라 줄 서는 경우가 많아. 기본 티부터 후드까지 스트릿 오리지널 감성 제품 위주야. 면세는 안 되니까 참고!"
+  },
+  {
+    id:12, name:"ABC-MART GRAND STAGE", en:"ABC-MART GRANDSTAGE",
+    lat:33.588328, lng:130.395819,
+    addr:"후쿠오카시 주오구 다이묘 1-12-56 THE SHOPS 1F",
+    access:"휴먼메이드·나나미카 쪽에서 도보 1~2분",
+    hours:"11:00~21:00",
+    walk:"나나미카 인근 · 도보 2분",
+    floors:[
+      { floor:"1F", brands:["ABC-MART GRAND STAGE"], badge:"희귀 스니커즈" },
+    ],
+    note:"일반 ABC마트보다 희귀템·컬래버 스니커즈 위주로 구성돼 있어. 사이즈 물어보면 친절하게 찾아줘."
+  },
+  {
+    id:13, name:"2nd STREET (세컨드스트리트)", en:"2nd Street Daimyo",
+    lat:33.5882037, lng:130.3953317,
+    addr:"후쿠오카시 주오구 다이묘 1-12-49",
+    access:"ABC-MART GRAND STAGE에서 도보 1분",
+    hours:"11:00~21:00",
+    walk:"ABC-MART → 도보 1분",
+    floors:[
+      { floor:"1F", brands:["여성 빈티지"] },
+      { floor:"2F", brands:["남성 빈티지"] },
+    ],
+    note:"중고·빈티지 명품 편집샵이야. 루이비통, 셀린느, 리바이스까지 다양하게 있어서 보물찾기 하는 느낌으로 구경하기 좋아. 상태는 제품마다 편차 있으니 잘 살펴보고 사자."
+  },
+  {
+    id:14, name:"오클리 스토어", en:"Oakley Store Daimyo",
+    lat:33.5887627, lng:130.3960158,
+    addr:"후쿠오카시 주오구 다이묘 2-1-4 STAGE·1 니시도리 1F",
+    access:"세컨드스트리트에서 도보 2분",
+    hours:"11:00~20:00",
+    walk:"2nd STREET → 도보 2분",
+    floors:[
+      { floor:"1F", brands:["오클리"], badge:"일본 한정 컬렉션" },
+    ],
+    note:"미국에서 못 보는 일본 한정 컬렉션이 있어. 면세 받으면 10% 수수료 붙는 거 참고하고, 종이백은 유료야."
+  },
+  {
+    id:15, name:"돈키호테 텐진니시도리점", en:"Don Quijote Tenjin Nishidori",
+    lat:33.5873365, lng:130.3967493,
+    addr:"후쿠오카시 주오구 다이묘 1-15-41",
+    access:"오클리 스토어에서 도보 3분, 다이묘 거리 남쪽 끝 쪽이야",
+    hours:"08:00~05:00 (거의 24시간이나 다름없어)",
+    walk:"오클리 스토어 → 도보 3분",
+    floors:[
+      { floor:"전층", brands:["돈키호테"], badge:"5,500엔 이상 면세" },
+    ],
+    note:"텐진 본점보다 규모는 작지만 사람도 덜 붐비고 면세 카운터(5층)에 영어 가능 직원이 있어서 편해. 3층에 화장실이 딱 하나뿐이라 미리 다녀오는 게 좋아. 밤늦게까지 여니까 다이묘 거리 마지막 코스로 딱이야!"
+  },
+  {
+    id:16, name:"르라보 후쿠오카", en:"Le Labo Fukuoka",
+    lat:33.5870824, lng:130.3953447,
+    addr:"후쿠오카시 주오구 다이묘 1-15-24",
+    access:"돈키호테에서 도보 2분",
+    hours:"11:00~20:00",
+    walk:"돈키호테 → 도보 2분",
+    floors:[
+      { floor:"매장", brands:["르라보"], badge:"매장 즉석 조향" },
+    ],
+    note:"이 후쿠오카 매장이 일본 내 다른 매장보다 규모가 큰 편이라 향 종류를 여유롭게 테스트해볼 수 있어. 원하면 즉석에서 라벨에 이름이나 문구도 새겨줘. 인기 향은 품절될 수 있으니 미리 온라인에서 재고 확인하고 가면 좋아."
+  },
+  {
+    id:17, name:"베이프 스토어 후쿠오카", en:"BAPE STORE FUKUOKA",
+    lat:33.5871193, lng:130.39485,
+    addr:"후쿠오카시 주오구 다이묘 1-11-28",
+    access:"르라보에서 도보 2분",
+    hours:"11:00~19:00",
+    walk:"르라보 → 도보 2분",
+    floors:[
+      { floor:"매장", brands:["베이프"], badge:"규슈 유일 매장" },
+    ],
+    note:"휴먼메이드 창시자 니고가 원래 만든 브랜드가 베이프야. 시그니처 카모 패턴 후드·티셔츠가 메인이고, 매장 인테리어도 구경할 맛이 나. 인기 사이즈는 빨리 빠지니 오전에 가는 게 유리해."
+  },
+  {
+    id:18, name:"Ball&Chain FUKUOKA", en:"Ball&Chain FUKUOKA",
+    lat:33.5902637, lng:130.3991568,
+    addr:"후쿠오카시 주오구 텐진 2-11 텐진 지하상가 West 5th Block 217호",
+    access:"텐진 지하상가 안에 있어서 비 오는 날에도 편하게 갈 수 있어. 미나텐진이나 텐진역에서 지하로 바로 연결돼",
+    hours:"10:00~20:00",
+    walk:"텐진 지하상가 경유",
+    floors:[
+      { floor:"매장", brands:["Ball&Chain"], badge:"자수 백팩 전문" },
+    ],
+    note:"자수 디테일이 화려한 백팩·가방 전문점이야. 크로스백으로도 멜 수 있는 디자인이 많고, 동전지갑이나 스트랩 같은 소품류도 종류가 다양해. 인기 한정판은 금방 품절되니 마음에 드는 게 있으면 바로 사는 걸 추천!"
+  },
+];
+
+/* 브랜드 id 생성 헬퍼 (매장id + 브랜드명 조합, 특수문자 제거) */
+function brandId(spotId, brandName){
+  const clean = brandName.replace(/[^a-zA-Z0-9가-힣]/g, '');
+  return `${spotId}-${clean}`;
+}
+
+/* 브랜드별 실제 매장 좌표 (직접 조사한 정확한 위치) — key: "매장명-브랜드명" */
+const brandCoords = {
+  "미나텐진-3COINS+plus": [33.5928370, 130.3983198],
+  "미나텐진-유니클로": [33.5928118, 130.3984263],
+  "미나텐진-GU": [33.5929742, 130.3983736],
+  "미나텐진-로프트": [33.5929742, 130.3983736],
+  "미나텐진-ABC-MART": [33.5928512, 130.3984994],
+  "미나텐진-세리아": [33.5929742, 130.3983736],
+  "원후쿠오카빌딩-b!olala": [33.5905767, 130.3995329],
+  "원후쿠오카빌딩-AKOMEYA TOKYO": [33.5913118, 130.3993179],
+  "원후쿠오카빌딩-EASTtable": [33.5911487, 130.3994500],
+  "원후쿠오카빌딩-샤넬": [33.5911487, 130.3994500],
+  "원후쿠오카빌딩-NIKE": [33.5907388, 130.3999665],
+  "원후쿠오카빌딩-kolor": [33.5911487, 130.3994500],
+  "원후쿠오카빌딩-살로몬": [33.5905602, 130.3995279],
+  "원후쿠오카빌딩-and wander": [33.5913011, 130.3993155],
+  "원후쿠오카빌딩-MAISON KITSUNÉ": [33.5911864, 130.3995616],
+  "원후쿠오카빌딩-Bshop": [33.5912877, 130.3993292],
+  "원후쿠오카빌딩-MHL.": [33.5910565, 130.3996324],
+  "원후쿠오카빌딩-master-piece": [33.5908005, 130.4000978],
+  "원후쿠오카빌딩-스노우피크": [33.5912877, 130.3993292],
+  "원후쿠오카빌딩-츠타야서점": [33.5913011, 130.3993155],
+  "원후쿠오카빌딩-이토야 문구": [33.5910081, 130.3997905],
+  "원후쿠오카빌딩-Four nines": [33.5910565, 130.3996324],
+  "원후쿠오카빌딩-파타고니아": [33.5914255, 130.4005981],
+  "파르코-애니메이트": [33.5909156, 130.3987274],
+  "파르코-키디랜드": [33.5910109, 130.3983940],
+  "파르코-원피스 무기와라 스토어": [33.5909928, 130.3987121],
+  "파르코-짱구샵": [33.5910070, 130.3983210],
+  "파르코-RAGTAG": [33.5908740, 130.3985500],
+  "파르코-프랑프랑": [33.5904347, 130.3986441],
+  "파르코-LUSH": [33.5907200, 130.3986400],
+  "파르코-FREAK'S STORE": [33.5909598, 130.3978903],
+  "파르코-URBAN RESEARCH": [33.5911160, 130.3985357],
+  "파르코-레드윙": [33.5908618, 130.3985329],
+  "파르코-ABC-MART grand stage": [33.5908740, 130.3985500],
+  "파르코-오니츠카타이거": [33.5909096, 130.3984851],
+  "파르코-저널스탠다드": [33.5908740, 130.3985500],
+  "파르코-빔즈": [33.5909108, 130.3981256],
+  "파르코-ADAM ET ROPE": [33.5907445, 130.3986652],
+  "파르코-비비안웨스트우드": [33.5890957, 130.3979256],
+  "파르코-디즈니스토어": [33.5910757, 130.3985063],
+  "파르코-호카": [33.5907973, 130.3975771],
+  "비오로-마리메꼬": [33.5896287, 130.3983422],
+  "비오로-RAGTAG": [33.5896287, 130.3983422],
+  "비오로-Royal Flash": [33.5896273, 130.3984134],
+  "비오로-금자안경": [33.5896273, 130.3984134],
+  "비오로-DENHAM": [33.5896757, 130.3983174],
+  "비오로-Loveless": [33.5896273, 130.3984134],
+  "비오로-유나이티드 애로우즈": [33.5896273, 130.3984134],
+  "비오로-빔즈골프": [33.5896453, 130.3984151],
+  "솔라리아 플라자-아트모스": [33.5890216, 130.3989311],
+  "솔라리아 플라자-컨버스 도쿄": [33.5890216, 130.3989311],
+  "솔라리아 플라자-어반리서치": [33.5892771, 130.3988415],
+  "솔라리아 플라자-뷰티&유스 유나이티드애로우즈": [33.5890234, 130.3986403],
+  "솔라리아 플라자-티파니": [33.5891470, 130.3986812],
+  "솔라리아 플라자-무인양품": [33.5889535, 130.3988714],
+  "이와타야 백화점-더노스페이스": [33.5888097, 130.3974178],
+  "이와타야 백화점-바버": [33.5888097, 130.3974178],
+  "이와타야 백화점-꼼데가르송 옴므": [33.5891210, 130.3979614],
+  "이와타야 백화점-포나인스": [33.5889436, 130.3977065],
+  "이와타야 백화점-Issey Miyake": [33.5888781, 130.3980237],
+  "이와타야 백화점-Sacai": [33.5889287, 130.3975103],
+  "이와타야 백화점-아크네 스튜디오": [33.5889287, 130.3975103],
+  "이와타야 백화점-언더커버": [33.5889287, 130.3975103],
+  "이와타야 백화점-블랙꼼데가르송": [33.5889287, 130.3975103],
+  "이와타야 백화점-디올": [33.5889115, 130.3973099],
+  "이와타야 백화점-버버리": [33.5889287, 130.3975103],
+  "이와타야 백화점-셀린느": [33.5888786, 130.3973999],
+  "이와타야 백화점-Shiro": [33.5889287, 130.3975103],
+  "이와타야 백화점-미우미우": [33.5888431, 130.3974250],
+  "이와타야 백화점-프라다": [33.5889782, 130.3973288],
+  "이와타야 백화점-바오바오": [33.5895468, 130.3978969],
+};
+
+/* 매장(건물) Google Place ID — key: 매장명 */
+const spotPlaceIds = {
+  "미나텐진": "ChIJtSPre46RQTURJjCpXi0cUPo",
+  "원후쿠오카빌딩": "ChIJ7ZeXdwCRQTUROp-ggJ2nI4I",
+  "파르코": "ChIJVVUVAI-RQTUR4O0-0xXxi0Y",
+  "비오로": "ChIJC5DhoY-RQTUR_j1AeAc45yI",
+  "솔라리아 플라자": "ChIJkTl0ho-RQTUR71VA2jf-iSk",
+  "이와타야 백화점": "ChIJc3uKgYWRQTURWr1t_ndugOI",
+  "노스페이스": "ChIJmdotvYWRQTURe4Y0kzoDOaM",
+  "휴먼메이드": "ChIJBQqeKgCRQTURny94tLJlAlo",
+  "나나미카": "ChIJp6nwbYaRQTURT1GAuylPB9E",
+  "슈프림": "ChIJ3ZWchYaRQTURLggSQ__aswg",
+  "스투시": "ChIJm9oboYaRQTURYi4C6lcePo4",
+  "ABC-MART GRAND STAGE": "ChIJ3SP744WRQTUR-wKM8nmJrcE",
+  "2nd STREET (세컨드스트리트)": "ChIJQfICdIaRQTURrLiRDmZqPZI",
+  "오클리 스토어": "ChIJXRHx5IWRQTURjBDB5fRd150",
+  "돈키호테 텐진니시도리점": "ChIJlcsUZwCRQTURafjK0vi6CxE",
+  "르라보 후쿠오카": "ChIJl0uqKUyRQTURQUNAxj4Xr10",
+  "베이프 스토어 후쿠오카": "ChIJGc3xhYaRQTURc14SLqTjBjk",
+  "Ball&Chain FUKUOKA": "ChIJ_zy3YgCRQTURkW8ZKvylhcA",
+};
+
+/* 브랜드별 Google Place ID (직접 조사) — key: "매장명-브랜드명" */
+const brandPlaceIds = {
+  "미나텐진-유니클로": "ChIJOX2tVHSRQTURBcFMLLuLuRI",
+  "미나텐진-GU": "ChIJNW-TYemRQTURnvlKFRpxA1M",
+  "미나텐진-로프트": "ChIJJ5Y9pJqRQTURrpXXDPV1VK0",
+  "미나텐진-ABC-MART": "ChIJq45pLKORQTURZ0_4Kx_u2bU",
+  "미나텐진-세리아": "ChIJhfoNxMGRQTURaouv8_BeeHA",
+  "미나텐진-3COINS+plus": "ChIJ_f7d_pSRQTURd7SHIQxlKP0",
+  "원후쿠오카빌딩-b!olala": "ChIJ0Q2uhxiRQTUR_GeeOW581IA",
+  "원후쿠오카빌딩-AKOMEYA TOKYO": "ChIJF9YexL6RQTURDjcLrhHXOdA",
+  "원후쿠오카빌딩-NIKE": "ChIJQbUaagGRQTURbJLSK4nxZKc",
+  "원후쿠오카빌딩-살로몬": "ChIJ361DtqaRQTURfLHRcrx2u6A",
+  "원후쿠오카빌딩-and wander": "ChIJR8bFdACRQTURAXhqKk4h3vw",
+  "원후쿠오카빌딩-MAISON KITSUNÉ": "ChIJ06w3bfeRQTURmrgeWQWSW8Y",
+  "원후쿠오카빌딩-Bshop": "ChIJA2_wOIORQTURiNBKc_EyU_k",
+  "원후쿠오카빌딩-MHL.": "ChIJ0f-7qHSRQTURNYuj0sHnL8E",
+  "원후쿠오카빌딩-master-piece": "ChIJ67Q63QaRQTUReIg6FVTQ-Yk",
+  "원후쿠오카빌딩-스노우피크": "ChIJASj8U-uRQTURcVgGZFWiO5Q",
+  "원후쿠오카빌딩-츠타야서점": "ChIJe7qX_dqRQTURfy7W-_5TcLA",
+  "원후쿠오카빌딩-이토야 문구": "ChIJqWcs2ZaRQTURXzrHOQiiYxo",
+  "원후쿠오카빌딩-Four nines": "ChIJ-zpOfI-RQTUREgcQVOK8i8Y",
+  "원후쿠오카빌딩-파타고니아": "ChIJ7R5j4YWRQTURYoMiT8oo98M",
+  "파르코-애니메이트": "ChIJtTHWz4iRQTURJjWhyDSwJXk",
+  "파르코-키디랜드": "ChIJhVT-Uo6RQTURBXtBSjczgTo",
+  "파르코-원피스 무기와라 스토어": "ChIJUb55ro-RQTURoE9G9x5ro3k",
+  "파르코-짱구샵": "ChIJwxr5VI6RQTURtbZfT7Q2Q9w",
+  "파르코-RAGTAG": "ChIJwbvvVI6RQTURSazE4lWzU3o",
+  "파르코-프랑프랑": "ChIJ2ynkUo6RQTURsilb5YH2TnM",
+  "파르코-LUSH": "ChIJsXJeVI6RQTUR0ozl1c30kXs",
+  "파르코-FREAK'S STORE": "ChIJSViVAY-RQTURYjZsHYXgIvY",
+  "파르코-URBAN RESEARCH": "ChIJl66RVI6RQTURdZsDZLqAdDM",
+  "파르코-레드윙": "ChIJQ76yQQSRQTURaNqTZO4-K84",
+  "파르코-ABC-MART grand stage": "ChIJIfuMihSRQTURHN6pliY3hUM",
+  "파르코-오니츠카타이거": "ChIJnQodU46RQTURXtL-6EltT50",
+  "파르코-저널스탠다드": "ChIJiyoFU46RQTURBXGQ25f2KH8",
+  "파르코-빔즈": "ChIJDd5qVI6RQTUReWIfozLKmXA",
+  "파르코-ADAM ET ROPE": "ChIJh3nAAY-RQTURZ0eDjz2Nsqg",
+  "파르코-비비안웨스트우드": "ChIJMZTmg4WRQTURgb-rii9owEs",
+  "파르코-디즈니스토어": "ChIJW-cCVI6RQTURzjjWdHyaWMw",
+  "파르코-호카": "ChIJgyvbfwCRQTUR8eMJGWoEkrU",
+  "비오로-마리메꼬": "ChIJAQDwoY-RQTURlj9_ahiA3P4",
+  "비오로-Royal Flash": "ChIJ_ynioY-RQTURVQ0Em8YWzPU",
+  "비오로-금자안경": "ChIJZ_PioY-RQTURWv07I6p3DEc",
+  "비오로-DENHAM": "ChIJxc57n4-RQTURm0SZO_1LJbA",
+  "비오로-Loveless": "ChIJKznivIWRQTURr3wgSrjZUI8",
+  "비오로-유나이티드 애로우즈": "ChIJ_ynioY-RQTURA_j_E9yZ3RE",
+  "비오로-빔즈골프": "ChIJEQrGsOqRQTUR4W3utfWegcM",
+  "솔라리아 플라자-아트모스": "ChIJh6Dx4baRQTURv2cuEIeufYQ",
+  "솔라리아 플라자-컨버스 도쿄": "ChIJ8zoh_hKRQTUR8nmzcPyLjTE",
+  "솔라리아 플라자-어반리서치": "ChIJHS_olo-RQTURnPy5AKi1On8",
+  "솔라리아 플라자-뷰티&유스 유나이티드애로우즈": "ChIJ4SePkI-RQTURFSh2E4Ui3xM",
+  "솔라리아 플라자-티파니": "ChIJXWlEmo-RQTURe9ImMchQDa0",
+  "솔라리아 플라자-무인양품": "ChIJ4SePkI-RQTURg4qxtisXQHk",
+  "이와타야 백화점-바버": "ChIJcckeiIWRQTURR9Vw1mHkKVQ",
+  "이와타야 백화점-꼼데가르송 옴므": "ChIJOzRkfI-RQTURoKAEuULJJ1Y",
+  "이와타야 백화점-포나인스": "ChIJ-zpOfI-RQTUREgcQVOK8i8Y",
+  "이와타야 백화점-Issey Miyake": "ChIJuXkWcI-RQTURkfKWcVKYk_w",
+  "이와타야 백화점-아크네 스튜디오": "ChIJtevVQY2RQTUR7ke0JKtU5lM",
+  "이와타야 백화점-디올": "ChIJhQDmh4WRQTUR4TjJFJgAzw8",
+  "이와타야 백화점-버버리": "ChIJpZzsuHaRQTUReWKCNoyt6Mc",
+  "이와타야 백화점-셀린느": "ChIJXzcpiIWRQTURB4mpkSCrobw",
+  "이와타야 백화점-Shiro": "ChIJseHWDaaRQTURMRuWn8wjRcg",
+  "이와타야 백화점-미우미우": "ChIJAQDAcI-RQTUR2glsCNgBGZM",
+  "이와타야 백화점-프라다": "ChIJTy56Yo-RQTURHto12eKtR2A",
+  "이와타야 백화점-바오바오": "ChIJ60qHcI-RQTURlZlDGanQB1A",
+  "원후쿠오카빌딩-샤넬": "ChIJZ-j-N6-RQTURFtSCRamWYEM",
+  "원후쿠오카빌딩-EASTtable": "ChIJrafIyIqRQTURUXvmQBksDKE",
+  "이와타야 백화점-더노스페이스": "ChIJ59Oefo-RQTURSdnDSFdwDBo",
+  "비오로-RAGTAG": "ChIJqe1B1RuRQTURkiKWBshlQ0A",
+};
+
+/* 브랜드의 정확한 좌표를 반환. 개별 조사 데이터가 없으면 매장(건물) 좌표로 대체 */
+function getBrandLatLng(spot, brandName){
+  const key = `${spot.name}-${brandName}`;
+  if(brandCoords[key]) return brandCoords[key];
+  return [spot.lat, spot.lng];
+}
+/* place_id가 있으면 "이름이 뜨는" 정확한 장소 링크를, 없으면 좌표 검색으로 폴백 */
+function brandSearchUrl(spot, brandName){
+  const key = `${spot.name}-${brandName}`;
+  const [lat, lng] = getBrandLatLng(spot, brandName);
+  if(brandPlaceIds[key]){
+    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(brandName)}&query_place_id=${brandPlaceIds[key]}`;
+  }
+  return `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+}
+/* 매장(건물) 자체의 이름이 뜨는 링크 */
+function spotSearchUrl(spot){
+  if(spotPlaceIds[spot.name]){
+    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(spot.name)}&query_place_id=${spotPlaceIds[spot.name]}`;
+  }
+  return `https://www.google.com/maps/search/?api=1&query=${spot.lat},${spot.lng}`;
+}
+
+/* 브랜드 목록을 평탄화 (체크리스트용) */
+const allBrands = [];
+spots.forEach(s=>{
+  s.floors.forEach(f=>{
+    f.brands.forEach(b=>{
+      allBrands.push({ brand:b, spotId:s.id, spotName:s.name, floor:f.floor });
+    });
+  });
+  if(s.sub){
+    allBrands.push({ brand:s.sub.brand, spotId:s.id, spotName:s.name, floor:'인근', isSub:true, subTitle:s.sub.title });
+  }
+});
+/* 가나다(한국어 로케일) 기준 오름차순 정렬 */
+allBrands.sort((a, b) => a.brand.localeCompare(b.brand, 'ko'));
+
+/* ---------------- ROUTE STRIP ---------------- */
+const stripEl = document.getElementById('routeStrip');
+spots.forEach(s=>{
+  const chip = document.createElement('div');
+  chip.className = 'route-chip';
+  chip.innerHTML = `<div class="num">${s.id}</div><div class="name">${s.name}</div><div class="walk">${s.walk}</div>`;
+  chip.onclick = ()=>{
+    document.getElementById('card-'+s.id).scrollIntoView({behavior:'smooth', block:'center'});
+    map.flyTo([s.lat, s.lng], 17, {duration:0.8});
+  };
+  stripEl.appendChild(chip);
+});
+
+/* ---------------- MAP ---------------- */
+const map = L.map('map', { scrollWheelZoom:false }).setView([33.5900, 130.3975], 15);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution:'&copy; OpenStreetMap',
+  maxZoom:19
+}).addTo(map);
+
+function coralIcon(num){
+  return L.divIcon({
+    className:'',
+    html:`<div style="
+      width:30px;height:30px;border-radius:50% 50% 50% 0;
+      background:#A259FF; transform:rotate(-45deg);
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 4px 10px rgba(162,89,255,0.5);
+      border:2px solid #fff;">
+      <span style="transform:rotate(45deg);color:#fff;font-weight:800;font-size:12px;font-family:sans-serif;">${num}</span>
+    </div>`,
+    iconSize:[30,30],
+    iconAnchor:[15,28],
+  });
+}
+
+const spotMarkers = {};
+spots.forEach(s=>{
+  const marker = L.marker([s.lat, s.lng], {icon: coralIcon(s.id)}).addTo(map);
+  const gurl = `https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}&destination_place_id=`;
+  marker.bindPopup(`
+    <div class="popup-name">${s.id}. ${s.name}</div>
+    <div style="color:#7c7d8c;">${s.addr}</div>
+    <a class="popup-go" href="${gurl}" target="_blank" rel="noopener">🚶 길찾기 열기</a>
+  `);
+  spotMarkers[s.id] = marker;
+});
+
+/* ---------------- SPOT CARDS ---------------- */
+const container = document.getElementById('spotsContainer');
+spots.forEach(s=>{
+  const gurl = `https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}`;
+  const searchUrl = spotSearchUrl(s);
+  const floorHtml = s.floors.length ? `
+    <div class="floor-list">
+      ${s.floors.map(f=>{
+        const brandSpans = f.brands.map(b=>{
+          const bid = brandId(s.id, b);
+          const burl = brandSearchUrl(s, b);
+          return `<a class="brand-tag" id="brandtag-${bid}" href="${burl}" target="_blank" rel="noopener">${b}</a>`;
+        }).join('');
+        const badgeHtml = f.badge ? `<span class="floor-badge">${f.badge}</span>` : '';
+        return `<div class="floor-row"><div class="f">${f.floor}</div><div class="c">${brandSpans}${badgeHtml}</div></div>`;
+      }).join('')}
+    </div>` : '';
+  const subHtml = s.sub ? `
+    <div class="sub-spot" id="substop-${brandId(s.id, s.sub.brand)}">
+      <div class="sub-title"><a class="sub-title-link" href="${brandSearchUrl(s, s.sub.brand)}" target="_blank" rel="noopener">${s.sub.title}</a></div>
+      <p>${s.sub.desc}</p>
+    </div>` : '';
+
+  const card = document.createElement('div');
+  card.className = 'spot-card';
+  card.id = 'card-'+s.id;
+  card.innerHTML = `
+    <div class="spot-head">
+      <div class="pick-order-badge" id="badge-${s.id}"></div>
+      <div class="spot-num">${s.id}</div>
+      <div class="spot-titles">
+        <h3><a class="spot-name-link" href="${searchUrl}" target="_blank" rel="noopener">${s.name}</a></h3>
+        <div class="en">${s.en}</div>
+      </div>
+    </div>
+    <div class="spot-body">
+      <div class="spot-row"><span class="icon">📍</span><span>${s.addr}</span></div>
+      <div class="spot-row"><span class="icon">🚶</span><span>${s.access}</span></div>
+      <div class="spot-row"><span class="icon">🕒</span><span>${s.hours}</span></div>
+      ${floorHtml}
+      <div class="spot-note">💬 ${s.note}</div>
+      ${subHtml}
+      <div class="spot-actions">
+        <a class="btn-nav" href="${gurl}" target="_blank" rel="noopener">🧭 여기로 가기</a>
+        <div class="btn-dist" id="dist-${s.id}">-<small>거리</small></div>
+      </div>
+    </div>
+  `;
+  container.appendChild(card);
+});
+
+/* ---------------- CHECKLIST (브랜드 단위) ---------------- */
+const checkGrid = document.getElementById('checkGrid');
+allBrands.forEach((b, idx)=>{
+  const bid = brandId(b.spotId, b.brand);
+  const item = document.createElement('div');
+  item.className = 'check-item';
+  item.id = 'check-'+bid;
+  item.innerHTML = `
+    <input type="checkbox" id="cb-${bid}" data-bid="${bid}" data-spot="${b.spotId}">
+    <label for="cb-${bid}">${b.brand}<span class="check-sub">${b.spotName}${b.isSub ? ' 근처' : ' · '+b.floor}</span></label>
+  `;
+  item.addEventListener('click', (e)=>{
+    // label 클릭이면 브라우저가 이미 체크박스를 토글해주므로 추가 토글 안 함
+    // input을 직접 클릭한 경우도 브라우저가 처리하므로 추가 토글 안 함
+    // 그 외 여백(빈 공간) 클릭 시에만 수동으로 토글
+    if(e.target.tagName !== 'INPUT' && e.target.tagName !== 'LABEL' && !e.target.closest('label')){
+      const cb = item.querySelector('input');
+      cb.checked = !cb.checked;
+      cb.dispatchEvent(new Event('change'));
+    }
+  });
+  item.querySelector('input').addEventListener('change', ()=>{
+    item.classList.toggle('checked', item.querySelector('input').checked);
+    updateCheckCount();
+  });
+  checkGrid.appendChild(item);
+});
+
+function updateCheckCount(){
+  const n = document.querySelectorAll('#checkGrid input:checked').length;
+  document.getElementById('checkCount').textContent = `${n}개 선택`;
+}
+
+function resetChecks(){
+  document.querySelectorAll('#checkGrid input').forEach(cb=>{
+    cb.checked = false;
+    cb.closest('.check-item').classList.remove('checked');
+  });
+  updateCheckCount();
+  clearHighlights();
+  document.getElementById('routeResult').classList.remove('show');
+}
+
+function clearHighlights(){
+  spots.forEach(s=>{
+    const card = document.getElementById('card-'+s.id);
+    card.classList.remove('dimmed','picked');
+    const badge = document.getElementById('badge-'+s.id);
+    if(badge) badge.textContent = '';
+  });
+  document.querySelectorAll('.brand-tag.hl').forEach(el=>el.classList.remove('hl'));
+  document.querySelectorAll('.sub-spot.hl').forEach(el=>el.classList.remove('hl'));
+}
+
+/* 최근접 이웃(Nearest Neighbor) 방식으로 최단 동선 계산 */
+function nearestNeighborRoute(selected, startLat, startLng){
+  const remaining = [...selected];
+  const route = [];
+  let curLat = startLat, curLng = startLng;
+
+  while(remaining.length){
+    let bestIdx = 0, bestDist = Infinity;
+    remaining.forEach((s, idx)=>{
+      const d = haversine(curLat, curLng, s.lat, s.lng);
+      if(d < bestDist){ bestDist = d; bestIdx = idx; }
+    });
+    const next = remaining.splice(bestIdx, 1)[0];
+    route.push(next);
+    curLat = next.lat; curLng = next.lng;
+  }
+  return route;
+}
+
+function planRoute(){
+  const checkedBoxes = Array.from(document.querySelectorAll('#checkGrid input:checked'));
+  const resultBox = document.getElementById('routeResult');
+  const chainBox = document.getElementById('rrChain');
+  const subBox = document.getElementById('rrSub');
+
+  if(checkedBoxes.length === 0){
+    resultBox.classList.remove('show');
+    alert('앗, 최소 브랜드 한 개는 체크해줘야 동선을 짤 수 있어!');
+    return;
+  }
+
+  // 체크된 브랜드들이 속한 매장 id 집합 (중복 제거, 매장당 몇 개 브랜드 체크됐는지도 카운트)
+  const checkedSpotIds = [...new Set(checkedBoxes.map(cb => parseInt(cb.dataset.spot)))];
+  const brandCountBySpot = {};
+  checkedBoxes.forEach(cb=>{
+    const sid = parseInt(cb.dataset.spot);
+    brandCountBySpot[sid] = (brandCountBySpot[sid]||0) + 1;
+  });
+
+  const selected = spots.filter(s => checkedSpotIds.includes(s.id));
+
+  // 시작점: 내 위치가 있으면 거기서부터, 없으면 텐진역(1번 미나텐진 근처) 기준
+  let startLat, startLng;
+  if(myLocation){
+    startLat = myLocation.lat; startLng = myLocation.lng;
+  } else {
+    startLat = 33.5927599; startLng = 130.3985129; // 텐진역 근방 기준
+  }
+
+  const ordered = selected.length > 1
+    ? nearestNeighborRoute(selected, startLat, startLng)
+    : selected;
+
+  // 카드 dim/강조 처리
+  spots.forEach(s=>{
+    const card = document.getElementById('card-'+s.id);
+    const badge = document.getElementById('badge-'+s.id);
+    if(checkedSpotIds.includes(s.id)){
+      card.classList.remove('dimmed');
+      card.classList.add('picked');
+      const orderNum = ordered.findIndex(o=>o.id===s.id) + 1;
+      if(badge) badge.textContent = orderNum;
+      const h3 = card.querySelector('.spot-titles h3');
+      h3.style.animation = 'none';
+      void h3.offsetWidth;
+      h3.style.animation = '';
+    } else {
+      card.classList.add('dimmed');
+      card.classList.remove('picked');
+      if(badge) badge.textContent = '';
+    }
+  });
+
+  // 브랜드 줄 형광펜: 체크된 브랜드만 콕 집어 강조
+  document.querySelectorAll('.brand-tag.hl').forEach(el=>el.classList.remove('hl'));
+  document.querySelectorAll('.sub-spot.hl').forEach(el=>el.classList.remove('hl'));
+  checkedBoxes.forEach(cb=>{
+    const bid = cb.dataset.bid;
+    const tag = document.getElementById('brandtag-'+bid);
+    if(tag) tag.classList.add('hl');
+    const subEl = document.getElementById('substop-'+bid);
+    if(subEl) subEl.classList.add('hl');
+  });
+
+  // 동선 배너 채우기 — 매장명 + 그 매장에서 찜한 브랜드 개수 표시
+  chainBox.innerHTML = ordered.map((s, i)=>{
+    const cnt = brandCountBySpot[s.id] || 0;
+    const stepHtml = `<span class="rr-step">${i+1}. ${s.name} <small>(${cnt}곳)</small></span>`;
+    return i < ordered.length - 1 ? stepHtml + `<span class="rr-arrow">→</span>` : stepHtml;
+  }).join('');
+
+  // 총 이동거리 계산
+  let totalKm = 0;
+  let curLat = startLat, curLng = startLng;
+  ordered.forEach(s=>{
+    totalKm += haversine(curLat, curLng, s.lat, s.lng);
+    curLat = s.lat; curLng = s.lng;
+  });
+  const walkMin = Math.round(totalKm * 13); // 도보 약 4.6km/h 기준 대략 환산
+  const startLabel = myLocation ? '지금 네 위치' : '텐진역';
+  subBox.textContent = `${startLabel}에서 출발 · 브랜드 ${checkedBoxes.length}개 · 총 이동거리 약 ${totalKm.toFixed(1)}km · 도보 약 ${walkMin}분 예상이야`;
+
+  resultBox.classList.add('show');
+
+  // 지도에서 첫 번째 목적지로 부드럽게 이동 + 첫 카드로 스크롤
+  if(ordered.length){
+    map.flyTo([ordered[0].lat, ordered[0].lng], 16, {duration:0.8});
+  }
+  resultBox.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+/* ---------------- GEOLOCATION ---------------- */
+let myLocation = null;
+
+let myMarker = null;
+
+function haversine(lat1, lng1, lat2, lng2){
+  const R = 6371; // km
+  const toRad = d => d * Math.PI/180;
+  const dLat = toRad(lat2-lat1);
+  const dLng = toRad(lng2-lng1);
+  const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLng/2)**2;
+  const c = 2*Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  return R*c;
+}
+
+function locateMe(){
+  const btn = document.getElementById('locateBtn');
+  const status = document.getElementById('locateStatus');
+  status.className = '';
+  status.textContent = '위치 찾는 중이야... 잠깐만!';
+  btn.classList.add('loading');
+  btn.textContent = '찾는 중...';
+
+  if(!navigator.geolocation){
+    status.className = 'err';
+    status.textContent = '앗, 이 브라우저는 위치 기능을 못 쓰나봐 😢';
+    btn.classList.remove('loading');
+    btn.textContent = '위치 켜기';
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    (pos)=>{
+      const {latitude, longitude} = pos.coords;
+      myLocation = {lat: latitude, lng: longitude};
+      status.className = 'ok';
+      status.textContent = '좋아, 위치 찾았어! 가까운 순서로 거리 표시해줄게 ✨';
+      btn.classList.remove('loading');
+      btn.textContent = '다시 찾기';
+
+      if(myMarker) map.removeLayer(myMarker);
+      myMarker = L.marker([latitude, longitude], {
+        icon: L.divIcon({
+          className:'',
+          html:`<div style="
+            width:20px;height:20px;border-radius:50%;
+            background:#1c2542;border:3px solid #fff;
+            box-shadow:0 0 0 6px rgba(28,37,66,0.2), 0 3px 8px rgba(0,0,0,0.3);"></div>`,
+          iconSize:[20,20], iconAnchor:[10,10],
+        })
+      }).addTo(map).bindPopup('📍 지금 여기 있어!');
+
+      map.setView([latitude, longitude], 15);
+
+      // 거리 계산 + 표시
+      spots.forEach(s=>{
+        const d = haversine(latitude, longitude, s.lat, s.lng);
+        const el = document.getElementById('dist-'+s.id);
+        if(el){
+          const text = d < 1 ? `${Math.round(d*1000)}m` : `${d.toFixed(1)}km`;
+          el.innerHTML = `${text}<small>거리</small>`;
+        }
+      });
+    },
+    (err)=>{
+      status.className = 'err';
+      if(err.code === 1){
+        status.textContent = '위치 권한을 허용해줘야 찾을 수 있어! 브라우저 설정에서 확인해줘 🙏';
+      } else {
+        status.textContent = '어라, 위치를 못 찾았어. 잠시 후 다시 해볼래? 🥲';
+      }
+      btn.classList.remove('loading');
+      btn.textContent = '위치 켜기';
+    },
+    { enableHighAccuracy:true, timeout:10000, maximumAge:60000 }
+  );
+}
+</script>
+</body>
+</html>
