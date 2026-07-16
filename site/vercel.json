@@ -1,0 +1,22 @@
+{
+  "redirects": [
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "shopping-tenjin.forijuni.com" }],
+      "destination": "https://shopping.forijuni.com/fukuoka-tenjin/",
+      "permanent": true
+    },
+    {
+      "source": "/board.html",
+      "has": [{ "type": "host", "value": "shopping-tenjin.forijuni.com" }],
+      "destination": "https://shopping.forijuni.com/fukuoka-tenjin/board.html",
+      "permanent": true
+    },
+    {
+      "source": "/privacy.html",
+      "has": [{ "type": "host", "value": "shopping-tenjin.forijuni.com" }],
+      "destination": "https://shopping.forijuni.com/fukuoka-tenjin/privacy.html",
+      "permanent": true
+    }
+  ]
+}
