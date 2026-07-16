@@ -1051,6 +1051,18 @@ const spots = [
     ],
     note:"9층 이벤트 공간에 다이소·스탠다드프로덕트·스리피 3개 브랜드가 함께 있어. 스탠다드프로덕트는 '조금 좋은 게 오래 간다'가 컨셉인 다이소 프리미엄 라인이야."
   },
+  {
+    id:20, name:"몽벨", en:"mont-bell Fukuoka Tenjin",
+    lat:33.5878551, lng:130.398327,
+    addr:"후쿠오카시 주오구 텐진 2-4-38 NTT-KF빌딩 1F",
+    access:"이와타야 백화점에서 남쪽으로 도보 2분, NTT-KF빌딩 1층이야",
+    hours:"10:30~21:00 (연중무휴)",
+    walk:"스투시 → 도보 1분",
+    floors:[
+      { floor:"1F", brands:["몽벨"], badge:"아웃도어 전문" },
+    ],
+    note:"일본 아웃도어 브랜드 몽벨의 텐진 매장이야. 침낭·텐트 같은 캠핑 장비부터 등산복·경량 패딩까지 폭넓게 있어. 운 좋으면 지난 시즌 상품을 세일가에 건질 수도 있어."
+  },
 ];
 
 /* 브랜드 id 생성 헬퍼 (매장id + 브랜드명 조합, 특수문자 제거) */
@@ -1136,6 +1148,7 @@ const brandCoords = {
 
 /* 매장(건물) Google Place ID — key: 매장명 */
 const spotPlaceIds = {
+  "몽벨": "ChIJCyMyd4WRQTURSWPscuG_hLw",
   "미나텐진": "ChIJtSPre46RQTURJjCpXi0cUPo",
   "원후쿠오카빌딩": "ChIJ7ZeXdwCRQTUROp-ggJ2nI4I",
   "파르코": "ChIJVVUVAI-RQTUR4O0-0xXxi0Y",

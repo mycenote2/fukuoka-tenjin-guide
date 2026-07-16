@@ -87,18 +87,27 @@ WebSearch/WebFetch로 그 매장의 **정확한 위치·층·주소·좌표·영
 
 **place_id 얻는 법 (구글맵 공유 링크 처리 포함)**:
 
-구글맵 공유 링크(`maps.app.goo.gl/...`, `goo.gl/maps/...`)는 **단축 URL이라 그 자체엔 좌표·place_id가 없다.** 링크 문자열만 보면 인식 못 하는 게 당연하니, 반드시 브라우저로 열어 실제 가게로 펼친 뒤 추출한다:
+구글맵 공유 링크(`maps.app.goo.gl/...`, `goo.gl/maps/...`)는 **단축 URL이라 그 자체엔 좌표·place_id가 없다.** 링크 문자열만 보면 인식 못 하는 게 당연하니, 반드시 브라우저로 열어 실제 가게로 펼친 뒤 추출한다.
 
-1. 브라우저(`mcp__Claude_Browser__navigate`)로 공유 링크를 연다. 공유 링크는 **단일 가게**로 펼쳐진다. (링크가 없으면 `가게이름 건물명 지역` 검색 URL `https://www.google.com/maps/search/<질의>/@<위도>,<경도>,18z`을 열되, 이건 결과 목록이 나올 수 있다.)
-2. `mcp__Claude_Browser__javascript_tool`로 place_id 추출:
+**중요:** 공유 링크가 펼쳐지는 `/maps/place/` 페이지에는 **ChIJ 형식 place_id가 없다.** hex ftid만 있으므로 변환해야 한다. (`/maps/search/` 결과 목록 페이지엔 ChIJ가 있지만, 질의가 한 곳에만 매치되면 place 페이지로 리다이렉트돼 결국 없다.) 그래서 아래 순서가 확실하다:
+
+1. 브라우저(`mcp__Claude_Browser__preview_start` 또는 `navigate`)로 공유 링크를 연다 → 단일 가게로 펼쳐진다.
+2. `get_page_text`로 **이름·주소·층·영업시간·플러스코드**를 읽는다. (층이 여기 "N층 · ..." 으로 나온다 — 단 교차검증은 필수)
+3. `javascript_tool`로 **hex ftid와 좌표**를 뽑는다:
    ```js
-   document.documentElement.innerHTML.match(/ChIJ[A-Za-z0-9_-]{20,30}/g)
+   const h = document.documentElement.innerHTML;
+   ({ ftid: h.match(/!1s(0x[0-9a-f]+:0x[0-9a-f]+)/)?.[1],   // !5s 아님! 반드시 !1s
+      coord: h.match(/!3d(-?\d+\.\d+)!4d(-?\d+\.\d+)/)?.slice(1,3) })
    ```
-   공유 링크(단일 가게)면 결과가 하나라 그게 그 가게 place_id다. 검색 목록이면 여러 개가 나오니 **공유 링크를 쓰는 게 가장 확실하다.** 같은 페이지에서 `get_page_text`로 이름·주소·좌표·플러스코드도 함께 확인한다.
-3. 검증: `https://www.google.com/maps/search/?api=1&query=<이름>&query_place_id=<ChIJ...>`를 열어 맞는 가게가 뜨는지 확인한다.
-4. 확인된 place_id를 `brandPlaceIds["매장명-브랜드명"]`(개별 입점 브랜드) 또는 `spotPlaceIds["매장명"]`(건물·단독매장)에 넣는다.
+4. ftid를 place_id로 변환:
+   ```bash
+   python3 scripts/ftid_to_placeid.py "0x...:0x..."
+   python3 scripts/ftid_to_placeid.py --selftest   # 알고리즘 의심되면 검증
+   ```
+5. 검증: `https://www.google.com/maps/search/?api=1&query=<이름>&query_place_id=<ChIJ...>`를 열어 맞는 가게가 뜨는지 눈으로 확인한다.
+6. 확인된 place_id를 `brandPlaceIds["매장명-브랜드명"]`(개별 입점 브랜드) 또는 `spotPlaceIds["매장명"]`(건물·단독매장)에 넣는다.
 
-즉 **공유 링크를 받으면 → 브라우저로 열어 → `ChIJ...` 추출 → 검증 → 데이터에 저장** 순서다. (2026-07-16 라시크 3개 브랜드를 이 방법으로 정확 카드 처리함.)
+즉 **공유 링크 → 브라우저로 열기 → 이름·주소·층·좌표 읽기 → `!1s` hex ftid 추출 → ChIJ 변환 → 검증 → 저장** 순서다. (2026-07-16 라시크 3개 브랜드, 2026-07-17 몽벨을 이 방법으로 정확 카드 처리함.)
 
 ### 6. 사용자 확인
 
