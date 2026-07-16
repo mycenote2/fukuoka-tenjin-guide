@@ -85,7 +85,20 @@ WebSearch/WebFetch로 그 매장의 **정확한 위치·층·주소·좌표·영
 - **기존 건물에 브랜드만 추가(케이스 A)**: `brandPlaceIds`에 그 브랜드 place_id를 넣으면 브랜드 카드로, 안 넣으면 건물 카드로 뜬다.
 - 정확 좌표를 아는 브랜드는 `brandCoords["매장명-브랜드명": [lat,lng]]`도 넣어두면 좌표앵커가 정확해진다.
 
-**place_id 얻는 법**: 사용자에게 그 가게의 **구글맵 공유 링크**를 받는 게 가장 쉽다. 또는 구글맵에서 가게를 찾아 place_id(`ChIJ...`로 시작)를 확보한다. 좌표앵커 검색으로 검증할 땐 브라우저로 그 URL을 열어 맞는 가게가 뜨는지 눈으로 확인한다.
+**place_id 얻는 법 (구글맵 공유 링크 처리 포함)**:
+
+구글맵 공유 링크(`maps.app.goo.gl/...`, `goo.gl/maps/...`)는 **단축 URL이라 그 자체엔 좌표·place_id가 없다.** 링크 문자열만 보면 인식 못 하는 게 당연하니, 반드시 브라우저로 열어 실제 가게로 펼친 뒤 추출한다:
+
+1. 브라우저(`mcp__Claude_Browser__navigate`)로 공유 링크를 연다. 공유 링크는 **단일 가게**로 펼쳐진다. (링크가 없으면 `가게이름 건물명 지역` 검색 URL `https://www.google.com/maps/search/<질의>/@<위도>,<경도>,18z`을 열되, 이건 결과 목록이 나올 수 있다.)
+2. `mcp__Claude_Browser__javascript_tool`로 place_id 추출:
+   ```js
+   document.documentElement.innerHTML.match(/ChIJ[A-Za-z0-9_-]{20,30}/g)
+   ```
+   공유 링크(단일 가게)면 결과가 하나라 그게 그 가게 place_id다. 검색 목록이면 여러 개가 나오니 **공유 링크를 쓰는 게 가장 확실하다.** 같은 페이지에서 `get_page_text`로 이름·주소·좌표·플러스코드도 함께 확인한다.
+3. 검증: `https://www.google.com/maps/search/?api=1&query=<이름>&query_place_id=<ChIJ...>`를 열어 맞는 가게가 뜨는지 확인한다.
+4. 확인된 place_id를 `brandPlaceIds["매장명-브랜드명"]`(개별 입점 브랜드) 또는 `spotPlaceIds["매장명"]`(건물·단독매장)에 넣는다.
+
+즉 **공유 링크를 받으면 → 브라우저로 열어 → `ChIJ...` 추출 → 검증 → 데이터에 저장** 순서다. (2026-07-16 라시크 3개 브랜드를 이 방법으로 정확 카드 처리함.)
 
 ### 6. 사용자 확인
 
