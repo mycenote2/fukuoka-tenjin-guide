@@ -409,6 +409,24 @@
   }
   .route-chip .name{ font-size:12.5px; font-weight:800; color:var(--navy); line-height:1.3; }
   .route-chip .walk{ font-size:10.5px; color:var(--sub); margin-top:2px; }
+  /* 동선에 포함된 칩: 형광 강조 (지도 형광 번호와 통일) */
+  .route-chip.in-route{
+    border-color: var(--lime-deep);
+    background:#fdffe9;
+    box-shadow:0 4px 12px rgba(200,242,62,0.35);
+  }
+  .route-chip.in-route .num{ background:var(--lime); color:var(--navy); }
+  /* 동선 짜기 전 안내 문구 */
+  .route-strip-hint{
+    flex:1 1 auto;
+    background:#f5f3fb;
+    border:1.5px dashed var(--lilac-deep);
+    border-radius:16px;
+    padding:13px 16px;
+    font-size:12.5px; color:var(--sub);
+    line-height:1.55;
+  }
+  .route-strip-hint b{ color:var(--fig-purple); font-weight:800; }
 
   /* ---------- MAP ---------- */
   .map-wrap{
@@ -731,7 +749,7 @@
   </div>
 
   <!-- ROUTE STRIP -->
-  <div class="section-title"><span class="dot"></span><h2>오늘의 동선</h2></div>
+  <div class="section-title"><span class="dot"></span><h2 id="stripTitle">추천 동선</h2></div>
   <div class="route-strip" id="routeStrip"></div>
 
   <!-- MAP -->
@@ -739,6 +757,7 @@
     <div id="map"></div>
     <div class="map-legend">
       <div class="item"><span class="legend-pin" style="background:#A259FF;"></span>쇼핑 스팟</div>
+      <div class="item"><span class="legend-pin" style="background:#E0FE6B;border:1px solid #191A23;"></span>동선 순서</div>
       <div class="item"><span class="legend-pin" style="background:#1c2542;"></span>내 위치</div>
       <div class="item">📌 핀 눌러서 바로 길찾기</div>
     </div>
@@ -1234,18 +1253,39 @@ spots.forEach(s=>{
 /* 가나다(한국어 로케일) 기준 오름차순 정렬 */
 allBrands.sort((a, b) => a.brand.localeCompare(b.brand, 'ko'));
 
-/* ---------------- ROUTE STRIP ---------------- */
+/* ---------------- ROUTE STRIP (내 동선) ---------------- */
 const stripEl = document.getElementById('routeStrip');
-spots.forEach(s=>{
-  const chip = document.createElement('div');
-  chip.className = 'route-chip';
-  chip.innerHTML = `<div class="num">${s.id}</div><div class="name">${s.name}</div><div class="walk">${s.walk}</div>`;
-  chip.onclick = ()=>{
-    document.getElementById('card-'+s.id).scrollIntoView({behavior:'smooth', block:'center'});
-    map.flyTo([s.lat, s.lng], 17, {duration:0.8});
-  };
-  stripEl.appendChild(chip);
-});
+const stripTitleEl = document.getElementById('stripTitle');
+
+/* 동선 띠를 현재 계획한 코스로 다시 그림. ordered 없으면 안내 문구만 표시 */
+function renderRouteStrip(ordered, startLat, startLng){
+  stripEl.innerHTML = '';
+  if(!ordered || ordered.length === 0){
+    stripTitleEl.textContent = '추천 동선';
+    const hint = document.createElement('div');
+    hint.className = 'route-strip-hint';
+    hint.innerHTML = "위에서 브랜드를 고르고 <b>✨ 추천 동선 짜줘</b>를 누르면, 여기에 <b>방문 순서</b>가 지도 형광 번호랑 똑같이 떠!";
+    stripEl.appendChild(hint);
+    return;
+  }
+  stripTitleEl.textContent = `내 동선 · ${ordered.length}곳`;
+  let prevLat = startLat, prevLng = startLng;
+  ordered.forEach((s, i)=>{
+    const legMin = Math.max(1, Math.round(haversine(prevLat, prevLng, s.lat, s.lng) * 13));
+    prevLat = s.lat; prevLng = s.lng;
+    const chip = document.createElement('div');
+    chip.className = 'route-chip in-route';
+    chip.innerHTML = `<div class="num">${i+1}</div><div class="name">${s.name}</div><div class="walk">🚶 ${legMin}분</div>`;
+    chip.onclick = ()=>{
+      document.getElementById('card-'+s.id).scrollIntoView({behavior:'smooth', block:'center'});
+      map.flyTo([s.lat, s.lng], 17, {duration:0.8});
+      const mk = spotMarkers[s.id];
+      if(mk) mk.openPopup();
+    };
+    stripEl.appendChild(chip);
+  });
+}
+renderRouteStrip(null);
 
 /* ---------------- MAP ---------------- */
 const map = L.map('map', { scrollWheelZoom:false }).setView([33.5900, 130.3975], 15);
@@ -1270,6 +1310,40 @@ function coralIcon(num){
   });
 }
 
+/* 동선에 포함된 매장: 형광(lime) 핀 + 방문 순서 번호 */
+function routeIcon(orderNum){
+  return L.divIcon({
+    className:'',
+    html:`<div style="
+      width:36px;height:36px;border-radius:50% 50% 50% 0;
+      background:#E0FE6B; transform:rotate(-45deg);
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 0 0 3px rgba(224,254,107,0.45), 0 6px 16px rgba(200,242,62,0.75);
+      border:2.5px solid #191A23;">
+      <span style="transform:rotate(45deg);color:#191A23;font-weight:800;font-size:15px;font-family:sans-serif;">${orderNum}</span>
+    </div>`,
+    iconSize:[36,36],
+    iconAnchor:[18,33],
+  });
+}
+
+/* 동선에 없는 매장: 흐린 회색 핀 */
+function dimIcon(num){
+  return L.divIcon({
+    className:'',
+    html:`<div style="
+      width:23px;height:23px;border-radius:50% 50% 50% 0;
+      background:#c3c3cd; transform:rotate(-45deg);
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 2px 5px rgba(0,0,0,0.15);
+      border:2px solid #fff;opacity:0.9;">
+      <span style="transform:rotate(45deg);color:#fff;font-weight:700;font-size:10px;font-family:sans-serif;">${num}</span>
+    </div>`,
+    iconSize:[23,23],
+    iconAnchor:[11,21],
+  });
+}
+
 const spotMarkers = {};
 spots.forEach(s=>{
   const marker = L.marker([s.lat, s.lng], {icon: coralIcon(s.id)}).addTo(map);
@@ -1281,6 +1355,47 @@ spots.forEach(s=>{
   `);
   spotMarkers[s.id] = marker;
 });
+
+/* 계획한 동선을 지도에 반영: 방문순서 형광 번호 + 미선택 흐리게 + 형광 점선 경로 */
+let routeLine = null;
+function popupHtml(title, s){
+  const gurl = `https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}`;
+  return `<div class="popup-name">${title}</div>
+    <div style="color:#7c7d8c;">${s.addr}</div>
+    <a class="popup-go" href="${gurl}" target="_blank" rel="noopener">🚶 길찾기 열기</a>`;
+}
+function applyRouteToMap(ordered, startLat, startLng){
+  spots.forEach(s=>{
+    const m = spotMarkers[s.id];
+    if(!m) return;
+    const idx = ordered.findIndex(o=>o.id===s.id);
+    if(idx >= 0){
+      m.setIcon(routeIcon(idx+1));
+      m.setZIndexOffset(1000);
+      m.setPopupContent(popupHtml(`${idx+1}번째 · ${s.name}`, s));
+    } else {
+      m.setIcon(dimIcon(s.id));
+      m.setZIndexOffset(0);
+      m.setPopupContent(popupHtml(`${s.id}. ${s.name}`, s));
+    }
+  });
+  if(routeLine){ map.removeLayer(routeLine); routeLine = null; }
+  const pts = [[startLat, startLng], ...ordered.map(s=>[s.lat, s.lng])];
+  routeLine = L.polyline(pts, {
+    color:'#c8f23e', weight:4.5, opacity:0.95, dashArray:'2 10', lineCap:'round'
+  }).addTo(map);
+  map.fitBounds(routeLine.getBounds(), {padding:[45,45], maxZoom:16});
+}
+function resetMapMarkers(){
+  spots.forEach(s=>{
+    const m = spotMarkers[s.id];
+    if(!m) return;
+    m.setIcon(coralIcon(s.id));
+    m.setZIndexOffset(0);
+    m.setPopupContent(popupHtml(`${s.id}. ${s.name}`, s));
+  });
+  if(routeLine){ map.removeLayer(routeLine); routeLine = null; }
+}
 
 /* ---------------- SPOT CARDS ---------------- */
 const container = document.getElementById('spotsContainer');
@@ -1373,6 +1488,8 @@ function resetChecks(){
   });
   updateCheckCount();
   clearHighlights();
+  resetMapMarkers();
+  renderRouteStrip(null);
   document.getElementById('routeResult').classList.remove('show');
 }
 
@@ -1491,9 +1608,10 @@ function planRoute(){
 
   resultBox.classList.add('show');
 
-  // 지도에서 첫 번째 목적지로 부드럽게 이동 + 첫 카드로 스크롤
+  // 지도에 방문 순서(형광 번호)·경로 반영 + 하단 '내 동선' 띠 갱신
   if(ordered.length){
-    map.flyTo([ordered[0].lat, ordered[0].lng], 16, {duration:0.8});
+    applyRouteToMap(ordered, startLat, startLng);
+    renderRouteStrip(ordered, startLat, startLng);
   }
   resultBox.scrollIntoView({behavior:'smooth', block:'start'});
 }
