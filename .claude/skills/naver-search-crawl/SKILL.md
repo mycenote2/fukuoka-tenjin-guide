@@ -63,6 +63,12 @@ python3 .claude/skills/naver-search-crawl/scripts/naver_crawl.py \
   링크 기준으로 중복 제거되므로 겹쳐도 안전하다.
 - `--source`: scrape는 `blog`(주력) / `cafe`. api는 여기에 `news`(신규 오픈·입점 소식에 강함) / `web`(티스토리·브런치) 추가.
 - `--sort`: `sim`=정확도순(기본), `date`=최신순. **최근 뜨는 브랜드**를 찾으면 `date`.
+- **게시일 필터** (둘 중 하나만):
+  - `--period 1d|1w|1m|3m|6m|1y` — 최근 N. 예: `--period 3m` = 최근 3개월.
+  - `--after 2026-01-01 --before 2026-06-30` — 정확한 범위(각 포함, 한쪽만 줘도 됨).
+  - scrape 모드에선 **네이버 서버가 직접** 걸러서 범위 밖 글은 아예 안 받는다(정확·효율). 실측 검증됨.
+  - api 모드는 서버 날짜필터가 없어 목록 `postdate`로 거른다 — 블로그는 되지만 **카페는 날짜가 없어 통과**될 수 있다.
+    날짜로 좁힐 땐 scrape 모드(기본)를 쓰는 게 확실하다.
 - `--limit`: 키워드×소스당 건수. 기본 100. (scrape는 페이지당 ~25건씩, api 상한 1000)
 - 출력 JSONL 필드: `source, query, title, link, description, postdate, author, body, body_status`.
 - 실측 성공률(2026-07 시부야, scrape): **블로그 본문 100%**, 공개 카페만 열려 카페는 ~20%(비공개는 401, 정상).

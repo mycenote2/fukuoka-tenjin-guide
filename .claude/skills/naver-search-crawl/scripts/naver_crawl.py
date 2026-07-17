@@ -22,6 +22,10 @@
     # 키 없이 (기본)
     python3 naver_crawl.py --query "일본 시부야 쇼핑" --query "시부야 쇼핑리스트" \
         --source blog,cafe --limit 100 --out research/naver/shibuya.jsonl
+    # 게시일 필터 — 최근 3개월만 (scrape는 네이버 서버가 직접 걸러줌)
+    python3 naver_crawl.py --query "시부야 쇼핑" --period 3m --out out.jsonl
+    # 게시일 필터 — 정확한 범위
+    python3 naver_crawl.py --query "시부야 쇼핑" --after 2026-01-01 --before 2026-06-30 -o out.jsonl
     # 오픈 API로 (news/web도 쓰고 싶을 때)
     python3 naver_crawl.py --mode api --query "시부야 쇼핑" --source blog,news \
         --limit 100 --out research/naver/shibuya.jsonl
@@ -159,12 +163,69 @@ SCRAPE_TABS = {
 }
 
 
-def scrape_search(source: str, query: str, limit: int, sort: str,
+# --------------------------------------------------------------------------
+# 게시일 필터
+# --------------------------------------------------------------------------
+PERIOD_DAYS = {"1d": 1, "1w": 7, "1m": 31, "3m": 93, "6m": 186, "1y": 366}
+
+
+def resolve_date_range(period: str, after: str, before: str):
+    """--period(1w 등) 또는 --after/--before 를 (after_ymd, before_ymd) 8자리 문자열로 정규화.
+
+    반환: (a, b) 각각 'YYYYMMDD' 또는 None. 둘 다 None이면 날짜 필터 없음.
+    """
+    def norm(s):
+        return re.sub(r"\D", "", s)[:8] if s else None
+
+    a, b = norm(after), norm(before)
+    for x in (a, b):
+        if x is not None and len(x) != 8:
+            sys.exit(f"날짜는 YYYY-MM-DD 형식으로: {x!r}")
+    if a and b and a > b:
+        sys.exit(f"--after({a}) 가 --before({b}) 보다 늦다.")
+    if period:
+        if a or b:
+            sys.exit("--period 와 --after/--before 는 함께 못 쓴다. 하나만.")
+        days = PERIOD_DAYS[period]
+        a = time.strftime("%Y%m%d", time.localtime(time.time() - days * 86400))
+        b = time.strftime("%Y%m%d")
+    return a, b
+
+
+def build_nso(sort: str, a: str, b: str) -> str:
+    """정렬·기간을 네이버 검색용 nso 파라미터 문자열로. 필터가 없으면 빈 문자열(검증된 기본 동작)."""
+    has_range = bool(a or b)
+    if sort == "sim" and not has_range:
+        return ""                       # 정확도순+전체기간 = nso 안 보냄 (현재 검증된 기본)
+    so = "so:dd" if sort == "date" else "so:r"
+    if has_range:
+        aa = a or "20040101"            # 네이버 블로그 시작 이전으로 하한 개방
+        bb = b or time.strftime("%Y%m%d")
+        return f"&nso={so},p:from{aa}to{bb}"
+    return f"&nso={so},p:all"
+
+
+def api_date_ok(postdate: str, a: str, b: str) -> bool:
+    """API 모드 목록 필터: postdate(YYYYMMDD)가 범위 안인가. 날짜를 모르면(카페 등) 통과시킨다."""
+    d = re.sub(r"\D", "", postdate or "")[:8]
+    if not d:
+        return True
+    if a and d < a:
+        return False
+    if b and d > b:
+        return False
+    return True
+
+
+def scrape_search(source: str, query: str, limit: int, nso: str,
                   sess: requests.Session) -> list:
-    """search.naver.com 블로그/카페 탭을 페이지네이션하며 글 링크를 모은다 (키 불필요)."""
+    """search.naver.com 블로그/카페 탭을 페이지네이션하며 글 링크를 모은다 (키 불필요).
+
+    nso: 정렬·기간 파라미터 문자열("&nso=so:dd,p:from...to..." 또는 ""). build_nso()가 만든다.
+    게시일 범위 필터는 여기서 네이버가 서버 단에서 걸러준다(정확·효율 — 범위 밖 글은 아예 안 받는다).
+    """
     ssc, pat = SCRAPE_TABS[source]
     rx = re.compile(pat)
-    nso = "&nso=so:dd,p:all" if sort == "date" else ""
     links, seen, start, stall = [], set(), 1, 0
     while len(links) < limit and start <= 1000:
         url = (f"https://search.naver.com/search.naver?ssc={ssc}"
@@ -373,6 +434,10 @@ def main():
                     help="키워드×소스당 최대 건수 (기본 100)")
     ap.add_argument("--sort", default="sim", choices=["sim", "date"],
                     help="sim=정확도순(기본), date=최신순")
+    ap.add_argument("--period", choices=list(PERIOD_DAYS),
+                    help="게시일 필터 프리셋: 1d/1w/1m/3m/6m/1y (최근 N). --after/--before 와 배타)")
+    ap.add_argument("--after", help="이 날짜부터(포함). YYYY-MM-DD")
+    ap.add_argument("--before", help="이 날짜까지(포함). YYYY-MM-DD")
     ap.add_argument("--out", "-o", required=True, help="출력 JSONL 경로")
     ap.add_argument("--no-bodies", action="store_true", help="본문 없이 목록만 수집")
     ap.add_argument("--workers", type=int, default=4, help="본문 동시 요청 수 (기본 4)")
@@ -381,6 +446,14 @@ def main():
 
     sess = requests.Session()
     sess.headers.update({"User-Agent": UA})
+
+    # --- 게시일 범위 정규화 (scrape=서버필터 / api=목록 postdate 필터) ---
+    after, before = resolve_date_range(args.period, args.after, args.before)
+    nso = build_nso(args.sort, after, before)
+    if after or before:
+        print(f"[게시일] {after or '처음'} ~ {before or '오늘'} 범위로 필터")
+        if args.mode == "api":
+            print("  (api 모드는 목록의 postdate로 거른다. 카페는 날짜가 없어 통과될 수 있음)")
 
     # --- 소스 파싱 (모드에 따라 허용 목록이 다르다) ---
     src_names = [s.strip().lower() for s in args.source.split(",") if s.strip()]
@@ -405,8 +478,10 @@ def main():
             if args.mode == "api":
                 raw = search(SOURCE_ALIASES[name], query, args.limit, args.sort, headers)
                 items = [normalize_item(it, name, query) for it in raw]
+                if after or before:      # api는 서버 날짜필터가 없어 목록 postdate로 거른다
+                    items = [it for it in items if api_date_ok(it["postdate"], after, before)]
             else:
-                items = scrape_search(name, query, args.limit, args.sort, sess)
+                items = scrape_search(name, query, args.limit, nso, sess)
             new = 0
             for rec in items:
                 link = rec.get("link", "")
