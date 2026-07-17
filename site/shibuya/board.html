@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>브랜드 요청 게시판 — 후쿠오카 텐진 쇼핑 산책</title>
-<meta name="description" content="후쿠오카 쇼핑 가이드에 추가됐으면 하는 브랜드를 요청하는 게시판. 남겨주면 다음 업데이트 때 조사해서 넣어줄게!">
-<link rel="canonical" href="https://shopping.forijuni.com/fukuoka-tenjin/board.html">
+<title>브랜드 요청 게시판 — 도쿄 시부야 쇼핑 산책</title>
+<meta name="description" content="도쿄 시부야 쇼핑 가이드에 추가됐으면 하는 브랜드를 요청하는 게시판. 남겨주면 다음 업데이트 때 조사해서 넣어줄게!">
+<link rel="canonical" href="https://shopping.forijuni.com/shibuya/board.html">
 <!-- Google AdSense (게시자 ID: ca-pub-5560359061622774) -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5560359061622774" crossorigin="anonymous"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -230,15 +230,15 @@
         <div class="field">
           <label>희망 지역</label>
           <div class="area-pills" id="areaPills">
-            <button type="button" class="area-pill on" data-area="텐진">텐진</button>
-            <button type="button" class="area-pill" data-area="하카타">하카타</button>
-            <button type="button" class="area-pill" data-area="캐널시티">캐널시티</button>
+            <button type="button" class="area-pill on" data-area="시부야">시부야</button>
+            <button type="button" class="area-pill" data-area="하라주쿠">하라주쿠</button>
+            <button type="button" class="area-pill" data-area="오모테산도">오모테산도</button>
             <button type="button" class="area-pill" data-area="기타">기타</button>
           </div>
         </div>
         <div class="field">
           <label for="commentInput">한마디 (선택)</label>
-          <textarea id="commentInput" maxlength="200" placeholder="예: 일본 한정판이 궁금해서! / 텐진에 매장 있다고 들었어"></textarea>
+          <textarea id="commentInput" maxlength="200" placeholder="예: 일본 한정판이 궁금해서! / 시부야에 매장 있다고 들었어"></textarea>
         </div>
         <div class="hp-field" aria-hidden="true">
           <label>website<input type="text" id="websiteInput" tabindex="-1"></label>
@@ -260,15 +260,15 @@
     </div>
 
     <div class="foot">
-      <a href="privacy.html">개인정보처리방침</a> · © 2026 후쿠오카 텐진 쇼핑 산책
+      <a href="privacy.html">개인정보처리방침</a> · © 2026 도쿄 시부야 쇼핑 산책
     </div>
 
   </div>
 
 <script>
 const API = "/api/requests";
-const REGION = "fukuoka-tenjin";
-let selectedArea = "텐진";
+const REGION = "shibuya";
+let selectedArea = "시부야";
 
 document.querySelectorAll(".area-pill").forEach(function(btn){
   btn.addEventListener("click", function(){

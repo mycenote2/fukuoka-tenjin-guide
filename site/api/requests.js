@@ -1,5 +1,8 @@
 const LIST_KEY = "brand_requests";
-const AREAS = ["텐진", "하카타", "캐널시티", "기타"];
+const AREAS = ["텐진", "하카타", "캐널시티", "시부야", "하라주쿠", "오모테산도", "기타"];
+const REGIONS = ["fukuoka-tenjin", "shibuya"];
+// region 필드가 없는 레거시 글은 후쿠오카 텐진 요청으로 취급한다
+const DEFAULT_REGION = "fukuoka-tenjin";
 
 let client = null;
 function getRedis() {
@@ -27,13 +30,18 @@ module.exports = async (req, res) => {
 
   try {
     if (req.method === "GET") {
-      const raw = await redis.lrange(LIST_KEY, 0, 199);
-      const items = (raw || [])
+      const raw = await redis.lrange(LIST_KEY, 0, 499);
+      let items = (raw || [])
         .map((s) => {
           try { return JSON.parse(s); } catch { return null; }
         })
         .filter(Boolean);
-      res.status(200).json({ items });
+      // ?region=shibuya 처럼 지역이 지정되면 그 지역 글만 (레거시 글은 기본 지역으로 간주)
+      const region = String((req.query && req.query.region) || "").trim();
+      if (region) {
+        items = items.filter((it) => (it.region || DEFAULT_REGION) === region);
+      }
+      res.status(200).json({ items: items.slice(0, 200) });
       return;
     }
 
@@ -52,6 +60,7 @@ module.exports = async (req, res) => {
       const brand = String(body.brand || "").trim();
       const comment = String(body.comment || "").trim();
       const area = AREAS.includes(body.area) ? body.area : "기타";
+      const region = REGIONS.includes(body.region) ? body.region : DEFAULT_REGION;
 
       if (!brand) {
         res.status(400).json({ error: "brand_required" });
@@ -78,6 +87,7 @@ module.exports = async (req, res) => {
         brand,
         comment,
         area,
+        region,
         ts: Date.now(),
       };
       await redis.lpush(LIST_KEY, JSON.stringify(item));
