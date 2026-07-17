@@ -2,18 +2,20 @@
 name: gmaps-placeid-lookup
 description: >-
   지역 + 브랜드명 목록을 주면 구글맵에서 각 브랜드를 검색해 매장 후보를 나열하고, 고른 매장의
-  Google Place ID(ChIJ...)와 확인·공유 지도링크를 마크다운 표로 정리하는 절차. 사용자가
-  "이 브랜드들 place id 찾아줘", "지역 줄테니 구글맵에서 찾아 정리해줘", "공유링크/place id 뽑아줘",
-  "매장 여러 개 place_id 한 번에 정리", "이 목록 place id 표로" 라고 할 때 사용한다. 순수
-  조사·정리 전용 — 가이드 HTML 편집·배포는 하지 않는다(그건 add-fukuoka-brand 담당).
+  Google Place ID(ChIJ...)·확인/공유 지도링크와 구글맵 표시 정보(주소·층·건물·카테고리·영업상태·평점)를
+  마크다운 표로 정리하는 절차. 사용자가 "이 브랜드들 place id 찾아줘", "지역 줄테니 구글맵에서 찾아
+  정리해줘", "공유링크/place id 뽑아줘", "매장 여러 개 place_id 한 번에 정리", "이 목록 place id
+  표로", "주소·층까지 같이" 라고 할 때 사용한다. 순수 조사·정리 전용 — 가이드 HTML 편집·배포는
+  하지 않는다(그건 add-fukuoka-brand 담당).
 ---
 
 # 구글맵 Place ID 일괄 조사·정리
 
 지역과 브랜드명 목록을 받아, 각 브랜드를 구글맵에서 검색해 **매장 후보를 나열 → 사용자가 고름 → 그
-매장의 Place ID(ChIJ...)와 확인·공유 링크를 마크다운 표로 정리**하는 스킬이다. 이 스킬은 **조사와
-정리만** 한다. 결과를 실제 가이드(`site/fukuoka-tenjin/index.html`)에 넣거나 커밋·배포하는 건
-`add-fukuoka-brand` 스킬의 일이다 — 사용자가 "가이드에 넣어줘"라고 하면 그쪽으로 넘긴다.
+매장의 Place ID(ChIJ...)·확인/공유 링크와 구글맵 표시 정보(주소·층·건물·카테고리·영업상태·평점)를
+마크다운 표로 정리**하는 스킬이다. 이 스킬은 **조사와 정리만** 한다. 결과를 실제
+가이드(`site/fukuoka-tenjin/index.html`)에 넣거나 커밋·배포하는 건 `add-fukuoka-brand` 스킬의
+일이다 — 사용자가 "가이드에 넣어줘"라고 하면 그쪽으로 넘긴다.
 
 ## 언제 쓰나 / 안 쓰나
 
@@ -33,9 +35,10 @@ description: >-
 
 ## 준비물 (이 스킬 폴더 안)
 
-- `scripts/extract_candidates.js` — 브라우저에서 검색 결과 후보(이름·ftid·요약)를 뽑는 JS.
+- `scripts/extract_candidates.js` — 브라우저에서 검색 결과 후보를 뽑는 JS. 결과마다
+  **이름·ftid + 주소·층·카테고리·영업상태·평점·전화·플러스코드**를 구조화해 반환(목록/단일 리다이렉트 모두).
 - `scripts/ftid_to_placeid.py` — hex ftid → ChIJ 변환 (`--selftest` 로 알고리즘 검증 가능).
-- `scripts/build_table.py` — 고른 후보 JSON → place_id 마크다운 표 생성.
+- `scripts/build_table.py` — 고른 후보 JSON → place_id + 상세정보 마크다운 표 생성(빈 컬럼 자동 생략).
 
 ## 절차
 
@@ -59,15 +62,19 @@ https://www.google.com/maps/search/<URL인코딩된 "브랜드 지역">
 `scripts/extract_candidates.js` 내용을 `javascript_tool` 로 실행한다. 반환:
 
 ```
-{ mode:'list'|'place'|'empty', count, results:[{ name, ftid, text }] }
+{ mode:'list'|'place'|'empty', count, results:[{
+    name, ftid, addr, floor, category, hours, phone, plusCode, rating, reviews, text }] }
 ```
 
-- `mode:'list'` — 여러 매장이 매치돼 결과 피드가 뜬 경우. 피드를 끝까지 스크롤해 후보를 다 모은다.
-- `mode:'place'` — 한 곳만 강하게 매치돼 단일 페이지로 리다이렉트된 경우. 그 한 곳이 답.
+- `mode:'list'` — 여러 매장이 매치돼 결과 피드가 뜬 경우. 피드를 끝까지 스크롤해 후보를 다 모으고, 각
+  결과 카드에서 위 필드를 파싱한다.
+- `mode:'place'` — 한 곳만 강하게 매치돼 단일 페이지로 리다이렉트된 경우. 그 한 곳이 답. 상세페이지의
+  라벨 버튼(`data-item-id`)에서 주소·전화·플러스코드 등을 더 깔끔히 뽑는다.
 - `mode:'empty'` — 못 찾음. 질의를 바꿔 다시(로마자/일본어 상호명, 지역 표기 조정).
 
-`text` 에 주소·층·영업시간 요약이 들어있다 — **클로드가 읽고** 지점명·주소·층을 사람이 알아볼 수 있게
-정리한다(자동 파싱에 의존하지 말 것).
+`addr` 는 구글맵 표기 주소(건물명 포함), `floor` 는 거기서 뽑은 층이다. **둘 다 구글맵 표기 그대로라
+부정확할 수 있다** — 자동 파싱값을 맹신하지 말고, `text`(카드/상세 요약)를 **클로드가 읽어** 지점명·주소·층을
+사람이 알아볼 수 있게 확인·정리한다. 층은 [[brand-data-verify-floor]] 대로 가이드 반영 시 교차검증 필요.
 
 > **대형 체인 주의:** 구글맵은 결과를 **현재 지도 뷰포트(줌 레벨)** 기준으로 준다. 브랜드명이 특정
 > 매장과 강하게 매치되면 그 매장으로 확 줌인(17z)해 후보가 1개만 나오기도 한다. 이 임베디드
@@ -84,15 +91,16 @@ https://www.google.com/maps/search/<URL인코딩된 "브랜드 지역">
 ### 5. 표 생성
 
 고른 후보들을 JSON 배열로 만들어 `build_table.py` 에 넘긴다. 각 항목 최소 `{name, ftid}`, 있으면
-`addr`(정리한 주소·층).
+`addr, floor, category, hours, rating, reviews, phone, plusCode`(extract 결과를 그대로 넘기면 됨).
 
 ```bash
-echo '[{"name":"MUJI (JR博多시티)","ftid":"0x354191c7ec9f313d:0x589c0dfc213c97d8","addr":"JR博多시티 6F"}]' \
+echo '[{"name":"MUJI (JR博多시티)","ftid":"0x354191c7ec9f313d:0x589c0dfc213c97d8","addr":"Hakataekichuogai, 1−1 ＪＲ博多シティ ６Ｆ","floor":"6F","category":"잡화점","hours":"영업 종료 · 오전 10:00에 영업 시작","rating":"4.0","reviews":"661"}]' \
   | python3 scripts/build_table.py --title "후쿠오카 텐진"
 ```
 
-출력은 `매장/브랜드 | 주소·층 | place_id | 확인·공유 링크` 마크다운 표다. 여러 브랜드를 한 번에 조사했으면
-한 표에 모아 낸다(각 항목을 배열에 담아 한 번 호출).
+출력은 `매장/브랜드 | 주소 | 층 | 카테고리 | 영업 | 평점 | place_id | 확인·공유 링크` 마크다운 표다.
+**값이 하나도 없는 상세 컬럼은 자동 생략**된다. `--phone` 을 붙이면 전화, `--pluscode` 를 붙이면
+플러스코드 컬럼이 추가된다. 여러 브랜드를 한 번에 조사했으면 각 항목을 배열에 담아 한 번 호출해 한 표로 낸다.
 
 ### 6. 검증
 
@@ -103,11 +111,13 @@ echo '[{"name":"MUJI (JR博多시티)","ftid":"0x354191c7ec9f313d:0x589c0dfc213c
 ## 출력 예시
 
 ```
-### 후쿠오카 텐진 — Place ID
+### 후쿠오카 (무인양품) — Place ID
 
-| 매장/브랜드 | 주소·층 | place_id | 확인·공유 링크 |
-|---|---|---|---|
-| MUJI (JR博多시티) | JR博多시티 6F | `ChIJPTGf7MeRQTUR2Jc8IfwNnFg` | [지도 열기](https://www.google.com/maps/search/?api=1&query=MUJI&query_place_id=ChIJPTGf7MeRQTUR2Jc8IfwNnFg) |
+| 매장/브랜드 | 주소 | 층 | 카테고리 | 영업 | 평점 | place_id | 확인·공유 링크 |
+|---|---|---|---|---|---|---|---|
+| MUJI (JR博多시티) | Hakataekichuogai, 1−1 ＪＲ博多シティ ６Ｆ | ６Ｆ | 잡화점 | 영업 종료 · 오전 10:00 시작 | 4.0 (661) | `ChIJPTGf7MeRQTUR2Jc8IfwNnFg` | [지도 열기](https://www.google.com/maps/search/?api=1&query=MUJI&query_place_id=ChIJPTGf7MeRQTUR2Jc8IfwNnFg) |
+
+> 주소·층은 구글맵 표기 기준이라 부정확할 수 있다. 가이드 반영 시 2개+ 소스로 교차검증할 것.
 ```
 
 ## add-fukuoka-brand 로 넘기기
@@ -120,6 +130,7 @@ echo '[{"name":"MUJI (JR博多시티)","ftid":"0x354191c7ec9f313d:0x589c0dfc213c
 
 - [ ] 브랜드마다 `"브랜드 지역"` 으로 검색했는가
 - [ ] 후보를 이름·주소·층으로 사용자에게 제시하고 선택받았는가 (1개면 확정)
-- [ ] ftid → ChIJ 변환값이 있고, 표에 place_id + 확인·공유 링크가 다 들어갔는가
+- [ ] ftid → ChIJ 변환값이 있고, 표에 place_id + 확인·공유 링크 + 주소·층 등 상세정보가 들어갔는가
 - [ ] 확인 링크 몇 개를 열어 실제 그 가게로 뜨는지 검증했는가 (동명 타지역 주의)
+- [ ] 주소·층은 구글맵 표기라 부정확할 수 있음을 표에 명시했는가 (footnote 자동 출력)
 - [ ] (가이드 삽입 요청 시) add-fukuoka-brand 로 넘겼는가 — 이 스킬은 편집·배포 안 함
