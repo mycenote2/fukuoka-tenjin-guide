@@ -2,3 +2,7 @@
 node_modules/
 .vercel/
 .env*
+
+# 네이버 크롤 원본(남의 글 본문). 브랜드 후보 CSV는 커밋해도 된다.
+research/**/*.jsonl
+__pycache__/
