@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="google-site-verification" content="v-cacRXZNzojdXf3cee2HqJwq8aWHi_TNYVF5reFA7w">
-<title>쇼핑 산책 🛍️ — 도시별 쇼핑 가이드</title>
-<meta name="description" content="도시별 쇼핑 산책 가이드 모음. 지역을 고르면 매장 지도·브랜드 체크리스트·최단 도보 동선까지 한 번에.">
+<title>쇼핑 산책 🛍️ — 일본 도시별 쇼핑 가이드 (후쿠오카·시부야·신주쿠)</title>
+<meta name="description" content="일본 도시별 쇼핑 가이드. 가고 싶은 브랜드를 체크하면 그 브랜드가 있는 건물과 층을 알려주고 최단 도보 동선까지 자동으로 짜줍니다. 후쿠오카 텐진·도쿄 시부야·신주쿠 매장 88곳, 브랜드 314개 수록.">
 <link rel="canonical" href="https://shopping.forijuni.com/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://shopping.forijuni.com/">
-<meta property="og:title" content="쇼핑 산책 🛍️ — 도시별 쇼핑 가이드">
-<meta property="og:description" content="도시를 고르면 매장 지도·브랜드 체크리스트·최단 도보 동선까지. 걸어서 도는 쇼핑 코스 가이드.">
+<meta property="og:title" content="쇼핑 산책 🛍️ — 일본 도시별 쇼핑 가이드">
+<meta property="og:description" content="브랜드만 체크하면 층·위치·동선까지. 후쿠오카 텐진, 도쿄 시부야·신주쿠 쇼핑 코스 가이드.">
 <meta property="og:locale" content="ko_KR">
 <!-- Google AdSense (게시자 ID: ca-pub-5560359061622774) -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5560359061622774" crossorigin="anonymous"></script>
@@ -22,6 +22,7 @@
     --fig-purple:#A259FF;
     --fig-blue:#1ABCFE;
     --lime:#E0FE6B;
+    --lilac:#E4DBFF;
     --navy:#191A23;
     --navy-deep:#0e0f16;
     --cream:#FCFCFC;
@@ -64,11 +65,45 @@
   }
   .hero h1 .accent{ color:var(--fig-blue); }
   .hero p{ color:rgba(255,255,255,0.82); font-size:14.5px; max-width:400px; margin:0 auto; }
+  .hero-stats{
+    display:flex; gap:9px; justify-content:center; flex-wrap:wrap; margin-top:22px;
+  }
+  .hero-stat{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.16);
+    border-radius:13px; padding:9px 15px;
+  }
+  .hero-stat b{ display:block; font-weight:800; font-size:17px; color:var(--lime); }
+  .hero-stat span{ font-size:11px; color:rgba(255,255,255,0.7); }
+
   .section-label{
     font-size:12.5px; font-weight:700; color:var(--sub);
     letter-spacing:0.04em; text-transform:uppercase;
     margin:34px 4px 14px;
   }
+  .prose{
+    background:var(--paper); border:1px solid var(--line);
+    border-radius:18px; padding:20px 19px; box-shadow:var(--shadow);
+  }
+  .prose h2{ font-size:17px; font-weight:800; margin-bottom:9px; }
+  .prose p{ font-size:14px; line-height:1.78; color:var(--ink); margin-bottom:11px; }
+  .prose p:last-child{ margin-bottom:0; }
+  .prose strong{ font-weight:800; }
+
+  .steps{ display:grid; gap:11px; }
+  .step{
+    display:flex; gap:13px; align-items:flex-start;
+    background:var(--paper); border:1px solid var(--line);
+    border-radius:16px; padding:15px 16px; box-shadow:var(--shadow);
+  }
+  .step-no{
+    flex:0 0 27px; height:27px; border-radius:50%;
+    background:var(--lime); color:var(--navy);
+    display:grid; place-items:center; font-weight:800; font-size:13px;
+  }
+  .step-body h3{ font-size:14.5px; font-weight:800; margin-bottom:3px; }
+  .step-body p{ font-size:13px; color:var(--sub); line-height:1.65; }
+
   .city-grid{ display:grid; gap:14px; }
   a.city-card{
     display:flex; align-items:center; gap:15px;
@@ -90,6 +125,7 @@
   .city-body{ flex:1; min-width:0; }
   .city-body h2{ font-size:17px; font-weight:800; margin-bottom:3px; }
   .city-body p{ font-size:13px; color:var(--sub); }
+  .city-body .city-desc{ font-size:12.5px; color:var(--sub); margin-top:5px; line-height:1.6; }
   .city-arrow{ color:var(--fig-purple); font-weight:800; font-size:18px; }
   .city-card.soon{
     opacity:0.62; cursor:default; box-shadow:none;
@@ -102,11 +138,30 @@
     color:var(--sub); background:#e9e9ef;
     padding:2px 8px; border-radius:999px; margin-top:4px;
   }
+
+  .tip-grid{ display:grid; gap:11px; }
+  .tip{
+    background:var(--paper); border:1px solid var(--line);
+    border-radius:16px; padding:15px 16px; box-shadow:var(--shadow);
+  }
+  .tip h3{ font-size:14px; font-weight:800; margin-bottom:5px; }
+  .tip h3 .ico{ margin-right:6px; }
+  .tip p{ font-size:13px; color:var(--sub); line-height:1.7; }
+
+  .note-box{
+    background:var(--lilac); border-radius:16px;
+    padding:16px 17px; margin-top:14px;
+  }
+  .note-box h3{ font-size:14px; font-weight:800; margin-bottom:6px; color:var(--navy); }
+  .note-box p{ font-size:13px; line-height:1.7; color:var(--navy); opacity:0.85; }
+
   footer{
     margin-top:40px; text-align:center;
-    font-size:12.5px; color:var(--sub); line-height:1.7;
+    font-size:12.5px; color:var(--sub); line-height:1.9;
+    border-top:1px solid var(--line); padding-top:22px;
   }
-  footer a{ color:var(--sub); }
+  footer a{ color:var(--fig-purple); font-weight:700; text-decoration:none; }
+  footer .sep{ color:var(--line); margin:0 7px; }
 </style>
 <!-- Vercel Web Analytics -->
 <script defer src="/_vercel/insights/script.js"></script>
@@ -114,11 +169,50 @@
 <body>
   <div class="hero">
     <span class="badge">🛍️ SHOPPING SANCHAEK</span>
-    <h1>도시별 <span class="accent">쇼핑 산책</span> 가이드</h1>
-    <p>가고 싶은 도시를 고르면 매장 지도·브랜드 체크리스트·최단 도보 동선까지 한 번에 짜드려요.</p>
+    <h1>일본 <span class="accent">쇼핑 산책</span> 가이드</h1>
+    <p>가고 싶은 브랜드만 체크하면, 그 브랜드가 몇 층에 있는지와 걸어서 도는 순서까지 짜드려요.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><b>3개 도시</b><span>후쿠오카·시부야·신주쿠</span></div>
+      <div class="hero-stat"><b>88곳</b><span>매장·건물</span></div>
+      <div class="hero-stat"><b>314개</b><span>브랜드</span></div>
+    </div>
   </div>
 
   <div class="wrap">
+
+    <div class="section-label">이 사이트는</div>
+    <div class="prose">
+      <h2>브랜드부터 고르는 쇼핑 지도</h2>
+      <p>보통 여행 쇼핑 정보는 "이 백화점에 가보세요" 식으로 <strong>건물 단위</strong>로 끝나요. 그런데 막상 현지에 도착하면 궁금한 건 늘 두 가지예요. <strong>내가 사려는 브랜드가 그 건물 어디에 있는지</strong>, 그리고 <strong>여러 곳을 어떤 순서로 돌아야 덜 걷는지</strong>.</p>
+      <p>쇼핑 산책은 그 두 가지를 해결하려고 만들었어요. 브랜드 체크리스트에서 사고 싶은 곳을 고르면, 그 브랜드가 있는 건물이 지도에서 강조되고 <strong>몇 층에 있는지</strong>까지 같이 보여줘요. 그리고 고른 매장들을 현재 위치 기준으로 <strong>가까운 순서대로 이어붙인 도보 동선</strong>을 자동으로 만들어줍니다.</p>
+      <p>매장·브랜드 링크는 좌표만 찍는 게 아니라 구글맵 장소 ID로 연결해서, 누르면 <strong>정확히 그 가게의 카드</strong>가 열려요. 이름이 같은 다른 지역 매장으로 새지 않습니다.</p>
+    </div>
+
+    <div class="section-label">이렇게 쓰세요</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-no">1</div>
+        <div class="step-body">
+          <h3>도시를 고른다</h3>
+          <p>아래에서 여행 갈 지역을 선택하세요. 지역마다 독립된 지도와 브랜드 목록이 있어요.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-no">2</div>
+        <div class="step-body">
+          <h3>가고 싶은 브랜드를 체크한다</h3>
+          <p>브랜드를 체크하면 그 브랜드가 입점한 건물이 아래 카드와 지도에서 강조되고, 층별 목록에서도 콕 집어 표시돼요.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-no">3</div>
+        <div class="step-body">
+          <h3>동선을 받는다</h3>
+          <p>"추천 동선 짜줘"를 누르면 방문 순서가 지도에 번호 핀으로 찍혀요. 위치를 켜두면 지금 있는 곳에서 가까운 순으로 계산합니다.</p>
+        </div>
+      </div>
+    </div>
+
     <div class="section-label">지역 선택</div>
     <div class="city-grid">
 
@@ -126,7 +220,8 @@
         <div class="city-emoji">🇯🇵</div>
         <div class="city-body">
           <h2>후쿠오카 · 텐진</h2>
-          <p>텐진역~다이묘 거리 · 매장 18곳 · 브랜드 88개</p>
+          <p>매장 21곳 · 브랜드 91개</p>
+          <div class="city-desc">텐진역~다이묘 거리. 파르코·솔라리아·이와타야가 걸어서 이어지고, 다이묘 골목에 편집숍이 몰려 있어요.</div>
         </div>
         <div class="city-arrow">→</div>
       </a>
@@ -135,7 +230,8 @@
         <div class="city-emoji">🗼</div>
         <div class="city-body">
           <h2>도쿄 · 시부야</h2>
-          <p>스크램블~오모테산도 · 매장 23곳 · 브랜드 28개</p>
+          <p>매장 23곳 · 브랜드 28개</p>
+          <div class="city-desc">스크램블 교차로에서 파르코·오모테산도까지 한 줄로 이어지는 코스. 스트리트 브랜드가 강해요.</div>
         </div>
         <div class="city-arrow">→</div>
       </a>
@@ -144,17 +240,48 @@
         <div class="city-emoji">🛍️</div>
         <div class="city-body">
           <h2>도쿄 · 신주쿠</h2>
-          <p>이세탄~가부키초 · 매장 44곳 · 브랜드 195개</p>
+          <p>매장 44곳 · 브랜드 195개</p>
+          <div class="city-desc">이세탄·다카시마야부터 요도바시·가부키초까지. 역을 중심으로 동·서·남·가부키초 4개 존으로 나눠 정리했어요.</div>
         </div>
         <div class="city-arrow">→</div>
       </a>
 
     </div>
 
+    <div class="section-label">일본 쇼핑 전에 알아두면 좋은 것</div>
+    <div class="tip-grid">
+      <div class="tip">
+        <h3><span class="ico">🛂</span>면세(Tax Free)는 5,000엔부터</h3>
+        <p>같은 날 같은 매장에서 5,000엔 이상 사면 소비세 10%를 면제받을 수 있어요. <strong>여권 원본이 필요</strong>하고, 백화점은 보통 별도 면세 카운터에서 한 번에 처리합니다. 돈키호테·드럭스토어는 계산대에서 바로 되는 곳이 많아요.</p>
+      </div>
+      <div class="tip">
+        <h3><span class="ico">🕙</span>영업시간이 업종마다 크게 달라요</h3>
+        <p>백화점은 대체로 10:00~20:00로 <strong>생각보다 일찍 닫아요</strong>. 반대로 돈키호테는 24시간인 지점이 많고 가전양판점·드럭스토어는 22:00까지 하는 곳이 흔합니다. 백화점을 먼저, 늦게까지 하는 곳을 뒤로 배치하면 하루가 깔끔해요.</p>
+      </div>
+      <div class="tip">
+        <h3><span class="ico">🏢</span>층 표기 읽는 법</h3>
+        <p><strong>B1 = 지하 1층</strong>, <strong>M2F는 1층과 2층 사이의 중간층</strong>(메자닌)이에요. 일본은 한국과 층 세는 방식이 같아서 1F가 지상 1층입니다. 백화점 지하는 대개 식품관(데파치카)이에요.</p>
+      </div>
+      <div class="tip">
+        <h3><span class="ico">💳</span>카드는 되지만 현금도 챙기세요</h3>
+        <p>백화점·대형 체인은 카드가 잘 되지만, 작은 편집숍이나 중고샵은 <strong>현금만 받는 곳</strong>이 아직 있어요. 교통카드(스이카·파스모)로 결제되는 매장도 많으니 충전해두면 편합니다.</p>
+      </div>
+    </div>
+
+    <div class="note-box">
+      <h3>📌 데이터는 이렇게 관리해요</h3>
+      <p>매장 주소·좌표·층 정보는 각 몰의 <strong>공식 플로어가이드</strong>와 <strong>구글 지도</strong>를 교차 확인해 넣고 있어요. 확인이 안 되는 층은 추측해서 적지 않고 비워둡니다. 폐업·휴업이 확인된 매장은 목록에서 빼고 있고요. 그래도 영업시간과 입점 브랜드는 바뀔 수 있으니, 방문 전에 한 번 더 확인하는 걸 권해요.</p>
+    </div>
+
     <footer>
-      원하는 도시가 있으면 각 가이드의 요청 게시판에 남겨주세요.<br>
+      원하는 도시나 브랜드가 있으면 각 가이드의 요청 게시판에 남겨주세요.<br>
+      <a href="/privacy.html">개인정보처리방침</a>
+      <span class="sep">·</span>
+      <a href="mailto:mycenote2@gmail.com">문의</a>
+      <br>
       © 2026 쇼핑 산책 · forijuni.com
     </footer>
+
   </div>
 </body>
 </html>
