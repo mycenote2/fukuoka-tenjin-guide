@@ -154,6 +154,7 @@
   .wx-card{
     background:var(--paper); border:1px solid var(--line);
     border-radius:16px; padding:14px 15px 13px; box-shadow:var(--shadow);
+    min-width:0; /* grid 자식의 min-width:auto 때문에 스크롤 컨테이너가 안 잡히는 것 방지 */
   }
   .wx-head{
     display:flex; align-items:baseline; gap:7px;
@@ -161,8 +162,20 @@
   }
   .wx-head h3{ font-size:14.5px; font-weight:800; }
   .wx-head .wx-now{ font-size:12px; color:var(--sub); margin-left:auto; }
-  .wx-days{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+  .wx-days{
+    display:flex; gap:8px; min-width:0;
+    overflow-x:auto; overscroll-behavior-x:contain;
+    -webkit-overflow-scrolling:touch;
+    scroll-snap-type:x proximity;
+    padding-bottom:6px;
+    scrollbar-width:thin; scrollbar-color:#d7d7e0 transparent;
+  }
+  .wx-days::-webkit-scrollbar{ height:5px; }
+  .wx-days::-webkit-scrollbar-track{ background:transparent; }
+  .wx-days::-webkit-scrollbar-thumb{ background:#d7d7e0; border-radius:99px; }
+  .wx-days::-webkit-scrollbar-thumb:hover{ background:#bfbfcb; }
   .wx-day{
+    flex:0 0 88px; scroll-snap-align:start;
     text-align:center; border-radius:12px; padding:9px 5px 8px;
     background:#fafafd; border:1px solid #f0f0f5;
   }
@@ -178,8 +191,8 @@
   .wx-temp .sep{ color:#c9c9d2; margin:0 2px; font-weight:600; }
   .wx-day.today .wx-temp .sep{ color:rgba(25,26,35,0.3); }
   .wx-rain{
-    display:flex; align-items:center; justify-content:center; gap:4px;
-    font-size:11px; color:var(--sub); margin-top:4px;
+    display:flex; align-items:center; justify-content:center; gap:3px;
+    font-size:10.5px; color:var(--sub); margin-top:4px; white-space:nowrap;
   }
   .wx-rain .pop{ font-weight:700; color:#2f6feb; }
   .wx-rain .mm{ opacity:0.75; }
@@ -289,7 +302,7 @@
       </div>
     </div>
 
-    <div class="section-label">지역별 날씨 <span class="wx-note">3일 예보</span></div>
+    <div class="section-label">지역별 날씨 <span class="wx-note">7일 예보 · 옆으로 넘겨보세요 →</span></div>
     <div class="wx-grid" id="wxGrid">
       <div class="wx-loading">날씨를 불러오는 중…</div>
     </div>
@@ -406,7 +419,7 @@ async function renderWeather(){
     + `&longitude=${REGIONS.map(r=>r.lng).join(',')}`
     + '&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max'
     + '&current=temperature_2m,weather_code'
-    + '&timezone=Asia%2FTokyo&forecast_days=3';
+    + '&timezone=Asia%2FTokyo&forecast_days=7';
 
   let data;
   try{
