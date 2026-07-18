@@ -1229,15 +1229,15 @@ function routeIcon(orderNum){
   return L.divIcon({
     className:'',
     html:`<div style="
-      width:36px;height:36px;border-radius:50% 50% 50% 0;
+      width:30px;height:30px;border-radius:50% 50% 50% 0;
       background:#E0FE6B; transform:rotate(-45deg);
       display:flex;align-items:center;justify-content:center;
-      box-shadow:0 0 0 3px rgba(224,254,107,0.45), 0 6px 16px rgba(200,242,62,0.75);
-      border:2.5px solid #191A23;">
-      <span style="transform:rotate(45deg);color:#191A23;font-weight:800;font-size:15px;font-family:sans-serif;">${orderNum}</span>
+      box-shadow:0 0 0 2px rgba(224,254,107,0.45), 0 4px 10px rgba(200,242,62,0.7);
+      border:2px solid #191A23;">
+      <span style="transform:rotate(45deg);color:#191A23;font-weight:800;font-size:12px;font-family:sans-serif;">${orderNum}</span>
     </div>`,
-    iconSize:[36,36],
-    iconAnchor:[18,33],
+    iconSize:[30,30],
+    iconAnchor:[15,28],
   });
 }
 
