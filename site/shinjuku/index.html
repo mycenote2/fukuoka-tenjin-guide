@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta name="google-site-verification" content="v-cacRXZNzojdXf3cee2HqJwq8aWHi_TNYVF5reFA7w">
 <title>도쿄 신주쿠 쇼핑 산책 🛍️</title>
-<meta name="description" content="도쿄 신주쿠 쇼핑 가이드 — 이세탄·다카시마야부터 요도바시·돈키호테·가부키초까지 매장 41곳을 브랜드 체크리스트로 골라 나만의 쇼핑 동선을 짜보자. 지도·내 위치·구글맵 연결까지.">
+<meta name="description" content="도쿄 신주쿠 쇼핑 가이드 — 이세탄·다카시마야부터 요도바시·돈키호테·가부키초까지 매장 44곳을 층별 브랜드 체크리스트로 골라 나만의 쇼핑 동선을 짜보자. 지도·내 위치·구글맵 연결까지.">
 <link rel="canonical" href="https://shopping.forijuni.com/shinjuku/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://shopping.forijuni.com/shinjuku/">
@@ -709,7 +709,7 @@
     <h1>야, 우리<br>도쿄 가면<br><span class="accent">여기부터 돌자!</span><span class="edition">-신주쿠, 이세탄·가부키초 편-</span></h1>
     <p class="sub">신주쿠역을 중심으로 남구 다카시마야·서구 요도바시·동구 이세탄·가부키초까지, 존별로 돌기 좋게 짜봤어. 내 위치 켜두면 각 매장까지 얼마나 남았는지도 보여줄게 :)</p>
     <div class="hero-stats">
-      <div class="hero-stat"><b id="statSpots">41곳</b><span>핵심 스팟</span></div>
+      <div class="hero-stat"><b id="statSpots">44곳</b><span>핵심 스팟</span></div>
       <div class="hero-stat"><b>4개 존</b><span>동·서·남·가부키초</span></div>
       <div class="hero-stat"><b>역 직결</b><span>지하도로 이동</span></div>
     </div>
@@ -798,9 +798,16 @@ const spots = [
     hours:"백화점 10:30~19:30 (전문점관은 매장마다 달라)",
     walk:"신주쿠역 신남구 → 도보 2분",
     floors:[
-      { floor:"본관 1~2F", brands:["에르메스","코치","샤넬","루이비통"], badge:"명품" },
-      { floor:"본관 B1~11F", brands:["다카시마야 백화점","바오바오 이세이 미야케","미키하우스"], badge:"신남구 랜드마크" },
-      { floor:"남관·타임스퀘어", brands:["핸즈","니토리","유니클로 다카시마야점","디즈니스토어","산리오"], badge:"생활·잡화" },
+      { floor:"본관 1~2F", brands:["화장품·프래그런스"], badge:"코스메 대형 매장" },
+      { floor:"본관 B1~11F", brands:["다카시마야 백화점","에르메스","코치","샤넬","루이비통","바오바오 이세이 미야케","미키하우스"], badge:"백화점" },
+      { floor:"남관 1~5F", brands:["니토리"], badge:"가구·생활" },
+      { floor:"핸즈 2F", brands:["가방·지갑·여행용품"] },
+      { floor:"핸즈 3F", brands:["화장품·헬스&뷰티"] },
+      { floor:"핸즈 4F", brands:["문구·디자인"] },
+      { floor:"핸즈 5F", brands:["굿즈·호비·모바일"], badge:"면세 카운터" },
+      { floor:"핸즈 6F", brands:["DIY·공구·자재"] },
+      { floor:"핸즈 7F", brands:["키친·바스·침구"] },
+      { floor:"타임스퀘어관", brands:["유니클로 다카시마야점","디즈니스토어","산리오"] },
     ],
     note:"신남구를 대표하는 대형 백화점이야. 본관은 다카시마야, 옆 남관·타임스퀘어엔 핸즈·니토리·유니클로가 들어 있어서 명품부터 생활잡화까지 한 건물에서 다 돼. 면세 카운터도 있으니 여권 챙겨 가."
   },
@@ -824,7 +831,11 @@ const spots = [
     hours:"11:00~21:00",
     walk:"뉴우먼 → 도보 3분",
     floors:[
-      { floor:"B2~7F", brands:["유나이티드 도쿄","코엘","프릭스 스토어"], badge:"영패션" },
+      { floor:"B2F", brands:["스위츠·레스토랑"] },
+      { floor:"B1~4F", brands:["유나이티드 도쿄","코엘","프릭스 스토어"], badge:"어패럴 중심" },
+      { floor:"5F", brands:["잡화·서점"] },
+      { floor:"6~7F", brands:["카페·레스토랑"] },
+      { floor:"8F", brands:["뷰티 살롱"] },
     ],
     note:"신주쿠역 남서쪽 루미네 3개관 중 하나야. 20~30대 영패션·잡화 위주라 편하게 둘러보기 좋아. 루미네2랑 이어져 있어서 같이 돌면 돼."
   },
@@ -836,7 +847,10 @@ const spots = [
     hours:"11:00~21:00",
     walk:"루미네1 → 도보 1분",
     floors:[
-      { floor:"B1~6F", brands:["무인양품 루미네2점","빔즈","사만사 타바사","젤라또 피케","3COINS","KBF","지나시스","로이스 팜"], badge:"잡화·영패션" },
+      { floor:"1F", brands:["푸드·스위츠"] },
+      { floor:"2~5F", brands:["빔즈","사만사 타바사","젤라또 피케","KBF","지나시스","로이스 팜"], badge:"어패럴" },
+      { floor:"6F", brands:["무인양품 루미네2점","3COINS","잡화·화장품"], badge:"잡화·코스메" },
+      { floor:"7F", brands:["루미네 the 요시모토"], badge:"극장" },
     ],
     note:"루미네1 옆 건물이야. 무인양품·빔즈에 젤라또피케·3COINS까지 있어서 잡화·선물 쇼핑에 딱이야."
   },
@@ -848,7 +862,11 @@ const spots = [
     hours:"평일 11:00~21:00 · 주말 10:30~21:00",
     walk:"루미네2 → 도보 4분(역 반대편)",
     floors:[
-      { floor:"B2~8F", brands:["포터","히스테릭 글래머","빔즈"], badge:"동구 역직결" },
+      { floor:"B2F", brands:["빔즈"], badge:"BEAMS 신주쿠" },
+      { floor:"B1F", brands:["스위츠·푸드"] },
+      { floor:"1F", brands:["Ray BEAMS","오니츠카 타이거","New Era","LILY BROWN"], badge:"역직결 입구층" },
+      { floor:"2~5F", brands:["포터","히스테릭 글래머","영패션"], badge:"레이디스 중심" },
+      { floor:"6~8F", brands:["잡화·레스토랑"] },
     ],
     note:"신주쿠역 동구 바로 위 역직결 몰이야. 포터·히스테릭글래머 같은 브랜드에 지하 식품·디저트도 강해서 동구 쇼핑 시작점으로 좋아."
   },
@@ -938,17 +956,17 @@ const spots = [
     note:"신주쿠역 동구에서 세이부신주쿠역까지 이어지는 지하상가야. 드럭스토어 고쿠민·안경 JINS·반려동물 용품까지 잡화 위주라 비 오는 날 지하로 이동하면서 구경하기 좋아."
   },
   {
-    id:13, name:"빅카메라 신주쿠 히가시구치점 (빅쿠로)", en:"Bic Camera Shinjuku East / BICQLO",
+    id:13, name:"빅카메라 신주쿠 히가시구치점", en:"Bic Camera Shinjuku East / BICQLO",
     lat:35.6913445, lng:139.7030061,
     addr:"도쿄도 신주쿠구 신주쿠 3-29-1",
     access:"신주쿠역 동구에서 도보 2분",
     hours:"10:00~22:00",
     walk:"서브나드 → 도보 3분",
     floors:[
-      { floor:"B2~8F", brands:["빅카메라","유니클로(빅쿠로)"], badge:"가전+유니클로" },
-      { floor:"7F", brands:["GU"] },
+      { floor:"B1~6F", brands:["빅카메라"], badge:"가전·면세" },
+      { floor:"7F", brands:["GU"], badge:"GU 신주쿠 히가시구치점" },
     ],
-    note:"빅카메라와 유니클로가 한 건물에 합쳐진 '빅쿠로'로 유명해. 가전·면세부터 옷·GU까지 한 번에 되는 동구 대표 쇼핑 빌딩이야. 5,000엔 이상 면세 돼."
+    note:"신주쿠역 동구의 대형 가전양판점이야. 예전엔 유니클로와 합친 '빅쿠로'로 유명했는데 2022년에 협업이 끝나고 지금은 빅카메라 단독이야. 7층 GU는 그대로 있고, 같은 건물 1~3층엔 2024년에 새로 연 유니클로 신주쿠 본점이 들어왔어. 5,000엔 이상 면세 돼."
   },
   {
     id:14, name:"기노쿠니야 서점 신주쿠 본점", en:"Kinokuniya Bookstore Shinjuku",
@@ -982,8 +1000,8 @@ const spots = [
     hours:"11:00~20:00",
     walk:"무인양품 → 도보 3분",
     floors:[
-      { floor:"1~2F", brands:["애플스토어"], badge:"Apple 신주쿠" },
-      { floor:"B1~8F", brands:["마루이 백화점"], badge:"영패션·쥬얼리" },
+      { floor:"1F", brands:["애플스토어"], badge:"Apple 신주쿠" },
+      { floor:"B1~8F", brands:["마루이 백화점"], badge:"영패션·쥬얼리·잡화" },
     ],
     note:"젊은 층 타깃 백화점 0101(마루이)이야. 1~2층에 애플스토어 신주쿠가 들어와 있고, 위층은 트렌디한 영브랜드·쥬얼리·화장품 위주야."
   },
@@ -995,8 +1013,15 @@ const spots = [
     hours:"10:00~20:00",
     walk:"마루이 본관 → 도보 3분",
     floors:[
-      { floor:"1~2F", brands:["샤넬","디올","프라다","보테가 베네타","미우미우","불가리"], badge:"명품" },
-      { floor:"B1~7F", brands:["데코르테","슈에무라","꼼데가르송","메종 마르지엘라","메종 키츠네","요시다 포터"], badge:"코스메·디자이너" },
+      { floor:"B2F", brands:["이세탄 뷰티 아포세카리"], badge:"내추럴 코스메" },
+      { floor:"B1F", brands:["식품관(데파치카)"], badge:"관광 코스" },
+      { floor:"1F", brands:["샤넬","디올","데코르테","슈에무라","불가리"], badge:"화장품·주얼리·핸드백" },
+      { floor:"2F", brands:["TOKYO 클로젯","이세탄 더 스페이스","부인화"], badge:"트렌드 여성복·구두" },
+      { floor:"3F", brands:["꼼데가르송","메종 마르지엘라","리스타일"], badge:"디자이너즈·모드" },
+      { floor:"4F", brands:["프라다","보테가 베네타","미우미우"], badge:"인터내셔널 럭셔리" },
+      { floor:"5F", brands:["더 콘란샵","시계·리빙"] },
+      { floor:"6F", brands:["베이비·키즈","스테이셔너리","아트갤러리"] },
+      { floor:"7F", brands:["기모노","안경 살롱"] },
     ],
     note:"일본에서 제일 유명한 백화점으로 꼽히는 이세탄 신주쿠 본관이야. 명품·코스메·디자이너 라인업이 압도적이고, 지하 식품관(데파치카)은 그 자체가 관광 코스야."
   },
@@ -1008,7 +1033,14 @@ const spots = [
     hours:"10:00~20:00",
     walk:"이세탄 본관 → 바로 옆",
     floors:[
-      { floor:"B1~8F", brands:["톰 포드","릭 오웬스","남성 명품·디자이너"], badge:"남성 전용관" },
+      { floor:"B1F", brands:["신사화","가방·러기지"] },
+      { floor:"1F", brands:["코스메·프래그런스","레더굿즈","주얼리"] },
+      { floor:"2~3F", brands:["멘즈 디자이너즈"] },
+      { floor:"4F", brands:["톰 포드","멘즈 럭셔리"], badge:"명품 남성복" },
+      { floor:"5F", brands:["테일러드 클로징","오더메이드"] },
+      { floor:"6F", brands:["릭 오웬스","멘즈 크리에이터즈"] },
+      { floor:"7F", brands:["멘즈 오센틱 & 컨템포러리"] },
+      { floor:"8F", brands:["골프 가든"] },
     ],
     note:"이세탄 본관 옆 남성 전용관이야. 명품 남성복·시계·구두·그루밍까지 남성 쇼핑에 특화돼서 일본 멘즈 패션의 성지로 불려."
   },
@@ -1140,7 +1172,12 @@ const spots = [
     hours:"11:00~22:00",
     walk:"RAGTAG → 도보 5분",
     floors:[
-      { floor:"B2~8F", brands:["알펜","스포츠데포","골프5"], badge:"스포츠 대형관" },
+      { floor:"B2F", brands:["스포츠데포"], badge:"스포츠 용품" },
+      { floor:"B1F", brands:["테니스·배드민턴"], badge:"라켓 시타 180종+" },
+      { floor:"1F", brands:["러닝·바스켓"], badge:"육상트랙 소재 바닥" },
+      { floor:"2~3F", brands:["스포츠데포"] },
+      { floor:"3~5F", brands:["알펜 아웃도어스"], badge:"캠핑 플래그십" },
+      { floor:"6~7F", brands:["골프5"], badge:"시타 부스" },
     ],
     note:"지하 2층부터 8층까지 통째로 스포츠·아웃도어·골프 매장이야. 등산·캠핑 용품이랑 스니커즈 구성이 좋아서 스포츠 좋아하면 볼 게 많아."
   },
@@ -1246,11 +1283,11 @@ const spots = [
     addr:"도쿄도 신주쿠구 신주쿠 3-26-10",
     access:"신주쿠역 동구 광장 바로 앞",
     hours:"11:00~22:00",
-    walk:"빅카메라 빅쿠로 → 도보 2분",
+    walk:"빅카메라 히가시구치점 → 도보 2분",
     floors:[
       { floor:"전층", brands:["빅카메라"], badge:"역앞·면세" },
     ],
-    note:"신주쿠역 동구 광장 바로 앞 빅카메라야. 빅쿠로점과 가까워서 한쪽에 재고가 없으면 서로 넘나들며 찾기 좋아."
+    note:"신주쿠역 동구 광장 바로 앞 빅카메라야. 신주쿠3초메의 히가시구치점과 가까워서 한쪽에 재고가 없으면 서로 넘나들며 찾기 좋아."
   },
   {
     id:39, name:"RINKAN 신주쿠점", en:"RINKAN Shinjuku",
@@ -1288,6 +1325,44 @@ const spots = [
     ],
     note:"중고 PC·스마트폰·카메라 전문점이야. 서구 가전 상권이라 요도바시·야마다에서 신품 보고 여기서 중고 가격을 비교하기 좋아."
   },
+  {
+    id:42, name:"유니클로 신주쿠 본점", en:"UNIQLO Shinjuku Main Store",
+    lat:35.6913489, lng:139.7030056,
+    addr:"도쿄도 신주쿠구 신주쿠 3-29-1 (MI신주쿠 빌딩 1~3F)",
+    access:"신주쿠역 동구에서 도보 2분, 빅카메라와 같은 건물",
+    hours:"10:00~22:00",
+    walk:"빅카메라 히가시구치점 → 같은 건물",
+    floors:[
+      { floor:"1F", brands:["유니클로","유니클로 플라워"], badge:"글로벌 플래그십" },
+      { floor:"2F", brands:["유니클로","유니클로 커피","PLST","꼼투아 데 코토니에","프린세스 탐탐"] },
+      { floor:"3F", brands:["유니클로","Re.UNIQLO 스튜디오","UTme!"], badge:"커스텀·리페어" },
+    ],
+    note:"2024년 10월 옛 '빅쿠로' 자리에 새로 연 유니클로 글로벌 플래그십이야. 1~3층을 통째로 쓰고 꽃집·커피·UTme! 커스텀 프린트까지 있어서 일반 유니클로와는 완전히 다른 규모야. 면세 돼."
+  },
+  {
+    id:43, name:"요도바시 카메라 신주쿠 동구관", en:"Yodobashi Camera Shinjuku East",
+    lat:35.6916265, lng:139.7018663,
+    addr:"도쿄도 신주쿠구 신주쿠 3-26-7",
+    access:"신주쿠역 동구에서 도보 2분, 빅카메라 건너편",
+    hours:"09:30~22:00",
+    walk:"빅카메라 신주쿠역 동구점 → 도보 1분",
+    floors:[
+      { floor:"1~8F", brands:["요도바시 카메라"], badge:"동구 멀티미디어관" },
+    ],
+    note:"서구 본점과 별개인 동구 쪽 요도바시야. 서구 본점처럼 골목마다 흩어져 있지 않고 한 건물에 모여 있어서, 동구에서 쇼핑 중이면 여기가 훨씬 편해."
+  },
+  {
+    id:44, name:"돈키호테 신주쿠점 (오쿠보)", en:"Don Quijote Shinjuku (Okubo)",
+    lat:35.6987325, lng:139.703109,
+    addr:"도쿄도 신주쿠구 오쿠보 1-12-6",
+    access:"가부키초 북쪽 오쿠보, 신주쿠역에서 도보 12분",
+    hours:"24시간 영업",
+    walk:"돈키호테 가부키초점 → 도보 6분",
+    floors:[
+      { floor:"전층", brands:["돈키호테"], badge:"24시간" },
+    ],
+    note:"가부키초를 지나 오쿠보 쪽에 있는 돈키호테야. 관광객이 몰리는 동구·가부키초점보다 한산해서 같은 물건을 느긋하게 고르기 좋아. 24시간이라 늦은 밤에도 돼."
+  },
 ];
 
 /* 브랜드 id 생성 헬퍼 (매장id + 브랜드명 조합, 특수문자 제거) */
@@ -1313,7 +1388,7 @@ const spotPlaceIds = {
   "요도바시 카메라 신주쿠 니시구치 본점": "ChIJh9EUPNGMGGAR1Q9xRKA2-TA",
   "야마다덴키 LABI 신주쿠 니시구치관": "ChIJBTmYCdGMGGARf6G-9rBJy4E",
   "신주쿠 서브나드": "ChIJ05576NmMGGARlCnERJue3Y4",
-  "빅카메라 신주쿠 히가시구치점 (빅쿠로)": "ChIJT3cuPdqMGGARs6GHzB8M0yk",
+  "빅카메라 신주쿠 히가시구치점": "ChIJT3cuPdqMGGARs6GHzB8M0yk",
   "기노쿠니야 서점 신주쿠 본점": "ChIJXTJIz5JgGGARoxgg12s0rCQ",
   "무인양품 신주쿠도리점": "ChIJVYhpTNqMGGAR73ChIv391Lg",
   "신주쿠 마루이 본관": "ChIJAQDAANuMGGAR_wizPtglexs",
@@ -1342,13 +1417,16 @@ const spotPlaceIds = {
   "RINKAN 신주쿠점": "ChIJgyCCWNqMGGARR_8DDVvHTSA",
   "토모즈 신주쿠점": "ChIJycyRUsOMGGARsvUdG_lHpX4",
   "쟌파라 신주쿠점": "ChIJVfkzXdGMGGAR1HNFFSQW0Xg",
+  "유니클로 신주쿠 본점": "ChIJCT-INACNGGARWLBECvtQoNI",
+  "요도바시 카메라 신주쿠 동구관": "ChIJ9UopEtqMGGAR5aXKL_GJC2w",
+  "돈키호테 신주쿠점 (오쿠보)": "ChIJ5doT2-mMGGARj05miMZPMX0",
 };
 
 /* 브랜드별 Google Place ID (직접 조사) — key: "매장명-브랜드명" */
 const brandPlaceIds = {
   "신주쿠 마루이 본관-애플스토어": "ChIJC_yOqtuMGGAR9FuU41KJ-x0",
-  "빅카메라 신주쿠 히가시구치점 (빅쿠로)-GU": "ChIJAQAQRNqMGGARzbYmlYJExXM",
   "루미네 에스트 신주쿠-빔즈": "ChIJxe-ZptCMGGARxDSUXPipbz8",
+  "빅카메라 신주쿠 히가시구치점-GU": "ChIJAQAQRNqMGGARzbYmlYJExXM",
 };
 
 /* 브랜드의 정확한 좌표를 반환. 개별 조사 데이터가 없으면 매장(건물) 좌표로 대체 */
