@@ -1,6 +1,6 @@
 const LIST_KEY = "brand_requests";
-const AREAS = ["텐진", "하카타", "캐널시티", "시부야", "하라주쿠", "오모테산도", "기타"];
-const REGIONS = ["fukuoka-tenjin", "shibuya"];
+const AREAS = ["텐진", "하카타", "캐널시티", "시부야", "하라주쿠", "오모테산도", "신주쿠 동구", "신주쿠 서구", "가부키초", "기타"];
+const REGIONS = ["fukuoka-tenjin", "shibuya", "shinjuku"];
 // region 필드가 없는 레거시 글은 후쿠오카 텐진 요청으로 취급한다
 const DEFAULT_REGION = "fukuoka-tenjin";
 

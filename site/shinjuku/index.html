@@ -1,0 +1,1844 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="google-site-verification" content="v-cacRXZNzojdXf3cee2HqJwq8aWHi_TNYVF5reFA7w">
+<title>도쿄 신주쿠 쇼핑 산책 🛍️</title>
+<meta name="description" content="도쿄 신주쿠 쇼핑 가이드 — 이세탄·다카시마야부터 요도바시·돈키호테·가부키초까지 매장 41곳을 브랜드 체크리스트로 골라 나만의 쇼핑 동선을 짜보자. 지도·내 위치·구글맵 연결까지.">
+<link rel="canonical" href="https://shopping.forijuni.com/shinjuku/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://shopping.forijuni.com/shinjuku/">
+<meta property="og:title" content="도쿄 신주쿠 쇼핑 산책 🛍️">
+<meta property="og:description" content="신주쿠역 사방으로 이세탄·다카시마야·요도바시·가부키초까지. 가고 싶은 브랜드만 체크하면 존별 동선을 짜줄게.">
+<meta property="og:locale" content="ko_KR">
+<!-- Google AdSense (게시자 ID: ca-pub-5560359061622774) -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5560359061622774" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@330;400;480;540;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+<style>
+  :root{
+    /* Figma 스타일 팔레트 */
+    --fig-green:#0ACF83;
+    --fig-purple:#A259FF;
+    --fig-orange:#F24E1E;
+    --fig-coral:#FF7262;
+    --fig-blue:#1ABCFE;
+    --lime:#E0FE6B;
+    --lime-deep:#c8f23e;
+    --lilac:#E4DBFF;
+    --lilac-deep:#d3c4ff;
+    --navy:#191A23;
+    --navy-deep:#0e0f16;
+    --coral:var(--fig-purple);
+    --coral-soft:#f1e8ff;
+    --peach:var(--fig-blue);
+    --cream:#FCFCFC;
+    --paper:#ffffff;
+    --ink:#191A23;
+    --sub:#6b6c76;
+    --line:#e8e8ec;
+    --yellow:var(--lime);
+    --shadow: 0 10px 30px rgba(25,26,35,0.08);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Pretendard', 'Nanum Gothic', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:40px;
+  }
+  ::selection{ background:var(--peach); color:var(--navy-deep); }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    background: var(--navy);
+    color:#fff;
+    padding: 30px 20px 34px;
+    overflow:hidden;
+    border-radius: 0 0 24px 24px;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      radial-gradient(3px 3px at 20% 30%, var(--lime) 0%, transparent 60%),
+      radial-gradient(3px 3px at 80% 20%, var(--fig-purple) 0%, transparent 60%),
+      radial-gradient(2px 2px at 60% 65%, var(--fig-blue) 0%, transparent 60%),
+      radial-gradient(2px 2px at 35% 78%, rgba(255,255,255,0.5) 0%, transparent 60%),
+      radial-gradient(3px 3px at 90% 80%, var(--fig-coral) 0%, transparent 60%);
+    opacity:0.85;
+    pointer-events:none;
+  }
+  .hero-eyebrow{
+    position:relative;
+    display:inline-flex; align-items:center; gap:6px;
+    background:rgba(255,255,255,0.12);
+    border:1px solid rgba(255,255,255,0.25);
+    padding:5px 12px 5px 10px;
+    border-radius:999px;
+    font-size:12.5px;
+    letter-spacing:0.02em;
+    margin-bottom:14px;
+  }
+  .hero h1{
+    position:relative;
+    font-family:'Pretendard', sans-serif; font-weight:800;
+    font-size:clamp(26px, 7.5vw, 34px);
+    line-height:1.35;
+    margin:0 0 10px;
+    letter-spacing:-0.01em;
+  }
+  .hero h1 .accent{ color:var(--peach); }
+  .hero h1 .edition{
+    display:block;
+    margin-top:8px;
+    font-size:15px;
+    font-weight:700;
+    letter-spacing:0.02em;
+    color:var(--lime);
+  }
+  .hero p.sub{
+    position:relative;
+    font-size:15px;
+    line-height:1.65;
+    color:rgba(255,255,255,0.82);
+    margin:0 0 20px;
+    max-width:34ch;
+  }
+  .hero-stats{
+    position:relative;
+    display:flex; gap:10px; flex-wrap:wrap;
+  }
+  .hero-stat{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.16);
+    border-radius:14px;
+    padding:10px 14px;
+    flex:1 1 auto;
+    min-width:88px;
+  }
+  .hero-stat b{ display:block; font-family:'Pretendard', sans-serif; font-weight:800; font-size:19px; color:var(--yellow); }
+  .hero-stat span{ font-size:11.5px; color:rgba(255,255,255,0.7); }
+
+  /* ---------- LOCATE BAR ---------- */
+  .locate-wrap{
+    margin: -20px 16px 18px;
+    position:relative;
+    z-index:5;
+  }
+  .locate-card{
+    background:var(--paper);
+    border-radius:20px;
+    box-shadow: var(--shadow);
+    padding:16px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    border:1px solid var(--line);
+  }
+  .locate-icon{
+    flex:0 0 auto;
+    width:44px; height:44px;
+    border-radius:50%;
+    background:var(--lilac);
+    display:flex; align-items:center; justify-content:center;
+    font-size:20px;
+  }
+  .locate-text{ flex:1; min-width:0; }
+  .locate-text strong{ display:block; font-size:14.5px; color:var(--navy); }
+  .locate-text span{ font-size:12px; color:var(--sub); }
+  .locate-btn{
+    flex:0 0 auto;
+    background:var(--navy);
+    color:var(--lime);
+    border:none;
+    border-radius:999px;
+    padding:10px 16px;
+    font-family:'Pretendard',sans-serif;
+    font-weight:800;
+    font-size:13px;
+    white-space:nowrap;
+    cursor:pointer;
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .locate-btn:active{ transform:scale(0.96); }
+  .locate-btn.loading{ background:var(--sub); color:#fff; }
+  #locateStatus{
+    margin: 0 16px 16px;
+    font-size:12.5px;
+    color:var(--sub);
+    text-align:center;
+    min-height:14px;
+  }
+  #locateStatus.ok{ color:#0ACF83; font-weight:700; }
+  #locateStatus.err{ color:var(--fig-orange); font-weight:700; }
+
+  /* ---------- CHECKLIST ---------- */
+  .checklist-wrap{
+    margin: 8px 16px 20px;
+    background:var(--lime);
+    border-radius:20px;
+    box-shadow: var(--shadow);
+    border:none;
+    padding:18px 16px;
+  }
+  .checklist-head{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:12px;
+  }
+  .checklist-head h3{
+    margin:0; font-family:'Pretendard', sans-serif; font-weight:800; font-size:16px; color:var(--navy);
+  }
+  .checklist-head span{ font-size:12px; color:var(--navy); opacity:0.65; font-weight:540; }
+  .checklist-hint{
+    font-size:11.5px; color:var(--navy);
+    opacity:0.7;
+    margin: -6px 0 12px;
+    line-height:1.5;
+  }
+  .check-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:8px;
+    max-height: 420px;
+    overflow-y:auto;
+    padding-right:2px;
+  }
+  .check-grid::-webkit-scrollbar{ width:5px; }
+  .check-grid::-webkit-scrollbar-thumb{ background:rgba(25,26,35,0.2); border-radius:10px; }
+  .check-item{
+    display:flex; align-items:flex-start; gap:8px;
+    background:#fff;
+    border:1.5px solid transparent;
+    border-radius:12px;
+    padding:9px 9px;
+    cursor:pointer;
+    transition: border-color 0.15s ease, background 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .check-item.checked{
+    border-color:var(--navy);
+    background:#fff;
+  }
+  .check-item input{
+    -webkit-appearance:none; appearance:none;
+    width:18px; height:18px;
+    border-radius:6px;
+    border:2px solid var(--line);
+    background:#fff;
+    flex:0 0 auto;
+    margin-top:1px;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    position:relative;
+    transition: all 0.15s ease;
+  }
+  .check-item input:checked{
+    background:var(--navy);
+    border-color:var(--navy);
+  }
+  .check-item input:checked::after{
+    content:"✓";
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--lime); font-size:11px; font-weight:800;
+  }
+  .check-item label{
+    font-size:12.3px; font-weight:700; color:var(--navy);
+    cursor:pointer;
+    line-height:1.3;
+  }
+  .check-item label .check-sub{
+    display:block;
+    font-size:10px;
+    font-weight:400;
+    color:var(--sub);
+    margin-top:2px;
+  }
+  .checklist-actions{
+    display:flex; gap:8px; margin-top:14px;
+  }
+  .btn-plan{
+    flex:1;
+    background:var(--navy);
+    color:var(--lime);
+    border:none; border-radius:999px;
+    padding:14px;
+    font-family:'Pretendard', sans-serif; font-weight:800;
+    font-size:15px;
+    cursor:pointer;
+    transition: transform 0.15s ease;
+  }
+  .btn-plan:active{ transform:scale(0.97); }
+  .btn-reset{
+    flex:0 0 auto;
+    background:#fff;
+    border:1.5px solid var(--navy);
+    color:var(--navy);
+    border-radius:999px;
+    padding:13px 16px;
+    font-size:13px;
+    font-weight:700;
+    cursor:pointer;
+  }
+
+  /* ---------- ROUTE RESULT BANNER ---------- */
+  .route-result{
+    margin: 4px 16px 20px;
+    background: var(--navy);
+    color:#fff;
+    border-radius:20px;
+    padding:16px 18px;
+    display:none;
+  }
+  .route-result.show{ display:block; }
+  .route-result .rr-title{
+    font-family:'Pretendard', sans-serif; font-weight:800; font-size:15.5px;
+    margin-bottom:10px;
+    display:flex; align-items:center; gap:6px;
+  }
+  .route-result .rr-chain{
+    display:flex; flex-wrap:wrap; align-items:center; gap:6px;
+    font-size:12.5px;
+  }
+  .route-result .rr-step{
+    background:var(--lime);
+    color:var(--navy);
+    border:none;
+    border-radius:999px;
+    padding:5px 10px;
+    font-weight:800;
+  }
+  .route-result .rr-arrow{ color:var(--fig-purple); font-size:12px; }
+  .route-result .rr-sub{
+    margin-top:10px;
+    font-size:11.5px;
+    color:rgba(255,255,255,0.7);
+  }
+
+  /* ---------- SPOT CARD DIM / HIGHLIGHT ---------- */
+  .spot-card{ transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; }
+  .spot-card.dimmed{
+    opacity:0.35;
+    transform:scale(0.98);
+  }
+  .spot-card.picked{
+    box-shadow: 0 0 0 3px var(--coral), var(--shadow);
+  }
+  .spot-card.picked .spot-titles h3{
+    background: linear-gradient(120deg, transparent 0%, var(--yellow) 0%);
+    background-size: 100% 100%;
+    background-repeat:no-repeat;
+    animation: highlightSweep 0.7s ease forwards;
+    border-radius:4px;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    padding:1px 4px;
+  }
+  @keyframes highlightSweep{
+    from{ background-image: linear-gradient(120deg, var(--yellow) 0%, var(--yellow) 0%); background-size:0% 100%; }
+    to{ background-image: linear-gradient(120deg, var(--yellow) 0%, var(--yellow) 100%); background-size:100% 100%; }
+  }
+  .pick-order-badge{
+    display:none;
+    align-items:center; justify-content:center;
+    width:26px; height:26px;
+    border-radius:50%;
+    background:var(--coral);
+    color:#fff;
+    font-family:'Pretendard', sans-serif; font-weight:800;
+    font-size:13px;
+    flex:0 0 auto;
+    margin-right:6px;
+  }
+  .spot-card.picked .pick-order-badge{ display:flex; }
+
+  /* ---------- SECTION TITLES ---------- */
+  .section-title{
+    display:flex; align-items:center; gap:8px;
+    margin: 28px 16px 12px;
+  }
+  .section-title .dot{
+    width:9px; height:9px; border-radius:50%;
+    background:var(--fig-purple);
+    flex:0 0 auto;
+  }
+  .section-title h2{
+    font-family:'Pretendard', sans-serif; font-weight:800;
+    font-size:18px;
+    color:var(--navy);
+    margin:0;
+  }
+
+  /* ---------- ROUTE STRIP ---------- */
+  .route-strip{
+    display:flex;
+    gap:10px;
+    overflow-x:auto;
+    padding: 4px 16px 8px;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+  }
+  .route-strip::-webkit-scrollbar{ display:none; }
+  .route-chip{
+    scroll-snap-align:start;
+    flex:0 0 auto;
+    background:#fff;
+    border:1.5px solid var(--line);
+    border-radius:16px;
+    padding:10px 14px;
+    min-width:118px;
+    text-align:center;
+    cursor:pointer;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .route-chip:active{ transform:scale(0.96); }
+  .route-chip .num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:22px; height:22px;
+    background:var(--navy); color:var(--lime);
+    border-radius:50%;
+    font-size:11px; font-weight:800;
+    margin-bottom:6px;
+  }
+  .route-chip .name{ font-size:12.5px; font-weight:800; color:var(--navy); line-height:1.3; }
+  .route-chip .walk{ font-size:10.5px; color:var(--sub); margin-top:2px; }
+  /* 동선에 포함된 칩: 형광 강조 (지도 형광 번호와 통일) */
+  .route-chip.in-route{
+    border-color: var(--lime-deep);
+    background:#fdffe9;
+    box-shadow:0 4px 12px rgba(200,242,62,0.35);
+  }
+  .route-chip.in-route .num{ background:var(--lime); color:var(--navy); }
+  /* 동선 짜기 전 안내 문구 */
+  .route-strip-hint{
+    flex:1 1 auto;
+    background:#f5f3fb;
+    border:1.5px dashed var(--lilac-deep);
+    border-radius:16px;
+    padding:13px 16px;
+    font-size:12.5px; color:var(--sub);
+    line-height:1.55;
+  }
+  .route-strip-hint b{ color:var(--fig-purple); font-weight:800; }
+
+  /* ---------- MAP ---------- */
+  .map-wrap{
+    margin: 8px 16px 20px;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow: var(--shadow);
+    border:none;
+    background:var(--lilac);
+    padding:10px;
+  }
+  #map{ height:320px; width:100%; background:#eee; border-radius:12px; }
+  .map-legend{
+    display:flex; align-items:center; gap:14px;
+    background:transparent;
+    padding:10px 6px 2px;
+    font-size:11.5px;
+    color:var(--navy);
+    flex-wrap:wrap;
+  }
+  .map-legend .item{ display:flex; align-items:center; gap:5px; }
+  .legend-pin{
+    width:14px; height:14px; border-radius:50% 50% 50% 0;
+    transform:rotate(-45deg);
+    display:inline-block;
+  }
+
+  /* ---------- SPOT CARDS ---------- */
+  .spots{ padding: 4px 16px 4px; display:flex; flex-direction:column; gap:16px; }
+  .spot-card{
+    background:#fff;
+    border-radius:22px;
+    box-shadow: var(--shadow);
+    border:1px solid var(--line);
+    overflow:hidden;
+  }
+  .spot-head{
+    display:flex; align-items:center; gap:12px;
+    padding:16px 16px 12px;
+  }
+  .spot-num{
+    flex:0 0 auto;
+    width:36px; height:36px;
+    border-radius:12px;
+    background:var(--fig-purple);
+    color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Pretendard', sans-serif; font-weight:800;
+    font-size:16px;
+  }
+  .spot-titles{ flex:1; min-width:0; }
+  .spot-titles h3{
+    margin:0; font-family:'Pretendard', sans-serif; font-weight:800; font-size:17px; color:var(--navy);
+  }
+  .spot-name-link{
+    color:var(--navy);
+    text-decoration:none;
+    border-bottom:2px dotted var(--fig-purple);
+    padding-bottom:1px;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .spot-name-link:active{ color:var(--fig-purple); }
+  .spot-name-link::after{
+    content:" 📍";
+    font-size:12px;
+  }
+  .spot-titles .en{ font-size:11.5px; color:var(--sub); }
+  .spot-body{ padding: 0 16px 16px; }
+  .spot-row{
+    display:flex; gap:8px;
+    font-size:12.8px;
+    color:#4a4b58;
+    line-height:1.55;
+    margin-bottom:6px;
+  }
+  .spot-row .icon{ flex:0 0 auto; }
+  .spot-note{
+    margin-top:8px;
+    background:var(--lilac);
+    color:var(--navy);
+    font-size:12px;
+    line-height:1.6;
+    padding:9px 11px;
+    border-radius:12px;
+  }
+  .floor-list{
+    margin-top:10px;
+    border:1px solid var(--line);
+    border-radius:14px;
+    overflow:hidden;
+  }
+  .floor-row{
+    display:flex;
+    font-size:12px;
+    line-height:1.55;
+    border-bottom:1px solid var(--line);
+  }
+  .floor-row:last-child{ border-bottom:none; }
+  .floor-row .f{
+    flex:0 0 52px;
+    background:#f2f2f5;
+    color:var(--navy);
+    font-weight:800;
+    padding:8px 6px;
+    text-align:center;
+  }
+  .floor-row .c{ flex:1; padding:8px 10px; color:#4a4b58; display:flex; flex-wrap:wrap; gap:4px 6px; align-items:center; }
+  .brand-tag{
+    transition: background 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
+    border-radius:5px;
+    padding:1px 3px;
+    color:#4a4b58;
+    text-decoration:none;
+    border-bottom:1px dotted #b9bac2;
+    cursor:pointer;
+  }
+  .brand-tag:active{ color:var(--fig-purple); }
+  .brand-tag.hl{
+    background: var(--lime);
+    color:var(--navy);
+    font-weight:800;
+    box-shadow: 0 0 0 2px var(--lime);
+    border-bottom:none;
+  }
+  .brand-tag:not(:last-child)::after{ content:","; color:#4a4b58; margin-left:-3px; }
+  .brand-tag.hl:not(:last-child)::after{ content:none; }
+  .floor-badge{
+    font-size:10px;
+    color:var(--fig-purple);
+    background:var(--coral-soft);
+    border-radius:6px;
+    padding:2px 6px;
+    font-weight:800;
+    white-space:nowrap;
+  }
+  .sub-spot.hl{
+    background: var(--lilac);
+    border-radius:12px;
+    padding:10px;
+    box-shadow: 0 0 0 2px var(--fig-purple);
+  }
+  .sub-spot.hl .sub-title{ color:var(--fig-purple); }
+  .sub-title-link{
+    color:inherit;
+    text-decoration:none;
+    border-bottom:1px dotted var(--fig-purple);
+  }
+
+  .spot-actions{
+    display:flex; gap:8px;
+    margin-top:12px;
+  }
+  .btn-nav{
+    flex:1;
+    display:flex; align-items:center; justify-content:center; gap:6px;
+    background:var(--navy);
+    color:#fff;
+    text-decoration:none;
+    border-radius:999px;
+    padding:11px 10px;
+    font-size:13px;
+    font-weight:800;
+    border:none;
+    cursor:pointer;
+  }
+  .btn-nav:active{ opacity:0.85; }
+  .btn-dist{
+    flex:0 0 auto;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--cream);
+    border:1.5px solid var(--line);
+    color:var(--navy);
+    border-radius:12px;
+    padding:11px 12px;
+    font-size:12.5px;
+    font-weight:800;
+    min-width:64px;
+    text-align:center;
+  }
+  .btn-dist small{ display:block; font-weight:400; color:var(--sub); font-size:9.5px; }
+
+  /* extra sub-spots (파타고니아, 호카 etc) */
+  .sub-spot{
+    margin-top:10px;
+    border-top:1px dashed var(--line);
+    padding-top:10px;
+  }
+  .sub-spot .sub-title{
+    font-size:13px; font-weight:800; color:var(--navy); margin-bottom:3px;
+    display:flex; align-items:center; gap:6px;
+  }
+  .sub-spot .sub-title::before{ content:"➕"; font-size:11px; }
+  .sub-spot p{ font-size:12px; color:var(--sub); margin:0 0 6px; line-height:1.55; }
+
+  /* ---------- BOARD CTA ---------- */
+  .board-cta{
+    margin:30px 16px 0;
+    background:var(--navy);
+    border-radius:20px;
+    box-shadow:var(--shadow);
+    padding:24px 20px;
+    text-align:center;
+    color:#fff;
+  }
+  .board-cta b{
+    display:block;
+    font-size:17px;
+    font-weight:800;
+    margin-bottom:6px;
+  }
+  .board-cta span{
+    display:block;
+    font-size:13px;
+    line-height:1.6;
+    color:rgba(255,255,255,0.75);
+    margin-bottom:14px;
+  }
+  .board-cta a{
+    display:inline-block;
+    background:var(--lime);
+    color:var(--navy);
+    text-decoration:none;
+    font-weight:800;
+    font-size:14px;
+    padding:12px 22px;
+    border-radius:999px;
+  }
+
+  /* ---------- FOOTER ---------- */
+  .footer-note{
+    margin: 30px 16px 0;
+    text-align:center;
+    font-size:11.5px;
+    color:var(--sub);
+    line-height:1.7;
+  }
+  .footer-heart{ font-size:20px; margin-bottom:8px; }
+  .footer-links{
+    margin-top:14px;
+    display:flex; align-items:center; justify-content:center; gap:12px;
+    flex-wrap:wrap;
+  }
+  .footer-links a{
+    color:var(--navy);
+    font-weight:700;
+    text-decoration:none;
+    background:var(--lime);
+    padding:6px 14px;
+    border-radius:999px;
+    font-size:11.5px;
+  }
+  .footer-copy{ color:var(--sub); font-size:11px; }
+
+  /* leaflet popup style override */
+  .leaflet-popup-content-wrapper{
+    border-radius:14px;
+    font-family:'Pretendard',sans-serif;
+  }
+  .leaflet-popup-content{ margin:10px 12px; font-size:12.5px; }
+  .popup-name{ font-weight:800; color:var(--navy); font-size:13.5px; margin-bottom:2px;}
+  .popup-go{
+    display:inline-block; margin-top:6px;
+    background:var(--fig-purple); color:#fff; text-decoration:none;
+    padding:5px 10px; border-radius:999px; font-size:11.5px; font-weight:800;
+  }
+
+  @media (min-width:520px){
+    .hero{ border-radius:0 0 32px 32px; }
+    .spots{ padding-left:20px; padding-right:20px; }
+  }
+</style>
+<!-- Vercel Web Analytics -->
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow">🗼 2026 최신판 · 신주쿠 쇼핑 코스</div>
+    <h1>야, 우리<br>도쿄 가면<br><span class="accent">여기부터 돌자!</span><span class="edition">-신주쿠, 이세탄·가부키초 편-</span></h1>
+    <p class="sub">신주쿠역을 중심으로 남구 다카시마야·서구 요도바시·동구 이세탄·가부키초까지, 존별로 돌기 좋게 짜봤어. 내 위치 켜두면 각 매장까지 얼마나 남았는지도 보여줄게 :)</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><b id="statSpots">41곳</b><span>핵심 스팟</span></div>
+      <div class="hero-stat"><b>4개 존</b><span>동·서·남·가부키초</span></div>
+      <div class="hero-stat"><b>역 직결</b><span>지하도로 이동</span></div>
+    </div>
+  </div>
+
+  <!-- LOCATE -->
+  <div class="locate-wrap">
+    <div class="locate-card">
+      <div class="locate-icon">📍</div>
+      <div class="locate-text">
+        <strong>내 위치 불러올게</strong>
+        <span>지도에서 가까운 순서로 바로 확인 가능</span>
+      </div>
+      <button class="locate-btn" id="locateBtn" onclick="locateMe()">위치 켜기</button>
+    </div>
+  </div>
+  <div id="locateStatus"></div>
+
+  <!-- CHECKLIST -->
+  <div class="section-title"><span class="dot"></span><h2>어디 갈지 체크해봐</h2></div>
+  <div class="checklist-wrap">
+    <div class="checklist-head">
+      <h3>가고싶은 브랜드 골라줘</h3>
+      <span id="checkCount">0개 선택</span>
+    </div>
+    <div class="checklist-hint">브랜드 하나하나 체크하면 그 브랜드가 있는 건물이 아래서 강조되고, 층별 리스트에서도 콕 집어 표시해줄게 👇</div>
+    <div class="check-grid" id="checkGrid"></div>
+    <div class="checklist-actions">
+      <button class="btn-plan" id="planBtn" onclick="planRoute()">✨ 추천 동선 짜줘</button>
+      <button class="btn-reset" onclick="resetChecks()">초기화</button>
+    </div>
+  </div>
+
+  <!-- ROUTE RESULT -->
+  <div class="route-result" id="routeResult">
+    <div class="rr-title">🧡 이 순서로 돌면 딱이야!</div>
+    <div class="rr-chain" id="rrChain"></div>
+    <div class="rr-sub" id="rrSub"></div>
+  </div>
+
+  <!-- ROUTE STRIP -->
+  <div class="section-title"><span class="dot"></span><h2 id="stripTitle">추천 동선</h2></div>
+  <div class="route-strip" id="routeStrip"></div>
+
+  <!-- MAP -->
+  <div class="map-wrap">
+    <div id="map"></div>
+    <div class="map-legend">
+      <div class="item"><span class="legend-pin" style="background:#A259FF;"></span>쇼핑 스팟</div>
+      <div class="item"><span class="legend-pin" style="background:#E0FE6B;border:1px solid #191A23;"></span>동선 순서</div>
+      <div class="item"><span class="legend-pin" style="background:#1c2542;"></span>내 위치</div>
+      <div class="item">📌 핀 눌러서 바로 길찾기</div>
+    </div>
+  </div>
+
+  <!-- SPOT CARDS -->
+  <div class="section-title"><span class="dot"></span><h2>하나씩 자세히 보기</h2></div>
+  <div class="spots" id="spotsContainer"></div>
+
+  <!-- BOARD CTA -->
+  <div class="board-cta">
+    <b>여기 없는 브랜드가 있어? 🙋</b>
+    <span>가고 싶은 브랜드를 남겨주면<br>다음 업데이트 때 조사해서 추가해줄게</span>
+    <a href="board.html">브랜드 요청하러 가기 →</a>
+  </div>
+
+  <div class="footer-note">
+    <div class="footer-heart">🍡</div>
+    영업시간이랑 입점 브랜드는 가기 전에 한 번 더 확인하고 가자 ✌️
+    <div class="footer-links">
+      <a href="board.html">브랜드 요청</a>
+      <a href="privacy.html">개인정보처리방침</a>
+      <span class="footer-copy">© 2026 도쿄 신주쿠 쇼핑 산책</span>
+    </div>
+  </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+/* ---------------- DATA ---------------- */
+const spots = [
+  {
+    id:1, name:"신주쿠 다카시마야 (타임스퀘어)", en:"Takashimaya Times Square",
+    lat:35.6876291, lng:139.7025481,
+    addr:"도쿄도 시부야구 센다가야 5-24-2 (신주쿠 다카시마야 타임스퀘어)",
+    access:"신주쿠역 신남구(New South)에서 도보 2분, 코슈카이도 건너편",
+    hours:"백화점 10:30~19:30 (전문점관은 매장마다 달라)",
+    walk:"신주쿠역 신남구 → 도보 2분",
+    floors:[
+      { floor:"본관 1~2F", brands:["에르메스","코치","샤넬","루이비통"], badge:"명품" },
+      { floor:"본관 B1~11F", brands:["다카시마야 백화점","바오바오 이세이 미야케","미키하우스"], badge:"신남구 랜드마크" },
+      { floor:"남관·타임스퀘어", brands:["핸즈","니토리","유니클로 다카시마야점","디즈니스토어","산리오"], badge:"생활·잡화" },
+    ],
+    note:"신남구를 대표하는 대형 백화점이야. 본관은 다카시마야, 옆 남관·타임스퀘어엔 핸즈·니토리·유니클로가 들어 있어서 명품부터 생활잡화까지 한 건물에서 다 돼. 면세 카운터도 있으니 여권 챙겨 가."
+  },
+  {
+    id:2, name:"뉴우먼 신주쿠", en:"NEWoMan Shinjuku",
+    lat:35.6887045, lng:139.7018443,
+    addr:"도쿄도 신주쿠구 신주쿠 4-1-6 (JR 신주쿠 미라이나타워)",
+    access:"신주쿠역 신남구·미라이나타워와 직결, 다카시마야에서 도보 2분",
+    hours:"11:00~20:30 (매장마다 조금씩 달라)",
+    walk:"다카시마야 → 도보 2분",
+    floors:[
+      { floor:"M2~7F", brands:["메종 키츠네","컨버스 도쿄","에디피스","예나","골든구스","아코메야","카방 하야마","라 부쿠르"], badge:"감도 셀렉트" },
+    ],
+    note:"JR 미라이나타워에 있는 감도 높은 셀렉트 몰이야. 메종키츠네·컨버스 도쿄 같은 브랜드랑 세련된 카페가 모여 있어서 신주쿠에서 제일 트렌디한 쇼핑 스팟으로 꼽혀."
+  },
+  {
+    id:3, name:"루미네 신주쿠 1", en:"LUMINE 1 Shinjuku",
+    lat:35.6892039, lng:139.699147,
+    addr:"도쿄도 신주쿠구 니시신주쿠 1-1-5",
+    access:"신주쿠역 남구·서구에서 바로, 루미네2와 구름다리로 연결",
+    hours:"11:00~21:00",
+    walk:"뉴우먼 → 도보 3분",
+    floors:[
+      { floor:"B2~7F", brands:["유나이티드 도쿄","코엘","프릭스 스토어"], badge:"영패션" },
+    ],
+    note:"신주쿠역 남서쪽 루미네 3개관 중 하나야. 20~30대 영패션·잡화 위주라 편하게 둘러보기 좋아. 루미네2랑 이어져 있어서 같이 돌면 돼."
+  },
+  {
+    id:4, name:"루미네 신주쿠 2", en:"LUMINE 2 Shinjuku",
+    lat:35.6894787, lng:139.7010276,
+    addr:"도쿄도 신주쿠구 신주쿠 3-38-2",
+    access:"신주쿠역 남구 직결, 루미네1 옆 건물",
+    hours:"11:00~21:00",
+    walk:"루미네1 → 도보 1분",
+    floors:[
+      { floor:"B1~6F", brands:["무인양품 루미네2점","빔즈","사만사 타바사","젤라또 피케","3COINS","KBF","지나시스","로이스 팜"], badge:"잡화·영패션" },
+    ],
+    note:"루미네1 옆 건물이야. 무인양품·빔즈에 젤라또피케·3COINS까지 있어서 잡화·선물 쇼핑에 딱이야."
+  },
+  {
+    id:5, name:"루미네 에스트 신주쿠", en:"LUMINE EST Shinjuku",
+    lat:35.6912505, lng:139.7011419,
+    addr:"도쿄도 신주쿠구 신주쿠 3-38-1",
+    access:"신주쿠역 동구 바로 위 역직결, 히가시구치 광장 옆",
+    hours:"평일 11:00~21:00 · 주말 10:30~21:00",
+    walk:"루미네2 → 도보 4분(역 반대편)",
+    floors:[
+      { floor:"B2~8F", brands:["포터","히스테릭 글래머","빔즈"], badge:"동구 역직결" },
+    ],
+    note:"신주쿠역 동구 바로 위 역직결 몰이야. 포터·히스테릭글래머 같은 브랜드에 지하 식품·디저트도 강해서 동구 쇼핑 시작점으로 좋아."
+  },
+  {
+    id:6, name:"플래그스 신주쿠", en:"FLAGS Shinjuku",
+    lat:35.6899098, lng:139.7015135,
+    addr:"도쿄도 신주쿠구 신주쿠 3-37-1",
+    access:"신주쿠역 동남구에서 도보 1분, 사거리 코너",
+    hours:"11:00~21:00 (매장마다 달라)",
+    walk:"루미네 에스트 → 도보 2분",
+    floors:[
+      { floor:"B1~10F", brands:["유니클로 플래그스점","GAP","타워레코드"], badge:"캐주얼·음반" },
+    ],
+    note:"동남구 사거리 랜드마크 빌딩이야. 대형 유니클로랑 GAP, 위층 타워레코드가 층층이 들어 있어서 캐주얼 옷이랑 음반을 한 번에 볼 수 있어."
+  },
+  {
+    id:7, name:"게이오 백화점 신주쿠점", en:"Keio Department Store",
+    lat:35.6901289, lng:139.6991869,
+    addr:"도쿄도 신주쿠구 니시신주쿠 1-1-4",
+    access:"신주쿠역 서구와 직결, 게이오선·오다큐선 바로 위",
+    hours:"10:00~20:30",
+    walk:"루미네1 → 도보 3분(서구로 건너)",
+    floors:[
+      { floor:"B2~8F", brands:["게이오 백화점"], badge:"서구 역직결" },
+    ],
+    note:"신주쿠역 서구와 바로 붙은 백화점이야. 차분한 브랜드와 화과자·식품관이 강점이고, 관광객보다 현지 손님이 많아 여유롭게 둘러볼 수 있어."
+  },
+  {
+    id:8, name:"플라잉타이거 코펜하겐 게이오점", en:"Flying Tiger Copenhagen Keio Shinjuku",
+    lat:35.6900505, lng:139.6992168,
+    addr:"도쿄도 신주쿠구 니시신주쿠 1-1-4 (게이오몰)",
+    access:"게이오 백화점·게이오몰 안, 서구",
+    hours:"10:00~21:00",
+    walk:"게이오 백화점 → 바로",
+    floors:[
+      { floor:"게이오몰", brands:["플라잉타이거 코펜하겐"], badge:"북유럽 잡화" },
+    ],
+    note:"덴마크발 팬시 잡화 브랜드야. 게이오몰 안에 있어서 게이오 백화점 볼 때 같이 들르기 좋아. 저렴하고 아기자기한 소품·문구가 많아 선물용으로 인기야."
+  },
+  {
+    id:9, name:"오다큐 신주쿠 · 하르크(HALC)", en:"Odakyu HALC (Bic Camera Nishiguchi)",
+    lat:35.6925129, lng:139.6985563,
+    addr:"도쿄도 신주쿠구 니시신주쿠 1-5-1 (오다큐 하르크)",
+    access:"신주쿠역 서구에서 도보 3분 (오다큐백화점 본관은 재개발로 폐점)",
+    hours:"10:00~21:00 · 빅카메라 ~22:00",
+    walk:"게이오 백화점 → 도보 2분",
+    floors:[
+      { floor:"B2~8F", brands:["빅카메라 니시구치점"], badge:"가전·면세" },
+      { floor:"관내", brands:["오다큐 하르크"], badge:"식품·잡화" },
+    ],
+    note:"신주쿠역 서구 재개발로 오다큐백화점 본관은 문을 닫았고, 지금은 옆 하르크(HALC) 건물이 중심이야. 안에 빅카메라 니시구치점이 들어와 있어서 가전·잡화 쇼핑이 되고 지하 식품관도 인기야."
+  },
+  {
+    id:10, name:"요도바시 카메라 신주쿠 니시구치 본점", en:"Yodobashi Camera Shinjuku West",
+    lat:35.6898832, lng:139.6979532,
+    addr:"도쿄도 신주쿠구 니시신주쿠 1-11-1",
+    access:"신주쿠역 서구에서 도보 5분, 여러 전문관이 골목마다 흩어져 있어",
+    hours:"09:30~22:00",
+    walk:"오다큐 하르크 → 도보 3분",
+    floors:[
+      { floor:"멀티관", brands:["요도바시 카메라"], badge:"가전·카메라·면세" },
+    ],
+    note:"카메라·PC·게임·완구까지 전문관이 골목마다 나뉘어 있는 거대 가전양판점이야. 관마다 취급 품목이 달라서 목적 매장을 미리 확인하고 가는 게 좋아. 5,000엔 이상 면세, 여권 필수."
+  },
+  {
+    id:11, name:"야마다덴키 LABI 신주쿠 니시구치관", en:"Yamada Denki LABI Shinjuku Nishiguchi",
+    lat:35.6887251, lng:139.6979757,
+    addr:"도쿄도 신주쿠구 니시신주쿠 1-18-8",
+    access:"신주쿠역 서구에서 도보 4분, 요도바시 근처",
+    hours:"10:00~22:00",
+    walk:"요도바시 → 도보 3분",
+    floors:[
+      { floor:"B1~9F", brands:["야마다덴키 LABI"], badge:"가전·면세" },
+    ],
+    note:"요도바시·빅카메라와 함께 서구 3대 가전점으로 꼽혀. 가격 비교하며 돌기 좋고 면세 대응도 돼. 스마트폰 액세서리나 미용가전 구성이 좋아."
+  },
+  {
+    id:12, name:"신주쿠 서브나드", en:"Shinjuku Subnade",
+    lat:35.6933899, lng:139.7020889,
+    addr:"도쿄도 신주쿠구 가부키초 1-2-2 (야스쿠니도리 지하)",
+    access:"신주쿠역 동구~세이부신주쿠역을 잇는 지하상가",
+    hours:"11:00~21:00 (매장마다 달라)",
+    walk:"야마다 LABI → 지하도로 이동",
+    floors:[
+      { floor:"지하상가", brands:["고쿠민","JINS","PET PARADISE","AQUA FOREST"], badge:"동구 지하" },
+    ],
+    note:"신주쿠역 동구에서 세이부신주쿠역까지 이어지는 지하상가야. 드럭스토어 고쿠민·안경 JINS·반려동물 용품까지 잡화 위주라 비 오는 날 지하로 이동하면서 구경하기 좋아."
+  },
+  {
+    id:13, name:"빅카메라 신주쿠 히가시구치점 (빅쿠로)", en:"Bic Camera Shinjuku East / BICQLO",
+    lat:35.6913445, lng:139.7030061,
+    addr:"도쿄도 신주쿠구 신주쿠 3-29-1",
+    access:"신주쿠역 동구에서 도보 2분",
+    hours:"10:00~22:00",
+    walk:"서브나드 → 도보 3분",
+    floors:[
+      { floor:"B2~8F", brands:["빅카메라","유니클로(빅쿠로)"], badge:"가전+유니클로" },
+      { floor:"7F", brands:["GU"] },
+    ],
+    note:"빅카메라와 유니클로가 한 건물에 합쳐진 '빅쿠로'로 유명해. 가전·면세부터 옷·GU까지 한 번에 되는 동구 대표 쇼핑 빌딩이야. 5,000엔 이상 면세 돼."
+  },
+  {
+    id:14, name:"기노쿠니야 서점 신주쿠 본점", en:"Kinokuniya Bookstore Shinjuku",
+    lat:35.6919678, lng:139.7028227,
+    addr:"도쿄도 신주쿠구 신주쿠 3-17-7",
+    access:"신주쿠도리 대로변, 동구에서 도보 3분",
+    hours:"10:30~21:00",
+    walk:"빅카메라 → 도보 2분",
+    floors:[
+      { floor:"1~8F", brands:["기노쿠니야 서점"], badge:"대형 서점" },
+    ],
+    note:"1964년부터 자리를 지킨 신주쿠 대표 서점이야. 일본 책은 물론 외국서적·잡지·문구도 많아서 여행 기념 잡지나 화집 사기 좋아."
+  },
+  {
+    id:15, name:"무인양품 신주쿠도리점", en:"MUJI Shinjuku-dori",
+    lat:35.6915003, lng:139.7036479,
+    addr:"도쿄도 신주쿠구 신주쿠 3-17-1 (이사미야 빌딩 B1~3F)",
+    access:"신주쿠도리 대로변, 기노쿠니야 바로 근처",
+    hours:"11:00~21:00",
+    walk:"기노쿠니야 → 도보 1분",
+    floors:[
+      { floor:"B1~3F", brands:["무인양품"], badge:"생활·의류·잡화" },
+    ],
+    note:"신주쿠도리 대로변 무인양품이야. 의류·생활잡화·문구까지 층별로 알차서 무지 좋아하면 꼭 들러. 루미네2점보다 규모가 커."
+  },
+  {
+    id:16, name:"신주쿠 마루이 본관", en:"Shinjuku Marui Main (0101)",
+    lat:35.6908577, lng:139.7041748,
+    addr:"도쿄도 신주쿠구 신주쿠 3-30-13",
+    access:"신주쿠도리·신주쿠3초메, 동구에서 도보 4분",
+    hours:"11:00~20:00",
+    walk:"무인양품 → 도보 3분",
+    floors:[
+      { floor:"1~2F", brands:["애플스토어"], badge:"Apple 신주쿠" },
+      { floor:"B1~8F", brands:["마루이 백화점"], badge:"영패션·쥬얼리" },
+    ],
+    note:"젊은 층 타깃 백화점 0101(마루이)이야. 1~2층에 애플스토어 신주쿠가 들어와 있고, 위층은 트렌디한 영브랜드·쥬얼리·화장품 위주야."
+  },
+  {
+    id:17, name:"이세탄 신주쿠 본관", en:"Isetan Shinjuku Main Store",
+    lat:35.691574, lng:139.7046466,
+    addr:"도쿄도 신주쿠구 신주쿠 3-14-1",
+    access:"신주쿠산초메역과 직결, 동구에서 도보 5분",
+    hours:"10:00~20:00",
+    walk:"마루이 본관 → 도보 3분",
+    floors:[
+      { floor:"1~2F", brands:["샤넬","디올","프라다","보테가 베네타","미우미우","불가리"], badge:"명품" },
+      { floor:"B1~7F", brands:["데코르테","슈에무라","꼼데가르송","메종 마르지엘라","메종 키츠네","요시다 포터"], badge:"코스메·디자이너" },
+    ],
+    note:"일본에서 제일 유명한 백화점으로 꼽히는 이세탄 신주쿠 본관이야. 명품·코스메·디자이너 라인업이 압도적이고, 지하 식품관(데파치카)은 그 자체가 관광 코스야."
+  },
+  {
+    id:18, name:"이세탄 신주쿠 맨즈관", en:"Isetan Shinjuku Men's",
+    lat:35.6924056, lng:139.7046894,
+    addr:"도쿄도 신주쿠구 신주쿠 3-14-1",
+    access:"이세탄 본관 바로 옆(북쪽)",
+    hours:"10:00~20:00",
+    walk:"이세탄 본관 → 바로 옆",
+    floors:[
+      { floor:"B1~8F", brands:["톰 포드","릭 오웬스","남성 명품·디자이너"], badge:"남성 전용관" },
+    ],
+    note:"이세탄 본관 옆 남성 전용관이야. 명품 남성복·시계·구두·그루밍까지 남성 쇼핑에 특화돼서 일본 멘즈 패션의 성지로 불려."
+  },
+  {
+    id:19, name:"유니클로 신주쿠산초메점", en:"UNIQLO Shinjuku 3-chome",
+    lat:35.6918937, lng:139.7057779,
+    addr:"도쿄도 신주쿠구 신주쿠 3-13-3 (신주쿠분카 빌딩 1~2F)",
+    access:"신주쿠산초메역·이세탄 근처",
+    hours:"11:00~21:00",
+    walk:"이세탄 맨즈 → 도보 4분",
+    floors:[
+      { floor:"1~2F", brands:["유니클로"], badge:"대형 매장" },
+    ],
+    note:"동구 산초메의 큰 유니클로야. 서구 니시구치점이 재개발로 문을 닫아서 지금은 여기가 신주쿠 중심 유니클로야. UT·콜라보 재고가 넉넉하고 면세도 돼."
+  },
+  {
+    id:20, name:"신주쿠 마루이 아넥스", en:"Shinjuku Marui Annex",
+    lat:35.6901053, lng:139.7058564,
+    addr:"도쿄도 신주쿠구 신주쿠 3-1-26",
+    access:"신주쿠3초메 남쪽, 마루이 본관에서 도보 4분",
+    hours:"11:00~20:00",
+    walk:"유니클로 산초메 → 도보 4분",
+    floors:[
+      { floor:"B1~8F", brands:["마루이 아넥스"], badge:"서브컬처·굿즈" },
+    ],
+    note:"마루이 계열 중 캐릭터 굿즈와 개성 강한 패션이 모인 관이야. 애니·아이돌 팝업이나 컬래버 이벤트가 자주 열려서 서브컬처 쇼핑에 좋아."
+  },
+  {
+    id:21, name:"신주쿠 마루이 멘", en:"Shinjuku Marui Men",
+    lat:35.6926136, lng:139.7063534,
+    addr:"도쿄도 신주쿠구 신주쿠 5-16-4",
+    access:"신주쿠3초메 북동쪽, 이세탄 맨즈 근처",
+    hours:"11:00~20:00",
+    walk:"마루이 아넥스 → 도보 6분",
+    floors:[
+      { floor:"B1~8F", brands:["마루이 멘"], badge:"남성 전용관" },
+    ],
+    note:"마루이의 남성 전용관이야. 스트리트·모드 계열 남성 브랜드와 편집매장이 층층이 있어서, 이세탄 맨즈보다 캐주얼하고 영한 남성복을 보고 싶을 때 좋아."
+  },
+  {
+    id:22, name:"마츠모토키요시 신주쿠도리점", en:"Matsumoto Kiyoshi Shinjuku-dori",
+    lat:35.6915818, lng:139.7027918,
+    addr:"도쿄도 신주쿠구 신주쿠 3-29-12",
+    access:"신주쿠도리 대로변, 동구에서 도보 2분",
+    hours:"10:00~22:00",
+    walk:"마루이 멘 → 도보 5분",
+    floors:[
+      { floor:"1~2F", brands:["마츠모토키요시"], badge:"드럭스토어" },
+    ],
+    note:"일본 대표 드럭스토어 체인의 신주쿠도리 매장이야. 화장품·의약품·간식까지 다 있고 면세도 돼. 한국인에게 인기인 코스메가 잘 모여 있어."
+  },
+  {
+    id:23, name:"다이코쿠 드럭 신주쿠3초메점", en:"Daikoku Drug Shinjuku 3-chome",
+    lat:35.6918976, lng:139.7034034,
+    addr:"도쿄도 신주쿠구 신주쿠 3-17-4 (신주쿠 레미나 빌딩 1F)",
+    access:"신주쿠도리, 무인양품 바로 근처",
+    hours:"10:00~22:30",
+    walk:"마츠모토키요시 → 도보 2분",
+    floors:[
+      { floor:"1F", brands:["다이코쿠 드럭"], badge:"최저가 드럭" },
+    ],
+    note:"가격 싸기로 유명한 드럭스토어야. 마츠키요보다 저렴한 품목이 많아서 화장품·상비약을 많이 살 거면 비교해보면 좋아."
+  },
+  {
+    id:24, name:"아인즈&토르페 신주쿠", en:"Ainz & Tulpe Shinjuku",
+    lat:35.6905484, lng:139.7017888,
+    addr:"도쿄도 신주쿠구 신주쿠 3-36-10 (미라자 신주쿠 빌딩 B1~2F)",
+    access:"신주쿠역 동구에서 도보 2분",
+    hours:"10:00~22:00",
+    walk:"다이코쿠 드럭 → 도보 4분",
+    floors:[
+      { floor:"B1~2F", brands:["아인즈&토르페"], badge:"코스메 셀렉트" },
+    ],
+    note:"드럭스토어인데 화장품 편집숍 느낌이 강해. 일본 인기 코스메 랭킹이 눈에 띄게 진열돼 있어서 뭘 살지 고민될 때 구경하기 좋아."
+  },
+  {
+    id:25, name:"세카이도 신주쿠 본점", en:"Sekaido Shinjuku",
+    lat:35.6900298, lng:139.7063963,
+    addr:"도쿄도 신주쿠구 신주쿠 3-1-1 (세카이도 빌딩 1~5F)",
+    access:"신주쿠3초메역 근처, 마루이 아넥스 옆",
+    hours:"09:30~21:00",
+    walk:"마루이 아넥스 → 도보 1분",
+    floors:[
+      { floor:"1~5F", brands:["세카이도"], badge:"화방·문구" },
+    ],
+    note:"일본 최대급 화방·문구 전문점이야. 화구·색연필·마카·종이류가 층마다 가득하고 가격도 저렴해서 그림 그리는 사람이면 꼭 들러야 해."
+  },
+  {
+    id:26, name:"유니온레코드 신주쿠", en:"Union Record Shinjuku (Disk Union)",
+    lat:35.6903044, lng:139.7030375,
+    addr:"도쿄도 신주쿠구 신주쿠 3-34-1",
+    access:"신주쿠역 동구에서 도보 3분",
+    hours:"11:00~21:00",
+    walk:"세카이도 → 도보 6분",
+    floors:[
+      { floor:"1F~", brands:["유니온레코드","디스크유니온"], badge:"중고 음반" },
+    ],
+    note:"디스크유니온 계열 음반 매장이야. 중고 LP·CD가 장르별로 빼곡해서 음악 좋아하면 시간 순삭이야. 신주쿠엔 장르별 전문관이 흩어져 있어."
+  },
+  {
+    id:27, name:"2nd STREET 신주쿠점", en:"2nd STREET Shinjuku",
+    lat:35.6905573, lng:139.7042522,
+    addr:"도쿄도 신주쿠구 신주쿠 3-31-2",
+    access:"신주쿠도리 뒷골목, 동구에서 도보 4분",
+    hours:"11:00~21:00",
+    walk:"유니온레코드 → 도보 3분",
+    floors:[
+      { floor:"1~3F", brands:["2nd STREET"], badge:"중고 의류" },
+    ],
+    note:"일본 최대 중고 의류 체인이야. 브랜드 옷·가방·신발을 저렴하게 건질 수 있고 상태도 깔끔한 편이라 빈티지 쇼핑 입문으로 좋아."
+  },
+  {
+    id:28, name:"RAGTAG 신주쿠점", en:"RAGTAG Shinjuku",
+    lat:35.6901933, lng:139.7042039,
+    addr:"도쿄도 신주쿠구 신주쿠 3-32-10 (T&T 빌딩)",
+    access:"2nd STREET에서 도보 1분, 신주쿠도리 근처",
+    hours:"11:00~20:00",
+    walk:"2nd STREET → 도보 1분",
+    floors:[
+      { floor:"1~2F", brands:["RAGTAG"], badge:"디자이너 중고" },
+    ],
+    note:"디자이너 브랜드 중고를 전문으로 다루는 셀렉트 중고샵이야. 꼼데가르송·요지 같은 일본 디자이너 브랜드를 상태 좋게 만날 수 있어서 마니아들이 찾아와."
+  },
+  {
+    id:29, name:"알펜 도쿄", en:"Alpen TOKYO",
+    lat:35.6933914, lng:139.7007168,
+    addr:"도쿄도 신주쿠구 신주쿠 3-23-7",
+    access:"신주쿠역 동구에서 도보 2분, 야스쿠니도리 방향",
+    hours:"11:00~22:00",
+    walk:"RAGTAG → 도보 5분",
+    floors:[
+      { floor:"B2~8F", brands:["알펜","스포츠데포","골프5"], badge:"스포츠 대형관" },
+    ],
+    note:"지하 2층부터 8층까지 통째로 스포츠·아웃도어·골프 매장이야. 등산·캠핑 용품이랑 스니커즈 구성이 좋아서 스포츠 좋아하면 볼 게 많아."
+  },
+  {
+    id:30, name:"돈키호테 신주쿠 도난구치점", en:"Don Quijote Shinjuku Higashi-minami",
+    lat:35.6900987, lng:139.7019999,
+    addr:"도쿄도 신주쿠구 신주쿠 3-36-16",
+    access:"신주쿠역 동남구에서 도보 1분",
+    hours:"거의 24시간 (매장 기준 확인)",
+    walk:"알펜 도쿄 → 도보 4분",
+    floors:[
+      { floor:"전층", brands:["돈키호테"], badge:"할인·면세" },
+    ],
+    note:"신주쿠역 동남구 바로 앞 돈키호테야. 과자·화장품·기념품·잡화까지 빼곡하고 면세 카운터도 있어. 늦게까지 여니까 일정 마지막에 몰아 사기 좋아."
+  },
+  {
+    id:31, name:"돈키호테 신주쿠 가부키초점", en:"Don Quijote Kabukicho",
+    lat:35.6937755, lng:139.7017873,
+    addr:"도쿄도 신주쿠구 가부키초 1-16-5",
+    access:"가부키초 한복판, 신주쿠역 동구에서 도보 6분",
+    hours:"24시간 영업",
+    walk:"돈키호테 도난구치 → 도보 7분",
+    floors:[
+      { floor:"전층", brands:["돈키호테"], badge:"24시간" },
+    ],
+    note:"가부키초 한복판의 24시간 돈키호테야. 밤늦게도 쇼핑할 수 있어서 야식·기념품 사러 들르기 좋아. 주변이 유흥가라 밤에는 호객에 주의해."
+  },
+  {
+    id:32, name:"세이부신주쿠 페페", en:"Seibu Shinjuku PePe",
+    lat:35.694352, lng:139.7002095,
+    addr:"도쿄도 신주쿠구 가부키초 1-30-1",
+    access:"세이부신주쿠역과 직결, 가부키초 입구",
+    hours:"11:00~22:00 (매장마다 달라)",
+    walk:"돈키호테 가부키초 → 도보 3분",
+    floors:[
+      { floor:"B1~8F", brands:["세이부 페페"], badge:"역직결 몰" },
+    ],
+    note:"세이부신주쿠역과 붙어 있는 쇼핑몰이야. 패션·잡화에 드럭스토어·음식점까지 있어서 가부키초 쪽 돌 때 쉬어가기 좋아."
+  },
+  {
+    id:33, name:"도큐 가부키초 타워", en:"Tokyu Kabukicho Tower",
+    lat:35.6957513, lng:139.7005894,
+    addr:"도쿄도 신주쿠구 가부키초 1-29-1",
+    access:"세이부신주쿠역 바로 앞, 가부키초 북쪽",
+    hours:"시설마다 달라 (상업층 11:00~)",
+    walk:"세이부 페페 → 도보 2분",
+    floors:[
+      { floor:"B4~48F", brands:["도큐 가부키초 타워"], badge:"복합 엔터" },
+    ],
+    note:"2023년 문 연 48층 복합 엔터테인먼트 타워야. 쇼핑보다 게임·라이브홀·극장·호텔 중심이라 가부키초 야경이랑 같이 구경하기 좋아."
+  },
+  {
+    id:34, name:"빔즈 재팬 신주쿠", en:"BEAMS JAPAN Shinjuku",
+    lat:35.6903982, lng:139.7039897,
+    addr:"도쿄도 신주쿠구 신주쿠 3-32-6 (B1~5F)",
+    access:"신주쿠도리 뒤편, 마루이 본관에서 도보 2분",
+    hours:"11:00~20:00",
+    walk:"신주쿠 마루이 본관 → 도보 2분",
+    floors:[
+      { floor:"B1~5F", brands:["빔즈 재팬"], badge:"메이드 인 재팬" },
+    ],
+    note:"일본 대표 셀렉트샵 빔즈의 '재팬' 콘셉트 플래그십이야. 층마다 일본 공예·패션·아트가 나뉘어 있어서 메이드인재팬 기념품 사기에 제일 좋아."
+  },
+  {
+    id:35, name:"ZARA 신주쿠점", en:"ZARA Shinjuku",
+    lat:35.6911822, lng:139.7022772,
+    addr:"도쿄도 신주쿠구 신주쿠 3-27-10 (무사시노 빌딩)",
+    access:"신주쿠도리 대로변, 동구에서 도보 3분",
+    hours:"10:00~22:00",
+    walk:"빔즈 재팬 → 도보 3분",
+    floors:[
+      { floor:"1~3F", brands:["ZARA"], badge:"패스트패션" },
+    ],
+    note:"신주쿠도리 대로변의 자라 대형 매장이야. 시즌 신상 회전이 빨라서 한국보다 먼저 나온 아이템을 건질 때가 있어."
+  },
+  {
+    id:36, name:"H&M 신주쿠점", en:"H&M Shinjuku",
+    lat:35.6914321, lng:139.7054548,
+    addr:"도쿄도 신주쿠구 신주쿠 3-5-4",
+    access:"신주쿠3초메, 이세탄 근처",
+    hours:"10:00~22:30",
+    walk:"ZARA → 도보 5분",
+    floors:[
+      { floor:"1~3F", brands:["H&M"], badge:"패스트패션" },
+    ],
+    note:"신주쿠3초메 쪽 H&M이야. 밤 10시 넘어서까지 열어서 저녁 일정 마지막에 들르기 좋아."
+  },
+  {
+    id:37, name:"러쉬 신주쿠점", en:"LUSH Shinjuku",
+    lat:35.6887155, lng:139.702453,
+    addr:"도쿄도 신주쿠구 신주쿠 4-1-8",
+    access:"신주쿠역 남쪽, 뉴우먼 근처",
+    hours:"11:00~21:00",
+    walk:"뉴우먼 → 도보 2분",
+    floors:[
+      { floor:"1F", brands:["러쉬(LUSH)"], badge:"배쓰밤·코스메" },
+    ],
+    note:"향 강한 배쓰밤으로 유명한 영국 코스메 브랜드야. 일본 한정 향이나 시즌 기프트 세트가 있어서 선물용으로 인기야."
+  },
+  {
+    id:38, name:"빅카메라 신주쿠역 동구점", en:"Bic Camera Shinjuku Station East",
+    lat:35.6920154, lng:139.7018685,
+    addr:"도쿄도 신주쿠구 신주쿠 3-26-10",
+    access:"신주쿠역 동구 광장 바로 앞",
+    hours:"11:00~22:00",
+    walk:"빅카메라 빅쿠로 → 도보 2분",
+    floors:[
+      { floor:"전층", brands:["빅카메라"], badge:"역앞·면세" },
+    ],
+    note:"신주쿠역 동구 광장 바로 앞 빅카메라야. 빅쿠로점과 가까워서 한쪽에 재고가 없으면 서로 넘나들며 찾기 좋아."
+  },
+  {
+    id:39, name:"RINKAN 신주쿠점", en:"RINKAN Shinjuku",
+    lat:35.6905613, lng:139.7031084,
+    addr:"도쿄도 신주쿠구 신주쿠 3-34-13 (산케이25 빌딩 B1F)",
+    access:"신주쿠역 동구에서 도보 3분, 지하",
+    hours:"12:00~20:00",
+    walk:"빅카메라 역앞점 → 도보 3분",
+    floors:[
+      { floor:"B1F", brands:["RINKAN"], badge:"중고 스트리트·명품" },
+    ],
+    note:"슈프림·구찌 같은 스트리트·명품 중고를 다루는 매장이야. 상태 좋은 희귀 아이템이 자주 들어와서 마니아들이 체크하는 곳이야."
+  },
+  {
+    id:40, name:"토모즈 신주쿠점", en:"Tomod's Shinjuku",
+    lat:35.6897142, lng:139.7070596,
+    addr:"도쿄도 신주쿠구 신주쿠 2-5-10 (어반센터 신주쿠)",
+    access:"신주쿠2초메, 이세탄에서 도보 5분",
+    hours:"09:00~21:00 (지점 기준 확인)",
+    walk:"H&M → 도보 5분",
+    floors:[
+      { floor:"1F", brands:["토모즈(Tomod's)"], badge:"드럭스토어" },
+    ],
+    note:"조제약국을 겸한 드럭스토어 체인이야. 관광객이 몰리는 마츠키요보다 한산해서 느긋하게 고르기 좋아."
+  },
+  {
+    id:41, name:"쟌파라 신주쿠점", en:"Janpara Shinjuku",
+    lat:35.6892938, lng:139.6968705,
+    addr:"도쿄도 신주쿠구 니시신주쿠 1-14-1",
+    access:"신주쿠역 서구, 요도바시 근처",
+    hours:"11:00~20:00",
+    walk:"요도바시 → 도보 2분",
+    floors:[
+      { floor:"1F~", brands:["쟌파라"], badge:"중고 가전·스마트폰" },
+    ],
+    note:"중고 PC·스마트폰·카메라 전문점이야. 서구 가전 상권이라 요도바시·야마다에서 신품 보고 여기서 중고 가격을 비교하기 좋아."
+  },
+];
+
+/* 브랜드 id 생성 헬퍼 (매장id + 브랜드명 조합, 특수문자 제거) */
+function brandId(spotId, brandName){
+  const clean = brandName.replace(/[^a-zA-Z0-9가-힣]/g, '');
+  return `${spotId}-${clean}`;
+}
+
+/* 브랜드별 실제 매장 좌표 (개별 조사 데이터가 없으면 매장 좌표로 대체) — key: "매장명-브랜드명" */
+const brandCoords = {};
+
+/* 매장(건물) Google Place ID — key: 매장명 */
+const spotPlaceIds = {
+  "신주쿠 다카시마야 (타임스퀘어)": "ChIJMxx7bsWMGGARdrUfch90sVw",
+  "뉴우먼 신주쿠": "ChIJ9TsfyNqMGGAR-KTtGjzQRtI",
+  "루미네 신주쿠 1": "ChIJq6qqjtCMGGARbhyw-fHkymM",
+  "루미네 신주쿠 2": "ChIJpT6_gNCMGGARgYQPQwXP3g0",
+  "루미네 에스트 신주쿠": "ChIJ_TibA9qMGGARNYmVIFyGU9k",
+  "플래그스 신주쿠": "ChIJe3zSf9qMGGARlzYURPtFA_Q",
+  "게이오 백화점 신주쿠점": "ChIJ_zhzEkONGGARch8hW-wHRzg",
+  "플라잉타이거 코펜하겐 게이오점": "ChIJOSw5kh2NGGARqwmeZ6L0I18",
+  "오다큐 신주쿠 · 하르크(HALC)": "ChIJOw4u4taMGGAR_3m4YrFDpFE",
+  "요도바시 카메라 신주쿠 니시구치 본점": "ChIJh9EUPNGMGGAR1Q9xRKA2-TA",
+  "야마다덴키 LABI 신주쿠 니시구치관": "ChIJBTmYCdGMGGARf6G-9rBJy4E",
+  "신주쿠 서브나드": "ChIJ05576NmMGGARlCnERJue3Y4",
+  "빅카메라 신주쿠 히가시구치점 (빅쿠로)": "ChIJT3cuPdqMGGARs6GHzB8M0yk",
+  "기노쿠니야 서점 신주쿠 본점": "ChIJXTJIz5JgGGARoxgg12s0rCQ",
+  "무인양품 신주쿠도리점": "ChIJVYhpTNqMGGAR73ChIv391Lg",
+  "신주쿠 마루이 본관": "ChIJAQDAANuMGGAR_wizPtglexs",
+  "이세탄 신주쿠 본관": "ChIJ9ztrpduMGGARte1BM8ccdIs",
+  "이세탄 신주쿠 맨즈관": "ChIJSzlrpduMGGARD1J1NHhDgzQ",
+  "유니클로 신주쿠산초메점": "ChIJi80R7aONGGARvrZgj-w_5Jg",
+  "신주쿠 마루이 아넥스": "ChIJq6pqW9uMGGARk5rRKGiiF4c",
+  "신주쿠 마루이 멘": "ChIJeRGWiduMGGARVCBFn4F2Zo0",
+  "마츠모토키요시 신주쿠도리점": "ChIJPSfdZAuNGGARmPt07Fx7Wls",
+  "다이코쿠 드럭 신주쿠3초메점": "ChIJXfPZpZGNGGARnnp_12QvRDg",
+  "아인즈&토르페 신주쿠": "ChIJ2Ry8cNqMGGARvPoEDF20qlY",
+  "세카이도 신주쿠 본점": "ChIJFWyKVtuMGGARA-Jcl8RKyAQ",
+  "유니온레코드 신주쿠": "ChIJmwvr9tqMGGARd8LpDGwMs8U",
+  "2nd STREET 신주쿠점": "ChIJb3UJug-NGGARfPIMImurUvU",
+  "RAGTAG 신주쿠점": "ChIJQ_3OHNuMGGARC9Tm-VkqGY8",
+  "알펜 도쿄": "ChIJ_VYfhdSNGGARpG4sfHX889w",
+  "돈키호테 신주쿠 도난구치점": "ChIJ18MWiNqMGGARsZO5vEUCONc",
+  "돈키호테 신주쿠 가부키초점": "ChIJPbnq29mMGGARKCnQB1AFg4U",
+  "세이부신주쿠 페페": "ChIJX_Gul9eMGGARn42SCyqbXdg",
+  "도큐 가부키초 타워": "ChIJP6oqgv2NGGARqV5VFswMftQ",
+  "빔즈 재팬 신주쿠": "ChIJUWbOAtuMGGARxbNeo0uzhuo",
+  "ZARA 신주쿠점": "ChIJHViIa9qMGGARmGmK5aKX2dc",
+  "H&M 신주쿠점": "ChIJeU3vdduMGGARNTusuHDjE4c",
+  "러쉬 신주쿠점": "ChIJj2-HDtqMGGARqYEeyo_KWwM",
+  "빅카메라 신주쿠역 동구점": "ChIJf0OLBNqMGGAR3HIIfu0tN_A",
+  "RINKAN 신주쿠점": "ChIJgyCCWNqMGGARR_8DDVvHTSA",
+  "토모즈 신주쿠점": "ChIJycyRUsOMGGARsvUdG_lHpX4",
+  "쟌파라 신주쿠점": "ChIJVfkzXdGMGGAR1HNFFSQW0Xg",
+};
+
+/* 브랜드별 Google Place ID (직접 조사) — key: "매장명-브랜드명" */
+const brandPlaceIds = {
+  "신주쿠 마루이 본관-애플스토어": "ChIJC_yOqtuMGGAR9FuU41KJ-x0",
+  "빅카메라 신주쿠 히가시구치점 (빅쿠로)-GU": "ChIJAQAQRNqMGGARzbYmlYJExXM",
+  "루미네 에스트 신주쿠-빔즈": "ChIJxe-ZptCMGGARxDSUXPipbz8",
+};
+
+/* 브랜드의 정확한 좌표를 반환. 개별 조사 데이터가 없으면 매장(건물) 좌표로 대체 */
+function getBrandLatLng(spot, brandName){
+  const key = `${spot.name}-${brandName}`;
+  if(brandCoords[key]) return brandCoords[key];
+  return [spot.lat, spot.lng];
+}
+/* 구글맵 "가게 카드"로 바로 열리는 링크를 만든다.
+   우선순위: ① 브랜드 전용 place_id → ② 단일매장이면 그 매장 place_id(기존 조사 데이터 재사용)
+   → ③ 좌표에 앵커된 이름검색. ③은 좌표만 찍는 대신 그 위치의 실제 가게로 해석돼서 카드가 뜬다. */
+function placeUrl(name, placeId){
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name)}&query_place_id=${placeId}`;
+}
+function anchoredSearchUrl(query, lat, lng){
+  // /@lat,lng 로 지도를 그 지점에 고정하면, 이름이 그 좌표의 실제 가게로 해석된다
+  return `https://www.google.com/maps/search/${encodeURIComponent(query)}/@${lat},${lng},18z`;
+}
+function brandSearchUrl(spot, brandName){
+  const key = `${spot.name}-${brandName}`;
+  // ① 브랜드 전용 place_id → 그 브랜드 가게 카드
+  if(brandPlaceIds[key]) return placeUrl(brandName, brandPlaceIds[key]);
+  // ② 브랜드 place_id가 없으면 그 매장/건물의 place_id로 → 단일매장은 그 가게, 백화점 입점은 백화점 카드.
+  //    확정적이라 이름이 같은 다른 지역 가게로 새지 않는다(좌표앵커 검색의 약점 회피).
+  if(spotPlaceIds[spot.name]) return placeUrl(spot.name, spotPlaceIds[spot.name]);
+  // ③ place_id가 아예 없을 때만(신규 스팟 등) 좌표앵커 이름검색 — 새 스팟엔 spotPlaceIds를 넣어 여기 안 오게 하는 게 좋다
+  const [lat, lng] = getBrandLatLng(spot, brandName);
+  return anchoredSearchUrl(`${brandName} ${spot.name} 신주쿠`, lat, lng);
+}
+/* 매장(건물) 자체의 이름이 뜨는 링크 */
+function spotSearchUrl(spot){
+  if(spotPlaceIds[spot.name]) return placeUrl(spot.name, spotPlaceIds[spot.name]);
+  return anchoredSearchUrl(spot.name, spot.lat, spot.lng);
+}
+
+/* 브랜드 목록을 평탄화 (체크리스트용) */
+const allBrands = [];
+spots.forEach(s=>{
+  s.floors.forEach(f=>{
+    f.brands.forEach(b=>{
+      allBrands.push({ brand:b, spotId:s.id, spotName:s.name, floor:f.floor });
+    });
+  });
+  if(s.sub){
+    allBrands.push({ brand:s.sub.brand, spotId:s.id, spotName:s.name, floor:'인근', isSub:true, subTitle:s.sub.title });
+  }
+});
+/* 가나다(한국어 로케일) 기준 오름차순 정렬 */
+allBrands.sort((a, b) => a.brand.localeCompare(b.brand, 'ko'));
+
+/* ---------------- ROUTE STRIP (내 동선) ---------------- */
+const stripEl = document.getElementById('routeStrip');
+const stripTitleEl = document.getElementById('stripTitle');
+
+/* 동선 띠를 현재 계획한 코스로 다시 그림. ordered 없으면 안내 문구만 표시 */
+function renderRouteStrip(ordered, startLat, startLng){
+  stripEl.innerHTML = '';
+  if(!ordered || ordered.length === 0){
+    stripTitleEl.textContent = '추천 동선';
+    const hint = document.createElement('div');
+    hint.className = 'route-strip-hint';
+    hint.innerHTML = "위에서 브랜드를 고르고 <b>✨ 추천 동선 짜줘</b>를 누르면, 여기에 <b>방문 순서</b>가 지도 형광 번호랑 똑같이 떠!";
+    stripEl.appendChild(hint);
+    return;
+  }
+  stripTitleEl.textContent = `내 동선 · ${ordered.length}곳`;
+  let prevLat = startLat, prevLng = startLng;
+  ordered.forEach((s, i)=>{
+    const legMin = Math.max(1, Math.round(haversine(prevLat, prevLng, s.lat, s.lng) * 13));
+    prevLat = s.lat; prevLng = s.lng;
+    const chip = document.createElement('div');
+    chip.className = 'route-chip in-route';
+    chip.innerHTML = `<div class="num">${i+1}</div><div class="name">${s.name}</div><div class="walk">🚶 ${legMin}분</div>`;
+    chip.onclick = ()=>{
+      document.getElementById('card-'+s.id).scrollIntoView({behavior:'smooth', block:'center'});
+      map.flyTo([s.lat, s.lng], 17, {duration:0.8});
+      const mk = spotMarkers[s.id];
+      if(mk) mk.openPopup();
+    };
+    stripEl.appendChild(chip);
+  });
+}
+renderRouteStrip(null);
+
+/* ---------------- MAP ---------------- */
+const map = L.map('map', { scrollWheelZoom:false }).setView([35.6915, 139.7025], 15);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution:'&copy; OpenStreetMap',
+  maxZoom:19
+}).addTo(map);
+
+function coralIcon(num){
+  return L.divIcon({
+    className:'',
+    html:`<div style="
+      width:30px;height:30px;border-radius:50% 50% 50% 0;
+      background:#A259FF; transform:rotate(-45deg);
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 4px 10px rgba(162,89,255,0.5);
+      border:2px solid #fff;">
+      <span style="transform:rotate(45deg);color:#fff;font-weight:800;font-size:12px;font-family:sans-serif;">${num}</span>
+    </div>`,
+    iconSize:[30,30],
+    iconAnchor:[15,28],
+  });
+}
+
+/* 동선에 포함된 매장: 형광(lime) 핀 + 방문 순서 번호 */
+function routeIcon(orderNum){
+  return L.divIcon({
+    className:'',
+    html:`<div style="
+      width:36px;height:36px;border-radius:50% 50% 50% 0;
+      background:#E0FE6B; transform:rotate(-45deg);
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 0 0 3px rgba(224,254,107,0.45), 0 6px 16px rgba(200,242,62,0.75);
+      border:2.5px solid #191A23;">
+      <span style="transform:rotate(45deg);color:#191A23;font-weight:800;font-size:15px;font-family:sans-serif;">${orderNum}</span>
+    </div>`,
+    iconSize:[36,36],
+    iconAnchor:[18,33],
+  });
+}
+
+/* 동선에 없는 매장: 흐린 회색 핀 */
+function dimIcon(num){
+  return L.divIcon({
+    className:'',
+    html:`<div style="
+      width:23px;height:23px;border-radius:50% 50% 50% 0;
+      background:#c3c3cd; transform:rotate(-45deg);
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 2px 5px rgba(0,0,0,0.15);
+      border:2px solid #fff;opacity:0.9;">
+      <span style="transform:rotate(45deg);color:#fff;font-weight:700;font-size:10px;font-family:sans-serif;">${num}</span>
+    </div>`,
+    iconSize:[23,23],
+    iconAnchor:[11,21],
+  });
+}
+
+const spotMarkers = {};
+spots.forEach(s=>{
+  const marker = L.marker([s.lat, s.lng], {icon: coralIcon(s.id)}).addTo(map);
+  const gurl = `https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}&destination_place_id=`;
+  marker.bindPopup(`
+    <div class="popup-name">${s.id}. ${s.name}</div>
+    <div style="color:#7c7d8c;">${s.addr}</div>
+    <a class="popup-go" href="${gurl}" target="_blank" rel="noopener">🚶 길찾기 열기</a>
+  `);
+  spotMarkers[s.id] = marker;
+});
+
+/* 계획한 동선을 지도에 반영: 방문순서 형광 번호 + 미선택 흐리게 + 형광 점선 경로 */
+let routeLine = null;
+function popupHtml(title, s){
+  const gurl = `https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}`;
+  return `<div class="popup-name">${title}</div>
+    <div style="color:#7c7d8c;">${s.addr}</div>
+    <a class="popup-go" href="${gurl}" target="_blank" rel="noopener">🚶 길찾기 열기</a>`;
+}
+function applyRouteToMap(ordered, startLat, startLng){
+  spots.forEach(s=>{
+    const m = spotMarkers[s.id];
+    if(!m) return;
+    const idx = ordered.findIndex(o=>o.id===s.id);
+    if(idx >= 0){
+      m.setIcon(routeIcon(idx+1));
+      m.setZIndexOffset(1000);
+      m.setPopupContent(popupHtml(`${idx+1}번째 · ${s.name}`, s));
+    } else {
+      m.setIcon(dimIcon(s.id));
+      m.setZIndexOffset(0);
+      m.setPopupContent(popupHtml(`${s.id}. ${s.name}`, s));
+    }
+  });
+  if(routeLine){ map.removeLayer(routeLine); routeLine = null; }
+  const pts = [[startLat, startLng], ...ordered.map(s=>[s.lat, s.lng])];
+  routeLine = L.polyline(pts, {
+    color:'#c8f23e', weight:4.5, opacity:0.95, dashArray:'2 10', lineCap:'round'
+  }).addTo(map);
+  map.fitBounds(routeLine.getBounds(), {padding:[45,45], maxZoom:16});
+}
+function resetMapMarkers(){
+  spots.forEach(s=>{
+    const m = spotMarkers[s.id];
+    if(!m) return;
+    m.setIcon(coralIcon(s.id));
+    m.setZIndexOffset(0);
+    m.setPopupContent(popupHtml(`${s.id}. ${s.name}`, s));
+  });
+  if(routeLine){ map.removeLayer(routeLine); routeLine = null; }
+}
+
+/* ---------------- SPOT CARDS ---------------- */
+const container = document.getElementById('spotsContainer');
+spots.forEach(s=>{
+  const gurl = `https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}`;
+  const searchUrl = spotSearchUrl(s);
+  const floorHtml = s.floors.length ? `
+    <div class="floor-list">
+      ${s.floors.map(f=>{
+        const brandSpans = f.brands.map(b=>{
+          const bid = brandId(s.id, b);
+          const burl = brandSearchUrl(s, b);
+          return `<a class="brand-tag" id="brandtag-${bid}" href="${burl}" target="_blank" rel="noopener">${b}</a>`;
+        }).join('');
+        const badgeHtml = f.badge ? `<span class="floor-badge">${f.badge}</span>` : '';
+        return `<div class="floor-row"><div class="f">${f.floor}</div><div class="c">${brandSpans}${badgeHtml}</div></div>`;
+      }).join('')}
+    </div>` : '';
+  const subHtml = s.sub ? `
+    <div class="sub-spot" id="substop-${brandId(s.id, s.sub.brand)}">
+      <div class="sub-title"><a class="sub-title-link" href="${brandSearchUrl(s, s.sub.brand)}" target="_blank" rel="noopener">${s.sub.title}</a></div>
+      <p>${s.sub.desc}</p>
+    </div>` : '';
+
+  const card = document.createElement('div');
+  card.className = 'spot-card';
+  card.id = 'card-'+s.id;
+  card.innerHTML = `
+    <div class="spot-head">
+      <div class="pick-order-badge" id="badge-${s.id}"></div>
+      <div class="spot-num">${s.id}</div>
+      <div class="spot-titles">
+        <h3><a class="spot-name-link" href="${searchUrl}" target="_blank" rel="noopener">${s.name}</a></h3>
+        <div class="en">${s.en}</div>
+      </div>
+    </div>
+    <div class="spot-body">
+      <div class="spot-row"><span class="icon">📍</span><span>${s.addr}</span></div>
+      <div class="spot-row"><span class="icon">🚶</span><span>${s.access}</span></div>
+      <div class="spot-row"><span class="icon">🕒</span><span>${s.hours}</span></div>
+      ${floorHtml}
+      <div class="spot-note">💬 ${s.note}</div>
+      ${subHtml}
+      <div class="spot-actions">
+        <a class="btn-nav" href="${gurl}" target="_blank" rel="noopener">🧭 여기로 가기</a>
+        <div class="btn-dist" id="dist-${s.id}">-<small>거리</small></div>
+      </div>
+    </div>
+  `;
+  container.appendChild(card);
+});
+
+/* ---------------- CHECKLIST (브랜드 단위) ---------------- */
+const checkGrid = document.getElementById('checkGrid');
+allBrands.forEach((b, idx)=>{
+  const bid = brandId(b.spotId, b.brand);
+  const item = document.createElement('div');
+  item.className = 'check-item';
+  item.id = 'check-'+bid;
+  item.innerHTML = `
+    <input type="checkbox" id="cb-${bid}" data-bid="${bid}" data-spot="${b.spotId}">
+    <label for="cb-${bid}">${b.brand}<span class="check-sub">${b.spotName}${b.isSub ? ' 근처' : ' · '+b.floor}</span></label>
+  `;
+  item.addEventListener('click', (e)=>{
+    // label 클릭이면 브라우저가 이미 체크박스를 토글해주므로 추가 토글 안 함
+    // input을 직접 클릭한 경우도 브라우저가 처리하므로 추가 토글 안 함
+    // 그 외 여백(빈 공간) 클릭 시에만 수동으로 토글
+    if(e.target.tagName !== 'INPUT' && e.target.tagName !== 'LABEL' && !e.target.closest('label')){
+      const cb = item.querySelector('input');
+      cb.checked = !cb.checked;
+      cb.dispatchEvent(new Event('change'));
+    }
+  });
+  item.querySelector('input').addEventListener('change', ()=>{
+    item.classList.toggle('checked', item.querySelector('input').checked);
+    updateCheckCount();
+  });
+  checkGrid.appendChild(item);
+});
+
+function updateCheckCount(){
+  const n = document.querySelectorAll('#checkGrid input:checked').length;
+  document.getElementById('checkCount').textContent = `${n}개 선택`;
+}
+
+function resetChecks(){
+  document.querySelectorAll('#checkGrid input').forEach(cb=>{
+    cb.checked = false;
+    cb.closest('.check-item').classList.remove('checked');
+  });
+  updateCheckCount();
+  clearHighlights();
+  resetMapMarkers();
+  renderRouteStrip(null);
+  document.getElementById('routeResult').classList.remove('show');
+}
+
+function clearHighlights(){
+  spots.forEach(s=>{
+    const card = document.getElementById('card-'+s.id);
+    card.classList.remove('dimmed','picked');
+    const badge = document.getElementById('badge-'+s.id);
+    if(badge) badge.textContent = '';
+  });
+  document.querySelectorAll('.brand-tag.hl').forEach(el=>el.classList.remove('hl'));
+  document.querySelectorAll('.sub-spot.hl').forEach(el=>el.classList.remove('hl'));
+}
+
+/* 최근접 이웃(Nearest Neighbor) 방식으로 최단 동선 계산 */
+function nearestNeighborRoute(selected, startLat, startLng){
+  const remaining = [...selected];
+  const route = [];
+  let curLat = startLat, curLng = startLng;
+
+  while(remaining.length){
+    let bestIdx = 0, bestDist = Infinity;
+    remaining.forEach((s, idx)=>{
+      const d = haversine(curLat, curLng, s.lat, s.lng);
+      if(d < bestDist){ bestDist = d; bestIdx = idx; }
+    });
+    const next = remaining.splice(bestIdx, 1)[0];
+    route.push(next);
+    curLat = next.lat; curLng = next.lng;
+  }
+  return route;
+}
+
+function planRoute(){
+  const checkedBoxes = Array.from(document.querySelectorAll('#checkGrid input:checked'));
+  const resultBox = document.getElementById('routeResult');
+  const chainBox = document.getElementById('rrChain');
+  const subBox = document.getElementById('rrSub');
+
+  if(checkedBoxes.length === 0){
+    resultBox.classList.remove('show');
+    alert('앗, 최소 브랜드 한 개는 체크해줘야 동선을 짤 수 있어!');
+    return;
+  }
+
+  // 체크된 브랜드들이 속한 매장 id 집합 (중복 제거, 매장당 몇 개 브랜드 체크됐는지도 카운트)
+  const checkedSpotIds = [...new Set(checkedBoxes.map(cb => parseInt(cb.dataset.spot)))];
+  const brandCountBySpot = {};
+  checkedBoxes.forEach(cb=>{
+    const sid = parseInt(cb.dataset.spot);
+    brandCountBySpot[sid] = (brandCountBySpot[sid]||0) + 1;
+  });
+
+  const selected = spots.filter(s => checkedSpotIds.includes(s.id));
+
+  // 시작점: 내 위치가 있으면 거기서부터, 없으면 신주쿠역 기준
+  let startLat, startLng;
+  if(myLocation){
+    startLat = myLocation.lat; startLng = myLocation.lng;
+  } else {
+    startLat = 35.6896; startLng = 139.7005; // 신주쿠역 기준
+  }
+
+  const ordered = selected.length > 1
+    ? nearestNeighborRoute(selected, startLat, startLng)
+    : selected;
+
+  // 카드 dim/강조 처리
+  spots.forEach(s=>{
+    const card = document.getElementById('card-'+s.id);
+    const badge = document.getElementById('badge-'+s.id);
+    if(checkedSpotIds.includes(s.id)){
+      card.classList.remove('dimmed');
+      card.classList.add('picked');
+      const orderNum = ordered.findIndex(o=>o.id===s.id) + 1;
+      if(badge) badge.textContent = orderNum;
+      const h3 = card.querySelector('.spot-titles h3');
+      h3.style.animation = 'none';
+      void h3.offsetWidth;
+      h3.style.animation = '';
+    } else {
+      card.classList.add('dimmed');
+      card.classList.remove('picked');
+      if(badge) badge.textContent = '';
+    }
+  });
+
+  // 브랜드 줄 형광펜: 체크된 브랜드만 콕 집어 강조
+  document.querySelectorAll('.brand-tag.hl').forEach(el=>el.classList.remove('hl'));
+  document.querySelectorAll('.sub-spot.hl').forEach(el=>el.classList.remove('hl'));
+  checkedBoxes.forEach(cb=>{
+    const bid = cb.dataset.bid;
+    const tag = document.getElementById('brandtag-'+bid);
+    if(tag) tag.classList.add('hl');
+    const subEl = document.getElementById('substop-'+bid);
+    if(subEl) subEl.classList.add('hl');
+  });
+
+  // 동선 배너 채우기 — 매장명 + 그 매장에서 찜한 브랜드 개수 표시
+  chainBox.innerHTML = ordered.map((s, i)=>{
+    const cnt = brandCountBySpot[s.id] || 0;
+    const stepHtml = `<span class="rr-step">${i+1}. ${s.name} <small>(${cnt}곳)</small></span>`;
+    return i < ordered.length - 1 ? stepHtml + `<span class="rr-arrow">→</span>` : stepHtml;
+  }).join('');
+
+  // 총 이동거리 계산
+  let totalKm = 0;
+  let curLat = startLat, curLng = startLng;
+  ordered.forEach(s=>{
+    totalKm += haversine(curLat, curLng, s.lat, s.lng);
+    curLat = s.lat; curLng = s.lng;
+  });
+  const walkMin = Math.round(totalKm * 13); // 도보 약 4.6km/h 기준 대략 환산
+  const startLabel = myLocation ? '지금 네 위치' : '신주쿠역';
+  subBox.textContent = `${startLabel}에서 출발 · 브랜드 ${checkedBoxes.length}개 · 총 이동거리 약 ${totalKm.toFixed(1)}km · 도보 약 ${walkMin}분 예상이야`;
+
+  resultBox.classList.add('show');
+
+  // 지도에 방문 순서(형광 번호)·경로 반영 + 하단 '내 동선' 띠 갱신
+  if(ordered.length){
+    applyRouteToMap(ordered, startLat, startLng);
+    renderRouteStrip(ordered, startLat, startLng);
+  }
+  resultBox.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+/* ---------------- GEOLOCATION ---------------- */
+let myLocation = null;
+
+let myMarker = null;
+
+function haversine(lat1, lng1, lat2, lng2){
+  const R = 6371; // km
+  const toRad = d => d * Math.PI/180;
+  const dLat = toRad(lat2-lat1);
+  const dLng = toRad(lng2-lng1);
+  const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLng/2)**2;
+  const c = 2*Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  return R*c;
+}
+
+function locateMe(){
+  const btn = document.getElementById('locateBtn');
+  const status = document.getElementById('locateStatus');
+  status.className = '';
+  status.textContent = '위치 찾는 중이야... 잠깐만!';
+  btn.classList.add('loading');
+  btn.textContent = '찾는 중...';
+
+  if(!navigator.geolocation){
+    status.className = 'err';
+    status.textContent = '앗, 이 브라우저는 위치 기능을 못 쓰나봐 😢';
+    btn.classList.remove('loading');
+    btn.textContent = '위치 켜기';
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    (pos)=>{
+      const {latitude, longitude} = pos.coords;
+      myLocation = {lat: latitude, lng: longitude};
+      status.className = 'ok';
+      status.textContent = '좋아, 위치 찾았어! 가까운 순서로 거리 표시해줄게 ✨';
+      btn.classList.remove('loading');
+      btn.textContent = '다시 찾기';
+
+      if(myMarker) map.removeLayer(myMarker);
+      myMarker = L.marker([latitude, longitude], {
+        icon: L.divIcon({
+          className:'',
+          html:`<div style="
+            width:20px;height:20px;border-radius:50%;
+            background:#1c2542;border:3px solid #fff;
+            box-shadow:0 0 0 6px rgba(28,37,66,0.2), 0 3px 8px rgba(0,0,0,0.3);"></div>`,
+          iconSize:[20,20], iconAnchor:[10,10],
+        })
+      }).addTo(map).bindPopup('📍 지금 여기 있어!');
+
+      map.setView([latitude, longitude], 15);
+
+      // 거리 계산 + 표시
+      spots.forEach(s=>{
+        const d = haversine(latitude, longitude, s.lat, s.lng);
+        const el = document.getElementById('dist-'+s.id);
+        if(el){
+          const text = d < 1 ? `${Math.round(d*1000)}m` : `${d.toFixed(1)}km`;
+          el.innerHTML = `${text}<small>거리</small>`;
+        }
+      });
+    },
+    (err)=>{
+      status.className = 'err';
+      if(err.code === 1){
+        status.textContent = '위치 권한을 허용해줘야 찾을 수 있어! 브라우저 설정에서 확인해줘 🙏';
+      } else {
+        status.textContent = '어라, 위치를 못 찾았어. 잠시 후 다시 해볼래? 🥲';
+      }
+      btn.classList.remove('loading');
+      btn.textContent = '위치 켜기';
+    },
+    { enableHighAccuracy:true, timeout:10000, maximumAge:60000 }
+  );
+}
+</script>
+</body>
+</html>

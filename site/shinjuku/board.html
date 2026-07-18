@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>브랜드 요청 게시판 — 도쿄 신주쿠 쇼핑 산책</title>
+<meta name="description" content="도쿄 신주쿠 쇼핑 가이드에 추가됐으면 하는 브랜드를 요청하는 게시판. 남겨주면 다음 업데이트 때 조사해서 넣어줄게!">
+<link rel="canonical" href="https://shopping.forijuni.com/shinjuku/board.html">
+<!-- Google AdSense (게시자 ID: ca-pub-5560359061622774) -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5560359061622774" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+<style>
+  :root{
+    --lime:#E0FE6B;
+    --lilac:#E4DBFF;
+    --navy:#191A23;
+    --purple:#A259FF;
+    --blue:#1ABCFE;
+    --orange:#F24E1E;
+    --green:#0ACF83;
+    --cream:#FCFCFC;
+    --ink:#191A23;
+    --sub:#6b6c76;
+    --line:#e8e8ec;
+    --shadow: 0 10px 30px rgba(25,26,35,0.08);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Pretendard', 'Nanum Gothic', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:60px;
+  }
+  .hero{
+    background:var(--navy);
+    color:#fff;
+    padding:34px 20px 38px;
+    border-radius:0 0 24px 24px;
+  }
+  .wrap{ max-width:640px; margin:0 auto; padding:0 16px; }
+  .hero .wrap{ padding:0 4px; }
+  .hero h1{
+    font-weight:800;
+    font-size:clamp(22px, 6vw, 28px);
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .hero h1 .accent{ color:var(--lime); }
+  .hero p{
+    margin:0;
+    font-size:14px;
+    line-height:1.6;
+    color:rgba(255,255,255,0.78);
+  }
+
+  /* ---- 작성 폼 ---- */
+  .form-card{
+    background:var(--lime);
+    border-radius:20px;
+    box-shadow:var(--shadow);
+    padding:20px 18px;
+    margin-top:18px;
+  }
+  .form-card h2{
+    margin:0 0 4px;
+    font-size:16px;
+    font-weight:800;
+    color:var(--navy);
+  }
+  .form-hint{
+    font-size:12px;
+    color:var(--navy);
+    opacity:0.7;
+    margin:0 0 14px;
+    line-height:1.5;
+  }
+  .field{ margin-bottom:12px; }
+  .field label{
+    display:block;
+    font-size:12.5px;
+    font-weight:800;
+    color:var(--navy);
+    margin-bottom:6px;
+  }
+  .field input[type="text"], .field textarea{
+    width:100%;
+    border:1.5px solid transparent;
+    border-radius:14px;
+    background:#fff;
+    padding:12px 14px;
+    font-family:'Pretendard',sans-serif;
+    font-size:14px;
+    color:var(--ink);
+    outline:none;
+  }
+  .field input[type="text"]:focus, .field textarea:focus{ border-color:var(--purple); }
+  .field textarea{ resize:vertical; min-height:70px; }
+  .hp-field{ position:absolute; left:-9999px; top:-9999px; height:0; overflow:hidden; }
+  .area-pills{ display:flex; gap:8px; flex-wrap:wrap; }
+  .area-pill{
+    border:none;
+    background:#fff;
+    color:var(--navy);
+    font-family:'Pretendard',sans-serif;
+    font-weight:700;
+    font-size:13px;
+    padding:9px 16px;
+    border-radius:999px;
+    cursor:pointer;
+  }
+  .area-pill.on{ background:var(--navy); color:var(--lime); }
+  .submit-btn{
+    width:100%;
+    margin-top:6px;
+    background:var(--navy);
+    color:var(--lime);
+    border:none;
+    border-radius:999px;
+    padding:14px;
+    font-family:'Pretendard',sans-serif;
+    font-weight:800;
+    font-size:15px;
+    cursor:pointer;
+    transition:transform 0.15s ease;
+  }
+  .submit-btn:active{ transform:scale(0.98); }
+  .submit-btn:disabled{ opacity:0.5; cursor:default; }
+  #formStatus{
+    margin-top:10px;
+    font-size:12.5px;
+    font-weight:700;
+    text-align:center;
+    min-height:16px;
+    color:var(--navy);
+  }
+  #formStatus.ok{ color:#07734a; }
+  #formStatus.err{ color:var(--orange); }
+
+  /* ---- 요청 목록 ---- */
+  .list-head{
+    display:flex; align-items:center; gap:8px;
+    margin:28px 0 4px;
+  }
+  .list-head .dot{ width:9px; height:9px; border-radius:50%; background:var(--purple); }
+  .list-head h2{ margin:0; font-size:18px; font-weight:800; color:var(--navy); }
+  .list-head span{ font-size:12px; color:var(--sub); margin-left:auto; }
+  .req-card{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:18px;
+    box-shadow:var(--shadow);
+    padding:16px 18px;
+    margin-top:12px;
+  }
+  .req-top{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  .req-brand{ font-size:15.5px; font-weight:800; color:var(--navy); }
+  .req-area{
+    background:var(--lilac);
+    color:var(--navy);
+    font-size:11px;
+    font-weight:800;
+    padding:3px 10px;
+    border-radius:999px;
+  }
+  .req-time{ margin-left:auto; font-size:11.5px; color:var(--sub); }
+  .req-comment{
+    margin:8px 0 0;
+    font-size:13.5px;
+    line-height:1.65;
+    color:var(--ink);
+    background:var(--cream);
+    border-radius:12px;
+    padding:10px 12px;
+  }
+  .list-empty, .list-off{
+    margin-top:14px;
+    background:#fff;
+    border:1px dashed var(--line);
+    border-radius:18px;
+    padding:26px 18px;
+    text-align:center;
+    font-size:13.5px;
+    color:var(--sub);
+    line-height:1.7;
+  }
+  .back-row{ text-align:center; margin-top:28px; }
+  .back-btn{
+    display:inline-block;
+    background:var(--navy);
+    color:var(--lime);
+    text-decoration:none;
+    font-weight:800;
+    font-size:13.5px;
+    padding:12px 22px;
+    border-radius:999px;
+  }
+  .foot{
+    margin-top:22px;
+    text-align:center;
+    font-size:11.5px;
+    color:var(--sub);
+  }
+  .foot a{ color:var(--sub); }
+</style>
+<!-- Vercel Web Analytics -->
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+
+  <div class="hero">
+    <div class="wrap">
+      <h1>🙋 브랜드 요청 게시판</h1>
+      <p>가이드에 없는 브랜드, 가고 싶은 매장 있으면 여기 남겨줘.<br>다음 업데이트 때 위치랑 층 정보까지 조사해서 <span style="color:var(--lime); font-weight:700;">진짜로 추가해줄게</span> :)</p>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <div class="form-card">
+      <h2>어떤 브랜드가 필요해?</h2>
+      <p class="form-hint">브랜드 이름만 적어도 되고, 왜 가고 싶은지 한마디 곁들여주면 우선순위 올려줄게 👍</p>
+      <form id="reqForm" autocomplete="off">
+        <div class="field">
+          <label for="brandInput">브랜드명 (필수)</label>
+          <input type="text" id="brandInput" maxlength="40" placeholder="예: 꼼데가르송, 살로몬, 이솝 …" required>
+        </div>
+        <div class="field">
+          <label>희망 지역</label>
+          <div class="area-pills" id="areaPills">
+            <button type="button" class="area-pill on" data-area="신주쿠 동구">동구·이세탄</button>
+            <button type="button" class="area-pill" data-area="신주쿠 서구">서구·니시구치</button>
+            <button type="button" class="area-pill" data-area="가부키초">가부키초</button>
+            <button type="button" class="area-pill" data-area="기타">기타</button>
+          </div>
+        </div>
+        <div class="field">
+          <label for="commentInput">한마디 (선택)</label>
+          <textarea id="commentInput" maxlength="200" placeholder="예: 일본 한정판이 궁금해서! / 신주쿠에 매장 있다고 들었어"></textarea>
+        </div>
+        <div class="hp-field" aria-hidden="true">
+          <label>website<input type="text" id="websiteInput" tabindex="-1"></label>
+        </div>
+        <button type="submit" class="submit-btn" id="submitBtn">요청 남기기 ✍️</button>
+        <div id="formStatus"></div>
+      </form>
+    </div>
+
+    <div class="list-head">
+      <span class="dot"></span>
+      <h2>지금까지 들어온 요청</h2>
+      <span id="reqCount"></span>
+    </div>
+    <div id="reqList"></div>
+
+    <div class="back-row">
+      <a class="back-btn" href="index.html">← 가이드로 돌아가기</a>
+    </div>
+
+    <div class="foot">
+      <a href="privacy.html">개인정보처리방침</a> · © 2026 도쿄 신주쿠 쇼핑 산책
+    </div>
+
+  </div>
+
+<script>
+const API = "/api/requests";
+const REGION = "shinjuku";
+let selectedArea = "신주쿠 동구";
+
+document.querySelectorAll(".area-pill").forEach(function(btn){
+  btn.addEventListener("click", function(){
+    document.querySelectorAll(".area-pill").forEach(function(b){ b.classList.remove("on"); });
+    btn.classList.add("on");
+    selectedArea = btn.dataset.area;
+  });
+});
+
+function escapeHtml(s){
+  return String(s)
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+}
+
+function timeAgo(ts){
+  const diff = Date.now() - ts;
+  const m = Math.floor(diff/60000);
+  if (m < 1) return "방금 전";
+  if (m < 60) return m + "분 전";
+  const h = Math.floor(m/60);
+  if (h < 24) return h + "시간 전";
+  const d = Math.floor(h/24);
+  if (d < 30) return d + "일 전";
+  return new Date(ts).toLocaleDateString("ko-KR");
+}
+
+function renderList(items){
+  const list = document.getElementById("reqList");
+  const count = document.getElementById("reqCount");
+  if (!items.length){
+    count.textContent = "";
+    list.innerHTML = '<div class="list-empty">아직 첫 요청이 없어!<br>네가 1등으로 남겨볼래? 🥇</div>';
+    return;
+  }
+  count.textContent = items.length + "개";
+  list.innerHTML = items.map(function(it){
+    return '<div class="req-card">' +
+      '<div class="req-top">' +
+        '<span class="req-brand">' + escapeHtml(it.brand) + '</span>' +
+        '<span class="req-area">' + escapeHtml(it.area || "기타") + '</span>' +
+        '<span class="req-time">' + timeAgo(it.ts) + '</span>' +
+      '</div>' +
+      (it.comment ? '<p class="req-comment">💬 ' + escapeHtml(it.comment) + '</p>' : '') +
+    '</div>';
+  }).join("");
+}
+
+async function loadList(){
+  const list = document.getElementById("reqList");
+  try{
+    const r = await fetch(API + "?region=" + REGION);
+    if (r.status === 503){
+      list.innerHTML = '<div class="list-off">게시판 저장소를 연결하는 중이야 🔧<br>조금만 기다려줘!</div>';
+      document.getElementById("submitBtn").disabled = true;
+      return;
+    }
+    if (!r.ok) throw new Error();
+    const data = await r.json();
+    renderList(data.items || []);
+  }catch(e){
+    list.innerHTML = '<div class="list-off">목록을 불러오지 못했어 😢 잠시 후 새로고침해줘!</div>';
+  }
+}
+
+document.getElementById("reqForm").addEventListener("submit", async function(ev){
+  ev.preventDefault();
+  const brand = document.getElementById("brandInput").value.trim();
+  const comment = document.getElementById("commentInput").value.trim();
+  const status = document.getElementById("formStatus");
+  const btn = document.getElementById("submitBtn");
+  if (!brand){
+    status.className = "err";
+    status.textContent = "브랜드명은 꼭 적어줘!";
+    return;
+  }
+  btn.disabled = true;
+  status.className = "";
+  status.textContent = "남기는 중…";
+  try{
+    const r = await fetch(API, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        brand: brand,
+        comment: comment,
+        area: selectedArea,
+        region: REGION,
+        website: document.getElementById("websiteInput").value
+      })
+    });
+    if (r.status === 429){
+      status.className = "err";
+      status.textContent = "요청이 너무 잦아! 10분 뒤에 다시 시도해줘 🙏";
+      btn.disabled = false;
+      return;
+    }
+    if (!r.ok) throw new Error();
+    status.className = "ok";
+    status.textContent = "고마워! 다음 업데이트 때 꼭 참고할게 💜";
+    document.getElementById("reqForm").reset();
+    loadList();
+  }catch(e){
+    status.className = "err";
+    status.textContent = "저장에 실패했어 😢 잠시 후 다시 시도해줘";
+  }
+  btn.disabled = false;
+});
+
+loadList();
+</script>
+
+</body>
+</html>
