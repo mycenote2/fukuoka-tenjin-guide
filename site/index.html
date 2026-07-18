@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="google-site-verification" content="v-cacRXZNzojdXf3cee2HqJwq8aWHi_TNYVF5reFA7w">
 <title>쇼핑 산책 🛍️ — 일본 도시별 쇼핑 가이드 (후쿠오카·시부야·신주쿠)</title>
-<meta name="description" content="일본 도시별 쇼핑 가이드. 가고 싶은 브랜드를 체크하면 그 브랜드가 있는 건물과 층을 알려주고 최단 도보 동선까지 자동으로 짜줍니다. 후쿠오카 텐진·도쿄 시부야·신주쿠 매장 88곳, 브랜드 314개 수록.">
+<meta name="description" content="일본 도시별 쇼핑 가이드. 가고 싶은 브랜드를 체크하면 그 브랜드가 있는 건물과 층을 알려주고 최단 도보 동선까지 자동으로 짜줍니다. 후쿠오카 텐진·도쿄 시부야·신주쿠 매장 124곳, 브랜드 635개 수록.">
 <link rel="canonical" href="https://shopping.forijuni.com/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://shopping.forijuni.com/">
@@ -139,6 +139,55 @@
     padding:2px 8px; border-radius:999px; margin-top:4px;
   }
 
+  /* ── 지역별 날씨 ── */
+  .wx-note{
+    font-size:11px; font-weight:600; color:var(--sub);
+    background:#efeff4; padding:2px 8px; border-radius:999px;
+    margin-left:6px; text-transform:none; letter-spacing:0;
+  }
+  .wx-grid{ display:grid; gap:11px; }
+  .wx-loading, .wx-error{
+    background:var(--paper); border:1px solid var(--line); border-radius:16px;
+    padding:18px 16px; text-align:center; font-size:13px; color:var(--sub);
+    box-shadow:var(--shadow);
+  }
+  .wx-card{
+    background:var(--paper); border:1px solid var(--line);
+    border-radius:16px; padding:14px 15px 13px; box-shadow:var(--shadow);
+  }
+  .wx-head{
+    display:flex; align-items:baseline; gap:7px;
+    margin-bottom:11px; padding-bottom:9px; border-bottom:1px solid var(--line);
+  }
+  .wx-head h3{ font-size:14.5px; font-weight:800; }
+  .wx-head .wx-now{ font-size:12px; color:var(--sub); margin-left:auto; }
+  .wx-days{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+  .wx-day{
+    text-align:center; border-radius:12px; padding:9px 5px 8px;
+    background:#fafafd; border:1px solid #f0f0f5;
+  }
+  .wx-day.today{ background:var(--lilac); border-color:transparent; }
+  .wx-date{ font-size:11px; font-weight:700; color:var(--sub); margin-bottom:3px; }
+  .wx-day.today .wx-date{ color:var(--navy); opacity:0.75; }
+  .wx-ico{ font-size:23px; line-height:1.25; }
+  .wx-desc{ font-size:10.5px; color:var(--sub); margin-bottom:5px; }
+  .wx-day.today .wx-desc{ color:var(--navy); opacity:0.7; }
+  .wx-temp{ font-size:13px; font-weight:800; letter-spacing:-0.01em; }
+  .wx-temp .hi{ color:#e5484d; }
+  .wx-temp .lo{ color:#3b82f6; }
+  .wx-temp .sep{ color:#c9c9d2; margin:0 2px; font-weight:600; }
+  .wx-day.today .wx-temp .sep{ color:rgba(25,26,35,0.3); }
+  .wx-rain{
+    display:flex; align-items:center; justify-content:center; gap:4px;
+    font-size:11px; color:var(--sub); margin-top:4px;
+  }
+  .wx-rain .pop{ font-weight:700; color:#2f6feb; }
+  .wx-rain .mm{ opacity:0.75; }
+  .wx-src{
+    margin-top:9px; font-size:10.5px; color:var(--sub); text-align:right; opacity:0.8;
+  }
+  .wx-src a{ color:var(--sub); text-decoration:underline; }
+
   .tip-grid{ display:grid; gap:11px; }
   .tip{
     background:var(--paper); border:1px solid var(--line);
@@ -172,20 +221,47 @@
     <h1>일본 <span class="accent">쇼핑 산책</span> 가이드</h1>
     <p>가고 싶은 브랜드만 체크하면, 그 브랜드가 몇 층에 있는지와 걸어서 도는 순서까지 짜드려요.</p>
     <div class="hero-stats">
-      <div class="hero-stat"><b>3개 도시</b><span>후쿠오카·시부야·신주쿠</span></div>
-      <div class="hero-stat"><b>88곳</b><span>매장·건물</span></div>
-      <div class="hero-stat"><b>314개</b><span>브랜드</span></div>
+      <div class="hero-stat"><b id="statCities">3개 도시</b><span>후쿠오카·시부야·신주쿠</span></div>
+      <div class="hero-stat"><b id="statSpots">124곳</b><span>매장·건물</span></div>
+      <div class="hero-stat"><b id="statBrands">635개</b><span>브랜드</span></div>
     </div>
   </div>
 
   <div class="wrap">
 
-    <div class="section-label">이 사이트는</div>
-    <div class="prose">
-      <h2>브랜드부터 고르는 쇼핑 지도</h2>
-      <p>보통 여행 쇼핑 정보는 "이 백화점에 가보세요" 식으로 <strong>건물 단위</strong>로 끝나요. 그런데 막상 현지에 도착하면 궁금한 건 늘 두 가지예요. <strong>내가 사려는 브랜드가 그 건물 어디에 있는지</strong>, 그리고 <strong>여러 곳을 어떤 순서로 돌아야 덜 걷는지</strong>.</p>
-      <p>쇼핑 산책은 그 두 가지를 해결하려고 만들었어요. 브랜드 체크리스트에서 사고 싶은 곳을 고르면, 그 브랜드가 있는 건물이 지도에서 강조되고 <strong>몇 층에 있는지</strong>까지 같이 보여줘요. 그리고 고른 매장들을 현재 위치 기준으로 <strong>가까운 순서대로 이어붙인 도보 동선</strong>을 자동으로 만들어줍니다.</p>
-      <p>매장·브랜드 링크는 좌표만 찍는 게 아니라 구글맵 장소 ID로 연결해서, 누르면 <strong>정확히 그 가게의 카드</strong>가 열려요. 이름이 같은 다른 지역 매장으로 새지 않습니다.</p>
+    <div class="section-label">지역 선택</div>
+    <div class="city-grid">
+
+      <a class="city-card" href="/fukuoka-tenjin/">
+        <div class="city-emoji">🇯🇵</div>
+        <div class="city-body">
+          <h2>후쿠오카 · 텐진</h2>
+          <p data-count="fukuoka-tenjin">매장 21곳 · 브랜드 89개</p>
+          <div class="city-desc">텐진역~다이묘 거리. 파르코·솔라리아·이와타야가 걸어서 이어지고, 다이묘 골목에 편집숍이 몰려 있어요.</div>
+        </div>
+        <div class="city-arrow">→</div>
+      </a>
+
+      <a class="city-card" href="/shibuya/">
+        <div class="city-emoji">🗼</div>
+        <div class="city-body">
+          <h2>도쿄 · 시부야</h2>
+          <p data-count="shibuya">매장 59곳 · 브랜드 370개</p>
+          <div class="city-desc">스크램블 교차로에서 파르코·오모테산도까지 한 줄로 이어지는 코스. 스트리트 브랜드가 강해요.</div>
+        </div>
+        <div class="city-arrow">→</div>
+      </a>
+
+      <a class="city-card" href="/shinjuku/">
+        <div class="city-emoji">🛍️</div>
+        <div class="city-body">
+          <h2>도쿄 · 신주쿠</h2>
+          <p data-count="shinjuku">매장 44곳 · 브랜드 176개</p>
+          <div class="city-desc">이세탄·다카시마야부터 요도바시·가부키초까지. 역을 중심으로 동·서·남·가부키초 4개 존으로 나눠 정리했어요.</div>
+        </div>
+        <div class="city-arrow">→</div>
+      </a>
+
     </div>
 
     <div class="section-label">이렇게 쓰세요</div>
@@ -194,7 +270,7 @@
         <div class="step-no">1</div>
         <div class="step-body">
           <h3>도시를 고른다</h3>
-          <p>아래에서 여행 갈 지역을 선택하세요. 지역마다 독립된 지도와 브랜드 목록이 있어요.</p>
+          <p>위에서 여행 갈 지역을 선택하세요. 지역마다 독립된 지도와 브랜드 목록이 있어요.</p>
         </div>
       </div>
       <div class="step">
@@ -213,39 +289,9 @@
       </div>
     </div>
 
-    <div class="section-label">지역 선택</div>
-    <div class="city-grid">
-
-      <a class="city-card" href="/fukuoka-tenjin/">
-        <div class="city-emoji">🇯🇵</div>
-        <div class="city-body">
-          <h2>후쿠오카 · 텐진</h2>
-          <p>매장 21곳 · 브랜드 91개</p>
-          <div class="city-desc">텐진역~다이묘 거리. 파르코·솔라리아·이와타야가 걸어서 이어지고, 다이묘 골목에 편집숍이 몰려 있어요.</div>
-        </div>
-        <div class="city-arrow">→</div>
-      </a>
-
-      <a class="city-card" href="/shibuya/">
-        <div class="city-emoji">🗼</div>
-        <div class="city-body">
-          <h2>도쿄 · 시부야</h2>
-          <p>매장 23곳 · 브랜드 28개</p>
-          <div class="city-desc">스크램블 교차로에서 파르코·오모테산도까지 한 줄로 이어지는 코스. 스트리트 브랜드가 강해요.</div>
-        </div>
-        <div class="city-arrow">→</div>
-      </a>
-
-      <a class="city-card" href="/shinjuku/">
-        <div class="city-emoji">🛍️</div>
-        <div class="city-body">
-          <h2>도쿄 · 신주쿠</h2>
-          <p>매장 44곳 · 브랜드 195개</p>
-          <div class="city-desc">이세탄·다카시마야부터 요도바시·가부키초까지. 역을 중심으로 동·서·남·가부키초 4개 존으로 나눠 정리했어요.</div>
-        </div>
-        <div class="city-arrow">→</div>
-      </a>
-
+    <div class="section-label">지역별 날씨 <span class="wx-note">3일 예보</span></div>
+    <div class="wx-grid" id="wxGrid">
+      <div class="wx-loading">날씨를 불러오는 중…</div>
     </div>
 
     <div class="section-label">일본 쇼핑 전에 알아두면 좋은 것</div>
@@ -283,5 +329,140 @@
     </footer>
 
   </div>
+
+<script>
+/* ─────────────────────────────────────────────────────────────
+   지역 정의 — 여기만 고치면 카운트·날씨 카드가 같이 늘어난다
+   ───────────────────────────────────────────────────────────── */
+const REGIONS = [
+  { slug:'fukuoka-tenjin', label:'후쿠오카 · 텐진', lat:33.5902, lng:130.4017 },
+  { slug:'shibuya',        label:'도쿄 · 시부야',   lat:35.6605, lng:139.6998 },
+  { slug:'shinjuku',       label:'도쿄 · 신주쿠',   lat:35.6909, lng:139.7003 },
+];
+
+/* ── 1. 매장·브랜드 개수를 각 지역 페이지에서 직접 세온다 ──
+   각 가이드의 `const spots = [...]` 블록을 그대로 읽어 세기 때문에,
+   지역 페이지에서 매장을 추가/삭제하면 허브 숫자가 자동으로 따라온다.
+   (후쿠오카·신주쿠는 JS 객체 리터럴, 시부야는 JSON 형태라 두 문법 모두 허용) */
+async function countRegion(slug){
+  const res = await fetch(`/${slug}/`, { cache:'no-cache' });
+  if(!res.ok) throw new Error(`${slug}: HTTP ${res.status}`);
+  const html = await res.text();
+  const m = html.match(/const spots = \[[\s\S]*?\n\];/);
+  if(!m) throw new Error(`${slug}: spots 블록을 찾지 못함`);
+  const blk = m[0];
+
+  const spots = (blk.match(/["']?id["']?\s*:\s*\d+/g) || []).length;
+
+  const brands = new Set();
+  for(const arr of blk.matchAll(/["']?brands["']?\s*:\s*\[([^\]]*)\]/g))
+    for(const b of arr[1].matchAll(/"([^"]+)"/g)) brands.add(b[1]);
+  // sub 항목의 단수형 brand 키도 포함
+  for(const b of blk.matchAll(/["']?brand["']?\s*:\s*"([^"]+)"/g)) brands.add(b[1]);
+
+  if(!spots) throw new Error(`${slug}: 매장 0곳으로 파싱됨`);
+  return { spots, brands: brands.size };
+}
+
+async function refreshCounts(){
+  const results = await Promise.allSettled(REGIONS.map(r => countRegion(r.slug)));
+  let totalSpots = 0, totalBrands = 0, ok = 0;
+
+  results.forEach((r, i) => {
+    if(r.status !== 'fulfilled'){ console.warn('count 실패', REGIONS[i].slug, r.reason); return; }
+    const { spots, brands } = r.value;
+    ok++; totalSpots += spots; totalBrands += brands;
+    const el = document.querySelector(`[data-count="${REGIONS[i].slug}"]`);
+    if(el) el.textContent = `매장 ${spots}곳 · 브랜드 ${brands}개`;
+  });
+
+  // 하나라도 실패하면 합계는 건드리지 않는다(축소된 숫자를 보여주지 않기 위해)
+  if(ok === REGIONS.length){
+    document.getElementById('statCities').textContent = `${ok}개 도시`;
+    document.getElementById('statSpots').textContent  = `${totalSpots}곳`;
+    document.getElementById('statBrands').textContent = `${totalBrands}개`;
+  }
+}
+
+/* ── 2. 지역별 날씨 (Open-Meteo — 일본 구간은 기상청 JMA 모델 기반) ── */
+const WMO = {
+  0:['☀️','맑음'],       1:['🌤️','대체로 맑음'], 2:['⛅','구름 조금'], 3:['☁️','흐림'],
+  45:['🌫️','안개'],      48:['🌫️','짙은 안개'],
+  51:['🌦️','약한 이슬비'],53:['🌦️','이슬비'],     55:['🌦️','짙은 이슬비'],
+  56:['🌧️','어는 이슬비'],57:['🌧️','어는 이슬비'],
+  61:['🌦️','약한 비'],   63:['🌧️','비'],         65:['🌧️','강한 비'],
+  66:['🌧️','어는 비'],   67:['🌧️','어는 비'],
+  71:['🌨️','약한 눈'],   73:['🌨️','눈'],         75:['🌨️','강한 눈'],  77:['🌨️','싸락눈'],
+  80:['🌦️','소나기'],    81:['🌦️','소나기'],      82:['⛈️','강한 소나기'],
+  85:['🌨️','소낙눈'],    86:['🌨️','강한 소낙눈'],
+  95:['⛈️','뇌우'],      96:['⛈️','우박 뇌우'],   99:['⛈️','강한 우박 뇌우'],
+};
+const wmo = c => WMO[c] || ['🌡️','—'];
+
+async function renderWeather(){
+  const grid = document.getElementById('wxGrid');
+  const url = 'https://api.open-meteo.com/v1/forecast'
+    + `?latitude=${REGIONS.map(r=>r.lat).join(',')}`
+    + `&longitude=${REGIONS.map(r=>r.lng).join(',')}`
+    + '&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max'
+    + '&current=temperature_2m,weather_code'
+    + '&timezone=Asia%2FTokyo&forecast_days=3';
+
+  let data;
+  try{
+    const res = await fetch(url);
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    data = await res.json();
+  }catch(err){
+    console.warn('날씨 로드 실패', err);
+    grid.innerHTML = '<div class="wx-error">날씨 정보를 불러오지 못했어요. 잠시 후 새로고침해 주세요.</div>';
+    return;
+  }
+
+  // 좌표 1개면 객체, 여러 개면 배열로 온다
+  const list = Array.isArray(data) ? data : [data];
+  const DOW = ['일','월','화','수','목','금','토'];
+
+  grid.innerHTML = REGIONS.map((r, i) => {
+    const d = list[i]; if(!d || !d.daily) return '';
+    const dy = d.daily;
+    const [curIco] = wmo(d.current?.weather_code);
+    const curT = d.current?.temperature_2m;
+
+    const days = dy.time.map((iso, k) => {
+      const dt = new Date(iso + 'T00:00:00+09:00');
+      const [ico, desc] = wmo(dy.weather_code[k]);
+      const hi = Math.round(dy.temperature_2m_max[k]);
+      const lo = Math.round(dy.temperature_2m_min[k]);
+      const pop = dy.precipitation_probability_max[k];
+      const mm  = dy.precipitation_sum[k];
+      const label = k === 0 ? '오늘' : `${dt.getMonth()+1}/${dt.getDate()}(${DOW[dt.getDay()]})`;
+      return `
+        <div class="wx-day${k===0?' today':''}">
+          <div class="wx-date">${label}</div>
+          <div class="wx-ico" role="img" aria-label="${desc}">${ico}</div>
+          <div class="wx-desc">${desc}</div>
+          <div class="wx-temp"><span class="hi">${hi}°</span><span class="sep">/</span><span class="lo">${lo}°</span></div>
+          <div class="wx-rain">
+            <span class="pop">💧${pop ?? 0}%</span>
+            <span class="mm">${(mm ?? 0).toFixed(1)}mm</span>
+          </div>
+        </div>`;
+    }).join('');
+
+    return `
+      <div class="wx-card">
+        <div class="wx-head">
+          <h3>${r.label}</h3>
+          ${curT != null ? `<span class="wx-now">지금 ${curIco} ${Math.round(curT)}°</span>` : ''}
+        </div>
+        <div class="wx-days">${days}</div>
+      </div>`;
+  }).join('') + '<div class="wx-src">출처: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> · 일본 구간 기상청(JMA) 모델</div>';
+}
+
+refreshCounts();
+renderWeather();
+</script>
 </body>
 </html>
